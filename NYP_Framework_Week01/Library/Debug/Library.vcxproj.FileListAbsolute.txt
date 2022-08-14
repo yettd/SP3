@@ -1,0 +1,2 @@
+C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\Debug\liabary.pdb
+C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\Library\Debug\liabary.pdb
