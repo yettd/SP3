@@ -1,7 +1,1 @@
-﻿  Scene2D.cpp
-C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(68,20): warning C4018: '<': signed/unsigned mismatch
-C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(84,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(158,23): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
-C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(181,20): warning C4018: '<': signed/unsigned mismatch
-C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(227,20): warning C4018: '<': signed/unsigned mismatch
-  App.vcxproj -> C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\Debug\App.exe
+﻿LINK : fatal error LNK1104: cannot open file 'glew32.lib'
