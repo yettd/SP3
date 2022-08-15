@@ -36,8 +36,6 @@
 #include "GUI_Scene2D.h"
 #include "GameManager.h"
 #include "Enemy2D.h"
-#include "Ally2D.h"
-#include "spawner.h"
 #include <vector>
 // Add your include files here
 
@@ -69,13 +67,9 @@ protected:
 
 	// Add your variables and methods here.
 	std::vector<CEntity2D*> enemyVector;
-	std::vector<CEntity2D*> AllyVector;
-	std::vector<CEntity2D*> SpawnerVector;
 
 
-	std::vector<Ally2D*> b;
 	std::vector<CEnemy2D*> a;
-	std::vector<spawner*> c;
 
 
 	// Constructor

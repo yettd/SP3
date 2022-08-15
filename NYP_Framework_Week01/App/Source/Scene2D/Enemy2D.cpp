@@ -127,16 +127,7 @@ bool CEnemy2D::Init(void)
 	// If this class is initialised properly, then set the bIsActive to true
 	bIsActive = true;
 
-	SetEscape();
-	if (cMap2D->FindValue(30, uiRow, uiCol) == true)
-	{
-		Tresure = glm::i32vec2(uiCol, uiRow);
-	}
-	else
-	{
-		Tresure = vec2Index;
-	}
-
+	
 	return true;
 }
 
@@ -145,94 +136,23 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
-	if (TresureStolen)
-	{
-		runtimeColour = glm::vec4(1.0, 0.0, 0.0, 1.0);
-	}
+	
 
 	if (!bIsActive)
 		return;
 
-	if (hp <= 0)
-	{
-		if (TresureStolen)
-		{
-			cMap2D->SetMapInfo(Tresure.y,Tresure.x,30);
-		}
-		bIsActive = false;
-	}
-
+	
 	switch (sCurrentFSM)
 	{
 	case IDLE:
 		if (iFSMCounter > iMaxFSMCounter)
 		{
-			sCurrentFSM = TRESURE;
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
 		}
 		iFSMCounter++;
 		break;
-	case RUNAWAY:
-		{
-			ShortCutPath(this->escapeDestination);
-			ESCAPE();
-			UpdatePosition();
-			iFSMCounter++;
-			if (hp >= (hp * 0.3f))
-			{
-
-				if (cMap2D->GetMapInfo(Tresure.y, Tresure.x) != 0 && Tresure != vec2Index)
-				{
-					sCurrentFSM = TRESURE;
-				}
-			}
-		}
-		break;
-	case ATTACK:
-		{
-
-			if (cPlayer2D->GetbActive() == true)
-			{
-				ShortCutPath(cPlayer2D->vec2Index);
-				UpdatePosition();
-			}
-			else
-			{
-				sCurrentFSM = TRESURE;
-			}
-			if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) > 5.f)
-			{
-				sCurrentFSM = TRESURE;
-			}
-
-			if (hp <= (hp * 0.3f))
-			{
-				sCurrentFSM = RUNAWAY;
-			}
-			break;
-		}
-	case TRESURE:
-		{
-
-			if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) <= 2.f)
-			{
-				sCurrentFSM = ATTACK;
-			}
-			if (cMap2D->GetMapInfo(Tresure.y, Tresure.x) == 0 || Tresure==vec2Index)
-			{
-				sCurrentFSM = RUNAWAY;
-			}
-
-			if (hp <= (hp * 0.3f))
-			{
-				sCurrentFSM = RUNAWAY;
-			}
-			ShortCutPath(Tresure);
-			UpdatePosition();
-		}
-		
-		break;
+	
 	default:
 		break;
 	}
@@ -343,10 +263,7 @@ void CEnemy2D::SetPlayer2D(CPlayer2D* cPlayer2D)
 	UpdateDirection();
 }
 
-void CEnemy2D::SetEscape()
-{
-	this->escapeDestination = this->vec2Index;
-}
+
 
 void CEnemy2D::SetHp(int i)
 {
@@ -662,46 +579,13 @@ bool CEnemy2D::InteractWithPlayer(void)
 		return true;
 	}
 
-	if (sCurrentFSM == 3)
-	{
-		if (((vec2Index.x >= Tresure.x - 0.5) &&
-			(vec2Index.x <= Tresure.x + 0.5))
-			&&
-			((vec2Index.y >= Tresure.y - 0.5) &&
-				(vec2Index.y <= Tresure.y + 0.5)))
-		{
-			cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,0);
-			TresureStolen = true;
-			return true;
-		}
-	}
+	
 
 
 
 	return false;
 }
-void CEnemy2D::ESCAPE(void)
-{
-	glm::i32vec2 i32vec2PlayerPos = this->escapeDestination;
 
-	// Check if the enemy2D is within 1.5 indices of the player2D
-	if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) &&
-		(vec2Index.x <= i32vec2PlayerPos.x + 0.5))
-		&&
-		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-			(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
-	{
-		//cout << "Gotcha!" << endl;
-		hp--;
-		// Since the player has been caught, then reset the FSM
-		bIsActive = false;
-		iFSMCounter = 0;
-		if (TresureStolen == true)
-		{
-			CGameManager::GetInstance()->bPlayerLost = true;
-		}
-	}
-}
 /**
  @brief Update the enemy's direction.
  */

@@ -139,7 +139,6 @@ bool CPlayer2D::Init(void)
 	cII->vec2Size = glm::vec2(25, 25);
 
 	spawn = vec2Index;
-	foodBowl = false;
 
 
 	Yflip = false;
@@ -183,40 +182,9 @@ bool CPlayer2D::Reset()
 
 void CPlayer2D::InteractWithMap(void)
 {
-	bool foundB = false;
-	bool foundO = false;
-	foodBowl = false;
 	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x))
 	{
-	case 20://food
-		cII = cIM->GetItem("Food");
-		cII->Add(1);
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
-		CSC->PlaySoundByID(1);
-
-		break;
-	case 10:
-		cII = cIM->GetItem("Food");
-		if (cII->GetCount() > 0)
-		{
-			foodBowl = 1;
-		}
-		if (cKeyboardController->IsKeyDown(GLFW_KEY_E))
-		{
-			cII = cIM->GetItem("Food");
-			if (cII->GetCount() > 0)
-			{
-				cII->Remove(1);
-				CSC->PlaySoundByID(3);
-				cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 11);
-			}
-		}
-		break;
-	case 11:
-	{
-		foodBowl = 2;
-		break;
-	}
+	
 	default:
 		break;
 	}
@@ -240,16 +208,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Store the old position
 	if (bActive ==false)
 	{
-		cII = cIM->GetItem("Food");
-		cII->Remove(cII->GetCount());
-		if (RespawnTimer <= 0)
-		{
-			RespawnTimer = 5;
-			bActive = true;
-		}
-		vec2Index = spawn;
-		RespawnTimer -= dElapsedTime;
-		return;
+		
 	}
 
 	vec2OldIndex = vec2Index;
@@ -384,33 +343,12 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 	}
 
-	if (cKeyboardController->IsKeyPressed(GLFW_KEY_1))
-	{
-		CallAlly[0] = 1;
-		CSC->PlaySoundByID(4);
-	}
-	else if (cKeyboardController->IsKeyPressed(GLFW_KEY_2))
-	{
-
-		CallAlly[1] = 1;
-		CSC->PlaySoundByID(4);
-	}
+	
 
 
 	InteractWithMap();
 
 	
-	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q) && (cMap2D->GetCurrentLevel()==3|| cMap2D->GetCurrentLevel() == 2))
-	{
-		CGameManager::GetInstance()->bGameToRestart = true;
-
-		cII = cIM->GetItem("Lives");
-		cII->Add(cII->GetMaxCount());
-
-		cII = cIM->GetItem("KeyCard");
-		cII->Remove(cII->GetCount());
-
-	}
 
 	
 
@@ -795,12 +733,7 @@ void CPlayer2D::UpdateHealthLives()
 	
 }
 
-int CPlayer2D::GetfoodBowl()
-{
 
-		return foodBowl;
-
-}
 
 void CPlayer2D::resetStuff()
 {

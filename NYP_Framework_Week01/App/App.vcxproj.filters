@@ -59,12 +59,6 @@
     <ClCompile Include="Source\Scene2D\Enemy2D.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene2D\Ally2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\spawner.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene2D\BackgroundEntity.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
@@ -122,12 +116,6 @@
       <Filter>SoundController</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene2D\Enemy2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Ally2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\spawner.h">
       <Filter>Scene2D</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene2D\BackgroundEntity.h">

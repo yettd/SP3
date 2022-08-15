@@ -265,76 +265,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::PopStyleColor();
 
 	
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 0.0f));  // Set a background color
-
-	ImGuiWindowFlags bb = ImGuiWindowFlags_AlwaysAutoResize |
-		ImGuiWindowFlags_NoTitleBar |
-		ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoCollapse |
-		ImGuiWindowFlags_NoScrollbar;
-
-	ostringstream ss;
 	
-
-	for (size_t i = 0; i < allyVector.size(); i++)
-	{
-		ss << i;
-		string a = ss.str();
-		const char* b = a.c_str();
-		ImGui::Begin(b, NULL, bb);
-		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.2f*i, cSettings->iWindowHeight * 0.05f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "Dog %d %.0lf / %d",
-			i+1, allyVector[i]->hungry, 100);
-		ImGui::End();
-		
-	}
-	ImGui::PopStyleColor();
-
-	
-
-	if (CPlayer2D::GetInstance()->GetfoodBowl()==1)
-	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
-
-		ImGuiWindowFlags foodBowl = ImGuiWindowFlags_AlwaysAutoResize |
-			ImGuiWindowFlags_NoTitleBar | 
-			ImGuiWindowFlags_NoMove |
-			ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoCollapse |
-			ImGuiWindowFlags_NoScrollbar;
-		ImGui::Begin("sdaasd", NULL, dd);
-		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.4f, cSettings->iWindowHeight * .9f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "Press E to feed Bowl",
-			cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-		ImGui::End();
-		ImGui::PopStyleColor();
-
-	}
-	if (CPlayer2D::GetInstance()->GetfoodBowl() == 2)
-	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
-
-		ImGuiWindowFlags foodBowl = ImGuiWindowFlags_AlwaysAutoResize |
-			ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoMove |
-			ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoCollapse |
-			ImGuiWindowFlags_NoScrollbar;
-		ImGui::Begin("sdaasd", NULL, dd);
-		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.4f, cSettings->iWindowHeight * .9f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "Call Dog to Eat",
-			cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-		ImGui::End();
-		ImGui::PopStyleColor();
-
-	}
 
 
 
@@ -345,10 +276,6 @@ void CGUI_Scene2D::setUI(bool e)
 	PressE = e;
 }
 
-void CGUI_Scene2D::SetAlly(std::vector<Ally2D*> asd)
-{
-	allyVector = asd;
-}
 
 /**
  @brief Set up the OpenGL display environment before rendering

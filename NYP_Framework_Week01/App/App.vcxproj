@@ -19,7 +19,6 @@
     <ClCompile Include="Source\GameStateManagement\PauseState.cpp" />
     <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Scene2D\Ally2D.cpp" />
     <ClCompile Include="Source\Scene2D\BackgroundEntity.cpp" />
     <ClCompile Include="Source\Scene2D\Enemy2D.cpp" />
     <ClCompile Include="Source\Scene2D\GameManager.cpp" />
@@ -30,7 +29,6 @@
     <ClCompile Include="Source\Scene2D\Physics2D.cpp" />
     <ClCompile Include="Source\Scene2D\Player2D.cpp" />
     <ClCompile Include="Source\Scene2D\Scene2D.cpp" />
-    <ClCompile Include="Source\Scene2D\spawner.cpp" />
     <ClCompile Include="Source\SoundController\SoundController.cpp" />
     <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
   </ItemGroup>
@@ -43,7 +41,6 @@
     <ClInclude Include="Source\GameStateManagement\MenuState.h" />
     <ClInclude Include="Source\GameStateManagement\PauseState.h" />
     <ClInclude Include="Source\GameStateManagement\PlayGameState.h" />
-    <ClInclude Include="Source\Scene2D\Ally2D.h" />
     <ClInclude Include="Source\Scene2D\BackgroundEntity.h" />
     <ClInclude Include="Source\Scene2D\Enemy2D.h" />
     <ClInclude Include="Source\Scene2D\GameManager.h" />
@@ -54,7 +51,6 @@
     <ClInclude Include="Source\Scene2D\Physics2D.h" />
     <ClInclude Include="Source\Scene2D\Player2D.h" />
     <ClInclude Include="Source\Scene2D\Scene2D.h" />
-    <ClInclude Include="Source\Scene2D\spawner.h" />
     <ClInclude Include="Source\SoundController\SoundController.h" />
     <ClInclude Include="Source\SoundController\SoundInfo.h" />
   </ItemGroup>

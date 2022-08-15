@@ -49,7 +49,6 @@
 
 #include "Map2D.h"
 
-#include "Ally2D.h"
 using namespace std;
 
 class CGUI_Scene2D : public CSingletonTemplate<CGUI_Scene2D>, public CEntity2D
@@ -74,7 +73,6 @@ public:
 
 	void setUI(bool e);
 
-	void SetAlly(std::vector<Ally2D*> asd);
 
 protected:
 	// Constructor
@@ -102,7 +100,6 @@ protected:
 	bool show_another_window;
 	ImVec4 clear_color;
 
-	std::vector<Ally2D*> allyVector;
 
 	CPlayer2D* lever;
 	CMap2D* map;

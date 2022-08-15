@@ -17,7 +17,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL),AllyVector(NULL),SpawnerVector(NULL)
+CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL)
 {
 
 
@@ -70,19 +70,8 @@ CScene2D::~CScene2D(void)
 		delete enemyVector[i];
 		enemyVector[i] = NULL;	
 	}
-	for (int i = 0; i < AllyVector.size(); i++)
-	{
-		delete AllyVector[i];
-		AllyVector[i] = NULL;
-	}
-	for (int i = 0; i < SpawnerVector.size(); i++)
-	{
-		delete SpawnerVector[i];
-		SpawnerVector[i] = NULL;
-	}
+	
 	enemyVector.clear();
-	AllyVector.clear();
-	SpawnerVector.clear();
 }
 
 /**
@@ -142,11 +131,6 @@ bool CScene2D::Init(void)
 	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
 
 	enemyVector.clear();
-	AllyVector.clear();
-	SpawnerVector.clear();
-	a.clear();
-	b.clear();
-	c.clear();
 	while (true)
 	{
 		CEnemy2D* cE = new CEnemy2D();
@@ -163,44 +147,7 @@ bool CScene2D::Init(void)
 		}
 	}
 
-	int i = 0;
-	while (true)
-	{
-		Ally2D* cE = new Ally2D();
-		cE->SetShader("Shader2D_Colour");
-		if (cE->Init())
-		{
-			cE->SetPlayer2D(cPlayer2D);
-			cE->SetID(i);
-			cE->SetEL(a);
-			AllyVector.push_back(cE);
-			b.push_back(cE);
-		}
-		else
-		{
-			break;
-		}
-		i++;
-	}
 
-	cGUI_Scene2D->SetAlly(b);
-
-	while (true)
-	{
-		spawner* cE = new spawner();
-		cE->SetShader("Shader2D_Colour");
-		if (cE->Init())
-		{
-			SpawnerVector.push_back(cE);
-			c.push_back(cE);
-		}
-		else
-		{
-			break;
-		}
-	}
-
-	cPlayer2D->AssignAmtOfDog(AllyVector.size());
 	return true;
 }
 
@@ -228,13 +175,7 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (cGameManager->bPlayerLost)
 	{
-		if (CGameStateManager::GetInstance()->highScore <= CGameManager::GetInstance()->timer)
-		{
-			CGameStateManager::GetInstance()->highScore = CGameManager::GetInstance()->timer;
-		}
-		CGameStateManager::GetInstance()->timer = CGameManager::GetInstance()->timer;
 		
-		cout << CGameStateManager::GetInstance()->timer << endl;
 
 		CGameStateManager::GetInstance()->SetActiveGameState("END");
 		cPlayer2D->Reset();
@@ -249,50 +190,25 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		enemyVector[i]->Update(dElapsedTime);
 	}
-	for (int i = 0; i < AllyVector.size(); i++)
-	{
-		AllyVector[i]->Update(dElapsedTime);
-	}
-	for (int i = 0; i < SpawnerVector.size(); i++)
-	{
-		SpawnerVector[i]->Update(dElapsedTime);
-		if (c[i]->SpanweTime == true)
-		{
-			c[i]->SpanweTime = false;
-			cMap2D->SetMapInfo(c[i]->vec2Index.y, c[i]->vec2Index.x,300);
-			CEnemy2D* cE = new CEnemy2D();
-			cE->SetShader("Shader2D_Colour");
-			if (cE->Init())
-			{
-				cE->SetPlayer2D(cPlayer2D);
-				enemyVector.push_back(cE);
-				a.push_back(cE);
-				for (size_t i = 0; i < b.size(); i++)
-				{
-					b[i]->SetEL(a);
-				}
-			}
-		}
+	
+	//	//spawn Enemy
+	//if (timer <= 0)
+	//{
+	//	while (true)
+	//	{
+	//		glm::vec2 asd;
+	//		asd.x = rand() % 32;
 
-	}
-	if (timer <= 0)
-	{
-		//spawnFood
-		while (true)
-		{
-			glm::vec2 asd;
-			asd.x = rand() % 32;
+	//		asd.y = rand() % 24;
 
-			asd.y = rand() % 24;
+	//		if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
+	//			timer = 10;
+	//			cMap2D->SetMapInfo(asd.y, asd.x, 20);
+	//			break;
+	//		}
 
-			if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
-				timer = 10;
-				cMap2D->SetMapInfo(asd.y, asd.x, 20);
-				break;
-			}
-
-		}
-	}
+	//	}
+	//}
 	return true;
 }
 
@@ -339,22 +255,6 @@ void CScene2D::Render(void)
 		enemyVector[i]->Render();
 
 		enemyVector[i]->PostRender();
-	}
-	for (int i = 0; i < AllyVector.size(); i++)
-	{
-		AllyVector[i]->PreRender();
-
-		AllyVector[i]->Render();
-
-		AllyVector[i]->PostRender();
-	}
-	for (int i = 0; i < SpawnerVector.size(); i++)
-	{
-		SpawnerVector[i]->PreRender();
-
-		SpawnerVector[i]->Render();
-
-		SpawnerVector[i]->PostRender();
 	}
 
 }

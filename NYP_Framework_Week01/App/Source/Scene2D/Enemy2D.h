@@ -75,7 +75,6 @@ public:
 	void SetPlayer2D(CPlayer2D* cPlayer2D);
 
 
-	void SetEscape();
 	// boolean flag to indicate if this enemy is active
 	bool bIsActive;
 
@@ -94,13 +93,9 @@ protected:
 	enum FSM
 	{
 		IDLE = 0,
-		RUNAWAY = 1,
-		ATTACK = 2,
-		TRESURE = 3,
 		NUM_FSM
 	};
 
-	glm::vec2 Tresure;
 
 	glm::vec2 i32vec2OldIndex;
 
@@ -167,7 +162,6 @@ protected:
 	// Let enemy2D interact with the player
 	bool InteractWithPlayer(void);
 
-	void ESCAPE(void);
 
 	// Update direction
 	void UpdateDirection(void);
@@ -182,8 +176,7 @@ protected:
 	//myStuff;
 
 	float hp=11;
-	float speed=0.5f;
+	float speed=1.f;
 
-	bool TresureStolen = false;
 };
 
