@@ -138,6 +138,10 @@ bool CPlayer2D::Init(void)
 	cII = cIM->Add("Food", "Image/dogFood.tga", 3, 3);
 	cII->vec2Size = glm::vec2(25, 25);
 
+
+	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 0, 999);
+	cII->vec2Size = glm::vec2(25, 25);
+
 	spawn = vec2Index;
 
 
@@ -203,7 +207,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 {
 	static float RespawnTimer = 5;
 	CGameManager::GetInstance()->timer += dElapsedTime;
-	
+	dt = dElapsedTime;
 
 	// Store the old position
 	if (bActive ==false)
@@ -211,19 +215,15 @@ void CPlayer2D::Update(const double dElapsedTime)
 		
 	}
 
+
+	MouseInteracteWithMap(dElapsedTime);
+
 	vec2OldIndex = vec2Index;
 	runtimeColour = glm::vec4(1.0f, 1.0, 0.0, 1.0f);
 	static int dir=2;
 	static int tid = 100;
 
-	for (int i = 0; i < CallAlly.size(); i++)
-	{
-		if (CallAlly[i] == 1)
-		{
-			CallAlly[i] = 0;
-
-		}
-	}
+	
 
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
 	{
@@ -730,6 +730,43 @@ bool CPlayer2D::CheckPosition(DIRECTION eDirection)
 void CPlayer2D::UpdateHealthLives()
 {
 	
+	
+}
+
+
+void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
+{
+	static float breakTimer = 0;
+	if (cMouseController->IsButtonUp(0))
+	{
+		breakTimer = 0;
+	}
+
+	float posX = cMouseController->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
+	
+	if (cPhysics2D.CalculateDistance(vec2Index, mousePos)<=3)
+	{
+		switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
+		{
+		case 100:
+			if (cMouseController->IsButtonDown(0))
+			{
+				breakTimer+=dt;
+				cout << breakTimer << endl;
+				if (breakTimer >=2 )
+				{
+					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
+					breakTimer=0;
+				}
+			}
+		
+		default:
+			break;
+		}
+	}
+
 	
 }
 

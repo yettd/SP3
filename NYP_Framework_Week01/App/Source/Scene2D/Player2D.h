@@ -157,5 +157,13 @@ protected:
 
 	glm::vec2 spawn;
 	
+	void MouseInteracteWithMap(const double dElapsedTime);
+
+	double dt;
+
+	float inventory[9] = {0,0,0,0,0,0,0,0,0};
+	int select = 1;
+
+	void addToinventory(float MapNum);
 };
 
