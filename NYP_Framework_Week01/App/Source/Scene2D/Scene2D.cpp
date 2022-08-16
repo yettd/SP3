@@ -14,6 +14,9 @@ using namespace std;
 #include "System\filesystem.h"
 
 
+
+
+
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
@@ -21,7 +24,7 @@ CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL
 {
 
 
-
+	
 }
 
 /**
@@ -158,6 +161,10 @@ bool CScene2D::Update(const double dElapsedTime)
 {
 	static float timer = 1;
 	timer -= dElapsedTime;
+
+	worldTime += dElapsedTime;
+	worldTime1 += dElapsedTime;
+
 	cPlayer2D->Update(dElapsedTime);
 	cMap2D->Update(dElapsedTime);
 	
@@ -191,6 +198,8 @@ bool CScene2D::Update(const double dElapsedTime)
 		enemyVector[i]->Update(dElapsedTime);
 	}
 	
+
+
 	//	//spawn Enemy
 	//if (timer <= 0)
 	//{
@@ -209,6 +218,61 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	//	}
 	//}
+
+	
+
+	
+	
+	if (worldTime >= 1)
+	{
+		clock += 1;
+		if (clock == 24)
+		{
+			clock = 0;
+		}
+		worldTime = 0;
+		cout << clock << endl;
+		if (clock >= 18 || clock<=6)
+		{
+			if (worldTime1 >= 1)
+			{
+				while (true)
+				{
+					glm::vec2 asd;
+					asd.x = rand() % 32;
+
+					asd.y = rand() % 24;
+
+					if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
+						timer = 10;
+						cMap2D->SetMapInfo(asd.y, asd.x, 300);
+						while (true)
+						{
+							CEnemy2D* cE = new CEnemy2D();
+							cE->SetShader("Shader2D_Colour");
+							if (cE->Init())
+							{
+								cE->SetPlayer2D(cPlayer2D);
+								enemyVector.push_back(cE);
+								a.push_back(cE);
+							}
+							else
+							{
+								break;
+							}
+						}
+						break;
+					}
+
+				}
+				worldTime1 = 0;
+			}
+		}
+	}
+
+		
+	
+
 	return true;
 }
 

@@ -58,6 +58,12 @@ public:
 	// PostRender
 	void PostRender(void);
 
+	float worldTime=0;
+
+	float worldTime1=0;
+
+	float clock = 0;
+
 protected:
 	// Keyboard Controller singleton instance
 	CKeyboardController* cKeyboardController;
