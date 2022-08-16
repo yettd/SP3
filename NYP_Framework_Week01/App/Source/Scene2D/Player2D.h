@@ -87,6 +87,10 @@ public:
 
 	void AssignAmtOfDog(int amt);
 
+	std::vector<string> GetHotKeyInv();
+
+	int getSelected();
+
 protected:
 	enum DIRECTION
 	{
@@ -161,9 +165,16 @@ protected:
 
 	double dt;
 
-	float inventory[9] = {0,0,0,0,0,0,0,0,0};
-	int select = 1;
+	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",""};
 
-	void addToinventory(float MapNum);
+	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
+
+
+	string equip="";
+	int select = 5;
+
+	void InventoryMan();
+	void selectKey();
+	void addToinventory(int num, string name, int amt);
 };
 
