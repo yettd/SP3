@@ -205,7 +205,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 		
 	}
 	static float iFrameCounter = 1;
-	cout << iFrame << endl;
 	if (iFrame)
 	{
 		iFrameCounter -= dt;
@@ -769,7 +768,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 				if (breakTimer >=2 )
 				{
 					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
-					addToinventory(100,"WoodenBlock",1);
+					addToinventory(100,"WoodenBlock",1,10);
 					breakTimer=0;
 				}
 			}
@@ -794,7 +793,8 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					cII = cIM->GetItem(equip);
 					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
 					cII->Remove(1);
-					if (cII->GetCount() == 0)
+					hotKeyInvQuantity[select - 1]--;
+					if (hotKeyInvQuantity[select-1] == 0)
 					{
 						hotKeyInv[select - 1] = "";
 						hotKeyInvID[select - 1] = 0;
@@ -866,15 +866,17 @@ void CPlayer2D::selectKey()
 	equip = hotKeyInv[select - 1];
 }
 
-void CPlayer2D::addToinventory(int num,string name,int amt)
+void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
-		if (hotKeyInv[i] == name)
+		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]!=maxQuitity)
 		{
 			cII = cIM->GetItem(name);
 			cII->Add(amt);
+			hotKeyInvQuantity[i]++;
+			changed = true;
 			return;
 		}
 	}
@@ -882,10 +884,13 @@ void CPlayer2D::addToinventory(int num,string name,int amt)
 	{
 		if (hotKeyInv[i] == "")
 		{
+
 			hotKeyInv[i] = name;
 			hotKeyInvID[i] = num;
+			hotKeyInvQuantity[i]++;
 			cII = cIM->GetItem(name);
 			cII->Add(amt);
+			changed = true;
 			return;
 		}
 	}
@@ -956,6 +961,28 @@ void CPlayer2D::AssignAmtOfDog(int amt)
 std::vector<string> CPlayer2D::GetHotKeyInv()
 {
 	return hotKeyInv;
+}
+
+std::vector<int> CPlayer2D::GetHotKeyQuitity()
+{
+	return hotKeyInvQuantity;
+}
+
+std::vector<int> CPlayer2D::GetHotKeyid()
+{
+	return hotKeyInvID;
+}
+
+void CPlayer2D::setHotKeyInventory(std::vector<string> name, std::vector<int> id, std::vector<int> quan)
+{
+	hotKeyInv = name;
+	hotKeyInvID = id;
+	hotKeyInvQuantity = quan;
+}
+
+int CPlayer2D::GetSelect()
+{
+	return select-1;
 }
 
 int CPlayer2D::getSelected()

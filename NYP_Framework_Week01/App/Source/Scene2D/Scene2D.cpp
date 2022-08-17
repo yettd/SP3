@@ -148,8 +148,7 @@ bool CScene2D::Init(void)
 		{
 			break;
 		}
-	}
-
+	}	
 
 	return true;
 }

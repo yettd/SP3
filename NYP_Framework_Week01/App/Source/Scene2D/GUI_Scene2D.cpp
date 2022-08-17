@@ -269,22 +269,42 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 
 	ostringstream ss;
+	
+	std::vector<string>PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
+	std::vector<int>PHKQ = CPlayer2D::GetInstance()->GetHotKeyQuitity();
+	std::vector<int> PHKID = CPlayer2D::GetInstance()->GetHotKeyid();
+	int PS = CPlayer2D::GetInstance()->GetSelect();
+	static float timer = 0.0f;
 
-	std::vector<string> PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
+	if (CPlayer2D::GetInstance()->changed==true)
+	{
+		timer = 0.0001f;
+		CPlayer2D::GetInstance()->changed = false;
+		cout << timer  << endl;
+	}
+
+
+	PHKQ = CPlayer2D::GetInstance()->GetHotKeyQuitity();
+	PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
+	PHKID = CPlayer2D::GetInstance()->GetHotKeyid();
+	PS = CPlayer2D::GetInstance()->GetSelect();
 
 
 
 
 
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
-	ImGuiWindowFlags vv = ImGuiWindowFlags_AlwaysAutoResize |
+
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+	 ImGuiWindowFlags vv = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 
-	for (size_t i = 0; i < PHK.size(); i++)
+
+
+	for (size_t i = 0; i <9; i++)
 	{
 		if ((i+1) == CPlayer2D::GetInstance()->getSelected())
 		{
@@ -296,32 +316,52 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ss << i;
 		string a = ss.str();
 		const char* b = a.c_str();
-		ImGui::Begin(b, NULL, vv);
-		ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth* 0.05f * i)+(cSettings->iWindowWidth*0.3f) , cSettings->iWindowHeight * .9f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		if (PHK[i] != "")
+		if (timer <= 0)
 		{
-			cInventoryItem = cInventoryManager->GetItem(PHK[i]);
-			ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-				ImVec2(cInventoryItem->vec2Size.x* relativeScale_x*0.80,
-					cInventoryItem->vec2Size.y* relativeScale_y * 0.80),
-				ImVec2(0, 1), ImVec2(1, 0));
+			ImGui::Begin(b, NULL, vv);
+			ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * i) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * .9f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			ImGui::SetWindowFontScale(1.f * relativeScale_y);
+			if (PHK[i] != "")
+			{
+		
+				cInventoryItem = cInventoryManager->GetItem(PHK[i]);
+
+				if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
+					ImVec2(cInventoryItem->vec2Size.x * relativeScale_x * 0.80,
+						cInventoryItem->vec2Size.y * relativeScale_y * 0.80),
+					ImVec2(0, 1), ImVec2(1, 0)))
+				{
+					if (i != PS)
+					{
+						string tempname = PHK[i];
+						int tempQuant = PHKQ[i];
+						int tempid = PHKID[i];
+						PHK[i] = PHK[PS];
+						PHKQ[i] = PHKQ[PS];
+						PHKID[i] = PHKID[PS];
+						PHK[PS] = tempname;
+						PHKQ[PS] = tempQuant;
+						CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
+
+					}
+				}
+				ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[i]);
+			}
+
+
+			ImGui::End();
 		}
-
-
-		ImGui::End();
-		ImGui::PopStyleColor();
-
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
-
+			ImGui::PopStyleColor();
+			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
 
 	}
 	ImGui::PopStyleColor();
 	
+	
 
 
-
+	timer-=dElapsedTime;
 }
 
 void CGUI_Scene2D::setUI(bool e)
