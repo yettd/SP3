@@ -587,7 +587,7 @@ bool CEnemy2D::InteractWithPlayer(void)
 		((vec2Index.y >= i32vec2PlayerPos.y - 6.5) &&
 		(vec2Index.y <= i32vec2PlayerPos.y + 6.5)))
 	{
-		cout << "Gotcha!" << endl;
+	//	cout << "Gotcha!" << endl;
 		chase = true;
 		//cPlayer2D->SetbActive();
 		// Since the player has been caught, then reset the FSM

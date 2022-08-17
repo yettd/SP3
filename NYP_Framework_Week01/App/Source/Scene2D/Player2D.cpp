@@ -767,19 +767,23 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
-			string checker = equip;
-			std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-			cout << checker << endl;
-			if (checker.find("block") != string::npos)
+			if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
 			{
-				cII = cIM->GetItem(equip);
-				cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
-				cII->Remove(1);
-				if (cII->GetCount() == 0)
+
+				string checker = equip;
+				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+				cout << checker << endl;
+				if (checker.find("block") != string::npos)
 				{
-					hotKeyInv[select - 1] = "";
-					hotKeyInvID[select - 1] = 0;
-					equip = hotKeyInv[select - 1];
+					cII = cIM->GetItem(equip);
+					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
+					cII->Remove(1);
+					if (cII->GetCount() == 0)
+					{
+						hotKeyInv[select - 1] = "";
+						hotKeyInvID[select - 1] = 0;
+						equip = hotKeyInv[select - 1];
+					}
 				}
 			}
 		}
@@ -853,6 +857,8 @@ void CPlayer2D::addToinventory(int num,string name,int amt)
 	{
 		if (hotKeyInv[i] == name)
 		{
+			cII = cIM->GetItem(name);
+			cII->Add(amt);
 			return;
 		}
 	}
