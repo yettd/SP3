@@ -110,7 +110,7 @@ bool CEnemy2D::Init(void)
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load the enemy2D texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robber.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
 
 	if (iTextureID == 0)
 	{
@@ -150,6 +150,20 @@ void CEnemy2D::Update(const double dElapsedTime)
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
 		}
+			if (chase == true)
+			{
+				sCurrentFSM = HUNT;
+			}
+		iFSMCounter++;
+		break;
+
+	case HUNT :
+		{
+			iFSMCounter = 0;
+			//cout << "Switching to Patrol State" << endl;
+			ShortCutPath(cPlayer2D->vec2Index);
+		UpdatePosition();
+		}
 		iFSMCounter++;
 		break;
 	
@@ -157,6 +171,7 @@ void CEnemy2D::Update(const double dElapsedTime)
 		break;
 	}
 
+	InteractWithPlayer();
 	// Update Jump or Fall
 	UpdateJumpFall(dElapsedTime);
 
@@ -566,14 +581,15 @@ bool CEnemy2D::InteractWithPlayer(void)
 	glm::i32vec2 i32vec2PlayerPos = cPlayer2D->vec2Index;
 	
 	// Check if the enemy2D is within 1.5 indices of the player2D
-	if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) && 
-		(vec2Index.x <= i32vec2PlayerPos.x + 0.5))
+	if (((vec2Index.x >= i32vec2PlayerPos.x - 6.5) && 
+		(vec2Index.x <= i32vec2PlayerPos.x + 6.5))
 		&& 
-		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-		(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
+		((vec2Index.y >= i32vec2PlayerPos.y - 6.5) &&
+		(vec2Index.y <= i32vec2PlayerPos.y + 6.5)))
 	{
-		//cout << "Gotcha!" << endl;
-		cPlayer2D->SetbActive();
+		cout << "Gotcha!" << endl;
+		chase = true;
+		//cPlayer2D->SetbActive();
 		// Since the player has been caught, then reset the FSM
 		iFSMCounter = 0;
 		return true;
