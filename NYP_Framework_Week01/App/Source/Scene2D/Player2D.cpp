@@ -7,6 +7,9 @@
 #include "Player2D.h"
 
 #include <iostream>
+
+#include <algorithm>
+
 using namespace std;
 
 // Include Shader Manager
@@ -127,21 +130,8 @@ bool CPlayer2D::Init(void)
 	cPhysics2D.Init();
 	cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
 
-	cIM = CInventoryManager::GetInstance();
-	cII = cIM->Add("Lives","Image/Scene2D_Lives.tga",3,3);
-	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);
-	cII->vec2Size = glm::vec2(25, 25);
-
-
-	cII = cIM->Add("Food", "Image/dogFood.tga", 3, 3);
-	cII->vec2Size = glm::vec2(25, 25);
-
-
-	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 0, 999);
-	cII->vec2Size = glm::vec2(25, 25);
-
+	InventoryMan();
 	spawn = vec2Index;
 
 
@@ -222,6 +212,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	runtimeColour = glm::vec4(1.0f, 1.0, 0.0, 1.0f);
 	static int dir=2;
 	static int tid = 100;
+	selectKey();
 
 	
 
@@ -741,6 +732,10 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	{
 		breakTimer = 0;
 	}
+	if (breakTimer != 0)
+	{
+		//play sound;
+	}
 
 	float posX = cMouseController->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
 	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
@@ -758,6 +753,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 				if (breakTimer >=2 )
 				{
 					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
+					addToinventory(100,"WoodenBlock",1);
 					breakTimer=0;
 				}
 			}
@@ -767,6 +763,110 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 		}
 	}
 
+	if (cMouseController->IsButtonDown(1))
+	{
+		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
+		{
+			string checker = equip;
+			std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+			cout << checker << endl;
+			if (checker.find("block") != string::npos)
+			{
+				cII = cIM->GetItem(equip);
+				cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
+				cII->Remove(1);
+				if (cII->GetCount() == 0)
+				{
+					hotKeyInv[select - 1] = "";
+					hotKeyInvID[select - 1] = 0;
+					equip = hotKeyInv[select - 1];
+				}
+			}
+		}
+	}
+	
+}
+
+void CPlayer2D::InventoryMan()
+{
+	cIM = CInventoryManager::GetInstance();
+	cII = cIM->Add("Lives", "Image/Scene2D_Lives.tga", 3, 3);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);
+	cII->vec2Size = glm::vec2(25, 25);
+
+
+	cII = cIM->Add("Food", "Image/dogFood.tga", 3, 3);
+	cII->vec2Size = glm::vec2(25, 25);
+
+
+	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+}
+
+void CPlayer2D::selectKey()
+{
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_1))
+	{
+		select = 1;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_2))
+	{
+		select = 2;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_3))
+	{
+		select = 3;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_4))
+	{
+		select = 4;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_5))
+	{
+		select = 5;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_6))
+	{
+		select = 6;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_7))
+	{
+		select = 7;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_8))
+	{
+		select = 8;
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_9))
+	{
+		select = 9;
+	}
+	equip = hotKeyInv[select - 1];
+}
+
+void CPlayer2D::addToinventory(int num,string name,int amt)
+{
+	//check For existence
+	for (size_t i = 0; i < hotKeyInv.size(); i++)
+	{
+		if (hotKeyInv[i] == name)
+		{
+			return;
+		}
+	}
+	for (size_t i = 0; i < hotKeyInv.size(); i++)
+	{
+		if (hotKeyInv[i] == "")
+		{
+			hotKeyInv[i] = name;
+			hotKeyInvID[i] = num;
+			cII = cIM->GetItem(name);
+			cII->Add(amt);
+			return;
+		}
+	}
 	
 }
 
@@ -829,4 +929,14 @@ void CPlayer2D::AssignAmtOfDog(int amt)
 	{
 		CallAlly.push_back(0);
 	}
+}
+
+std::vector<string> CPlayer2D::GetHotKeyInv()
+{
+	return hotKeyInv;
+}
+
+int CPlayer2D::getSelected()
+{
+	return select;
 }
