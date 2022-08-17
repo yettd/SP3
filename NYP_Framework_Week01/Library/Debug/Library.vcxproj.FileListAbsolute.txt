@@ -2,3 +2,5 @@ C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\Debug\liabary.pdb
 C:\NYP school\Year2Sem1\2DGC\NYP_Framework_Week01\Library\Debug\liabary.pdb
 C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Debug\liabary.pdb
 C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Library\Debug\liabary.pdb
+C:\Users\wert\OneDrive\Desktop\NYP_Framework_Week01\Debug\liabary.pdb
+C:\Users\wert\OneDrive\Desktop\NYP_Framework_Week01\Library\Debug\liabary.pdb

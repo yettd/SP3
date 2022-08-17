@@ -91,6 +91,9 @@ public:
 
 	int getSelected();
 
+	bool getIframe();
+	void SetIframe();
+
 protected:
 	enum DIRECTION
 	{
@@ -100,7 +103,7 @@ protected:
 		DOWN = 3,
 		NUM_DIRECTIONS
 	};
-
+	bool iFrame;
 	CSpriteAnimation* animatedSprites;
 
 	CPhysics2D cPhysics2D;

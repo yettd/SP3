@@ -139,7 +139,7 @@ bool CPlayer2D::Init(void)
 	Rflip = false;
 
 	CSC = CSoundController::GetInstance();
-
+	iFrame = false;
 	return true;
 }
 
@@ -202,6 +202,19 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Store the old position
 	if (bActive ==false)
 	{
+		
+	}
+	static float iFrameCounter = 1;
+	cout << iFrame << endl;
+	if (iFrame)
+	{
+		iFrameCounter -= dt;
+
+		if (iFrameCounter <= 0)
+		{
+			iFrame = false;
+			iFrameCounter = 1;
+		}
 		
 	}
 
@@ -333,7 +346,10 @@ void CPlayer2D::Update(const double dElapsedTime)
 		//runtimeColour = glm::vec4(0.0f, 1.0, 0.0, 0.5f);
 
 	}
-
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_N))
+	{
+		SetIframe();
+	}
 	
 
 
@@ -945,4 +961,14 @@ std::vector<string> CPlayer2D::GetHotKeyInv()
 int CPlayer2D::getSelected()
 {
 	return select;
+}
+
+bool CPlayer2D::getIframe()
+{
+	return iFrame;
+}
+
+void CPlayer2D::SetIframe()
+{
+	iFrame = true;
 }
