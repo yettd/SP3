@@ -93,6 +93,7 @@ protected:
 	enum FSM
 	{
 		IDLE = 0,
+		HUNT = 1,
 		NUM_FSM
 	};
 
@@ -176,7 +177,8 @@ protected:
 	//myStuff;
 
 	float hp=11;
-	float speed=1.f;
+	float speed=.2f;
 
+	bool chase = false;
 };
 

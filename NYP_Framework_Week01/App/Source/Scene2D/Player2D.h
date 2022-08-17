@@ -87,6 +87,10 @@ public:
 
 	void AssignAmtOfDog(int amt);
 
+	std::vector<string> GetHotKeyInv();
+
+	int getSelected();
+
 protected:
 	enum DIRECTION
 	{
@@ -157,5 +161,20 @@ protected:
 
 	glm::vec2 spawn;
 	
+	void MouseInteracteWithMap(const double dElapsedTime);
+
+	double dt;
+
+	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",""};
+
+	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
+
+
+	string equip="";
+	int select = 5;
+
+	void InventoryMan();
+	void selectKey();
+	void addToinventory(int num, string name, int amt);
 };
 

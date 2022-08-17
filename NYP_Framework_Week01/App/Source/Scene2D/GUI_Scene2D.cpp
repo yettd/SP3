@@ -261,10 +261,63 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 	ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d / %d",
 		cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	ImGui::End();
+	ImGui::End(); 
 	ImGui::PopStyleColor();
 
+	//hotkey
 	
+
+
+	ostringstream ss;
+
+	std::vector<string> PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
+
+
+
+
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+	ImGuiWindowFlags vv = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar;
+
+	for (size_t i = 0; i < PHK.size(); i++)
+	{
+		if ((i+1) == CPlayer2D::GetInstance()->getSelected())
+		{
+			ImGui::PopStyleColor();
+
+			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));  // Set a background color
+
+		}
+		ss << i;
+		string a = ss.str();
+		const char* b = a.c_str();
+		ImGui::Begin(b, NULL, vv);
+		ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth* 0.05f * i)+(cSettings->iWindowWidth*0.3f) , cSettings->iWindowHeight * .9f));
+		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		if (PHK[i] != "")
+		{
+			cInventoryItem = cInventoryManager->GetItem(PHK[i]);
+			ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+				ImVec2(cInventoryItem->vec2Size.x* relativeScale_x*0.80,
+					cInventoryItem->vec2Size.y* relativeScale_y * 0.80),
+				ImVec2(0, 1), ImVec2(1, 0));
+		}
+
+
+		ImGui::End();
+		ImGui::PopStyleColor();
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+
+
+	}
+	ImGui::PopStyleColor();
 	
 
 
