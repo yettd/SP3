@@ -109,6 +109,7 @@ bool CGUI_Scene2D::Init(void)
  */
 void CGUI_Scene2D::Update(const double dElapsedTime)
 {
+	cout << Clock << endl;
 	// Calculate the relative scale to our default windows width
 	const float relativeScale_x = cSettings->iWindowWidth / 800.0f;
 	const float relativeScale_y = cSettings->iWindowHeight / 600.0f;
@@ -131,7 +132,9 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 
 	// Display the FPS
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %d", cFPSCounter->GetFrameRate());
+	//ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %d", cFPSCounter->GetFrameRate());
+	
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "Time: %d :00",Clock);
 
 	// Render a progress bar
 	/*m_fProgressBar += 0.001f;
@@ -213,59 +216,87 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 
 
-	//cInventoryItem = cInventoryManager->GetItem("Health");
-	//ImGuiWindowFlags healthWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
-	//	ImGuiWindowFlags_NoBackground |
-	//	ImGuiWindowFlags_NoTitleBar |
-	//	ImGuiWindowFlags_NoMove |
-	//	ImGuiWindowFlags_NoResize |
-	//	ImGuiWindowFlags_NoCollapse |
-	//	ImGuiWindowFlags_NoScrollbar;
-	//ImGui::Begin("Health", NULL, healthWindowFlags);
-	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f,
-	//	cSettings->iWindowHeight * 0.03f));
-	//ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
-	//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
-	//		cInventoryItem->vec2Size.y * relativeScale_y),
-	//	ImVec2(0, 1), ImVec2(1, 0));
-	//ImGui::SameLine();
-	//ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-	//ImGui::ProgressBar(cInventoryItem->GetCount() /
-	//	(float)cInventoryItem->GetMaxCount(), ImVec2(100.0f *
-	//		relativeScale_x, 20.0f * relativeScale_y));
-	//ImGui::PopStyleColor();
-	//ImGui::PopStyleColor();
-	//ImGui::End();
-
-
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 0.0f));  // Set a background color
-
-	ImGuiWindowFlags dd = ImGuiWindowFlags_AlwaysAutoResize |
+	cInventoryItem = cInventoryManager->GetItem("Fuel");
+	ImGuiWindowFlags fuelWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
 		ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
-	ImGui::Begin("Food", NULL, dd);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.f, cSettings->iWindowHeight * 0.1f));
-	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-	cInventoryItem = cInventoryManager->GetItem("Food");
+	ImGui::Begin("Fuel", NULL, fuelWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f,
+		cSettings->iWindowHeight * 0.1f));
+	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
 		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
 			cInventoryItem->vec2Size.y * relativeScale_y),
 		ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::SameLine();
-	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-	ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d / %d",
-		cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	ImGui::End(); 
+	ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
+	ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+	ImGui::ProgressBar(cInventoryItem->GetCount() /
+		(float)cInventoryItem->GetMaxCount(), ImVec2(100.0f *
+			relativeScale_x, 20.0f * relativeScale_y));
 	ImGui::PopStyleColor();
+	ImGui::PopStyleColor();
+	ImGui::End();
+
+	cInventoryItem = cInventoryManager->GetItem("Health");
+	ImGuiWindowFlags healthWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar;
+	ImGui::Begin("Health", NULL, healthWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f,
+		cSettings->iWindowHeight * 0.03f));
+	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
+			cInventoryItem->vec2Size.y * relativeScale_y),
+		ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::SameLine();
+	ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
+	ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+	ImGui::ProgressBar(cInventoryItem->GetCount() /
+		(float)cInventoryItem->GetMaxCount(), ImVec2(100.0f *
+			relativeScale_x, 20.0f * relativeScale_y));
+	ImGui::PopStyleColor();
+	ImGui::PopStyleColor();
+	ImGui::End();
+
+
+	//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 0.0f));  // Set a background color
+
+	//ImGuiWindowFlags dd = ImGuiWindowFlags_AlwaysAutoResize |
+	//	ImGuiWindowFlags_NoTitleBar |
+	//	ImGuiWindowFlags_NoMove |
+	//	ImGuiWindowFlags_NoResize |
+	//	ImGuiWindowFlags_NoCollapse |
+	//	ImGuiWindowFlags_NoScrollbar;
+	//ImGui::Begin("Food", NULL, dd);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.f, cSettings->iWindowHeight * 0.1f));
+	//ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//cInventoryItem = cInventoryManager->GetItem("Food");
+	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
+	//		cInventoryItem->vec2Size.y * relativeScale_y),
+	//	ImVec2(0, 1), ImVec2(1, 0));
+	//ImGui::SameLine();
+	//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+	//ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d / %d",
+	//	cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
+	//ImGui::End(); 
+	//ImGui::PopStyleColor();
 
 	//hotkey
 	
+	cInventoryItem = cInventoryManager->GetItem("");
 
 
 	ostringstream ss;
@@ -367,6 +398,11 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 void CGUI_Scene2D::setUI(bool e)
 {
 	PressE = e;
+}
+
+void CGUI_Scene2D::setClock(int i)
+{
+	Clock = i;
 }
 
 
