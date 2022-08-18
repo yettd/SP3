@@ -845,6 +845,9 @@ void CPlayer2D::InventoryMan()
 
 	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("", "Image/blank.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
 }
 
 void CPlayer2D::selectKey()

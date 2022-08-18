@@ -186,11 +186,17 @@ protected:
 
 	double dt;
 
-	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",""};
+	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",
+									"Food","","Food","","","","","","",
+									"Food","","Food","","","","","","" };
 
-	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
+	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,
+									0,0,0,0,0,0,0,0 ,
+									0,0,0,0,0,0,0,0 };
 
-	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 };
+	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0,
+											99,0,1,0,0,0,0,0,0,
+											99,0,1,0,0,0,0,0,0 };
 
 
 	string equip="";
