@@ -225,6 +225,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	runtimeColour = glm::vec4(1.0f, 1.0, 0.0, 1.0f);
 	static int dir=2;
 	static int tid = 100;
+	healthTime += dElapsedTime;
 	selectKey();
 
 	
@@ -354,8 +355,16 @@ void CPlayer2D::Update(const double dElapsedTime)
 	
 
 	InteractWithMap();
-
-	
+	cII = cIM->GetItem("Fuel");
+	if (cII->GetCount() == cII->GetMaxCount())
+	{
+		if (healthTime >= 2) // set timing for how fast u want the health to increase
+		{
+			cII = cIM->GetItem("Health");
+			cII->Add(2);
+			healthTime = 0;
+		}
+	}
 
 	
 

@@ -109,6 +109,7 @@ bool CGUI_Scene2D::Init(void)
  */
 void CGUI_Scene2D::Update(const double dElapsedTime)
 {
+	cout << Clock << endl;
 	// Calculate the relative scale to our default windows width
 	const float relativeScale_x = cSettings->iWindowWidth / 800.0f;
 	const float relativeScale_y = cSettings->iWindowHeight / 600.0f;
@@ -131,7 +132,9 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 
 	// Display the FPS
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %d", cFPSCounter->GetFrameRate());
+	//ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %d", cFPSCounter->GetFrameRate());
+	
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "Time: %d :00",Clock);
 
 	// Render a progress bar
 	/*m_fProgressBar += 0.001f;
@@ -395,6 +398,11 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 void CGUI_Scene2D::setUI(bool e)
 {
 	PressE = e;
+}
+
+void CGUI_Scene2D::setClock(int i)
+{
+	Clock = i;
 }
 
 

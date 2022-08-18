@@ -46,7 +46,6 @@
 
 #include "Player2D.h"
 
-
 #include "Map2D.h"
 
 using namespace std;
@@ -73,11 +72,12 @@ public:
 
 	void setUI(bool e);
 
-
+	void setClock(int i);
 protected:
 	// Constructor
 	CGUI_Scene2D(void);
 
+	int Clock;
 	// Destructor
 	virtual ~CGUI_Scene2D(void);
 

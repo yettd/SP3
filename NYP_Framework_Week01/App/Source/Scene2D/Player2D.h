@@ -109,6 +109,8 @@ public:
 	void addToinventory(int num, string name, int amt, int maxQuantity);
 
 	bool changed=false;
+
+	float healthTime = 0;//this is the counter for how long until health increase
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -188,7 +190,7 @@ protected:
 
 	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
 
-	std::vector<int> hotKeyInvQuantity = { 1,0,1,0,0,0,0,0,0 };
+	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 };
 
 
 	string equip="";

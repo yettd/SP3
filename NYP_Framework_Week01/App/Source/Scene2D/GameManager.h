@@ -33,7 +33,7 @@ public:
 
 
 	float timer;
-	float highScore=0;
+
 protected:
 	// Constructor
 	CGameManager(void);

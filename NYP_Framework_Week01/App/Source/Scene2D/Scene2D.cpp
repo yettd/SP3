@@ -161,7 +161,6 @@ bool CScene2D::Update(const double dElapsedTime)
 {
 	static float timer = 1;
 	timer -= dElapsedTime;
-
 	worldTime += dElapsedTime;
 	worldTime1 += dElapsedTime;
 
@@ -220,60 +219,61 @@ bool CScene2D::Update(const double dElapsedTime)
 	//}
 
 	static int hunger = 0;
+	cGUI_Scene2D->setClock(clock);
 
-	
-	
 	if (worldTime >= 15) //change this to set how long you want it to take to 1 hour ( worldtime = 1 means every 1 sec 1 hour passes)
 	{
 		hunger++;
 		clock ++;
+
 		if (clock == 24)
 		{
 			clock = 0;
 		}
 		worldTime = 0;
 		cout << clock << endl;
-		if (clock >= 18 || clock<=6)
-		{
-			if (worldTime1 >= 10)//change this to see how fast you want enemy to be spawn 
-			{
-				while (true)
-				{
-					glm::vec2 asd;
-					asd.x = rand() % 32;
-
-					asd.y = rand() % 24;
-
-					if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
-						timer = 10;
-						cMap2D->SetMapInfo(asd.y, asd.x, 300);
-						while (true)
-						{
-							CEnemy2D* cE = new CEnemy2D();
-							cE->SetShader("Shader2D_Colour");
-							if (cE->Init())
-							{
-								cE->SetPlayer2D(cPlayer2D);
-								enemyVector.push_back(cE);
-								a.push_back(cE);
-							}
-							else
-							{
-								break;
-							}
-						}
-						break;
-					}
-
-				}
-				worldTime1 = 0;
-			}
-		}
+		
 	}
 	if (hunger >= 1)
 	{
 		cPlayer2D->fuelTime();
 		hunger = 0;
+	}
+	if (clock >= 18 || clock <= 6)
+	{
+		if (worldTime1 >= 10)//change this to see how fast you want enemy to be spawn 
+		{
+			while (true)
+			{
+				glm::vec2 asd;
+				asd.x = rand() % 32;
+
+				asd.y = rand() % 24;
+
+				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
+					timer = 10;
+					cMap2D->SetMapInfo(asd.y, asd.x, 300);
+					while (true)
+					{
+						CEnemy2D* cE = new CEnemy2D();
+						cE->SetShader("Shader2D_Colour");
+						if (cE->Init())
+						{
+							cE->SetPlayer2D(cPlayer2D);
+							enemyVector.push_back(cE);
+							a.push_back(cE);
+						}
+						else
+						{
+							break;
+						}
+					}
+					break;
+				}
+
+			}
+			worldTime1 = 0;
+		}
 	}
 
 	return true;
