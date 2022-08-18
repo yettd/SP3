@@ -127,7 +127,10 @@ bool CEnemy2D::Init(void)
 	// If this class is initialised properly, then set the bIsActive to true
 	bIsActive = true;
 
-	
+	rand_dir = rand() % 2; // 0 or 1
+
+
+
 	return true;
 }
 
@@ -136,12 +139,12 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
-	
+
 
 	if (!bIsActive)
 		return;
 
-	
+
 	switch (sCurrentFSM)
 	{
 	case IDLE:
@@ -150,23 +153,57 @@ void CEnemy2D::Update(const double dElapsedTime)
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
 		}
-			if (chase == true)
+		if (chase == true)
+		{
+			if (rand_dir == 0)
 			{
-				sCurrentFSM = HUNT;
+				sCurrentFSM = TARGETX;
 			}
+			else
+			{
+				sCurrentFSM = TARGETY;
+			}
+		}
+
 		iFSMCounter++;
 		break;
 
-	case HUNT :
-		{
-			iFSMCounter = 0;
-			//cout << "Switching to Patrol State" << endl;
-			ShortCutPath(cPlayer2D->vec2Index);
+	case HUNT:
+	{
+		iFSMCounter = 0;
+		//cout << "Switching to Patrol State" << endl;
+		ShortCutPath(cPlayer2D->vec2Index);
 		UpdatePosition();
-		}
-		iFSMCounter++;
-		break;
-	
+	}
+	iFSMCounter++;
+	break;
+
+	case TARGETX:
+	{
+		iFSMCounter = 0;
+		//cout << "Switching to Patrol State" << endl;
+		glm::vec2 rundes;
+		rundes.x = cPlayer2D->vec2Index.x;
+		rundes.y = vec2Index.y;
+		ShortCutPath(rundes);
+		UpdatePosition();
+	}
+	iFSMCounter++;
+	break;
+
+	case TARGETY:
+	{
+		iFSMCounter = 0;
+		//cout << "Switching to Patrol State" << endl;
+		glm::vec2 rundes;
+		rundes.y = cPlayer2D->vec2Index.y;
+		rundes.x = vec2Index.x;
+		ShortCutPath(rundes);
+		UpdatePosition();
+	}
+	iFSMCounter++;
+	break;
+
 	default:
 		break;
 	}
@@ -176,8 +213,8 @@ void CEnemy2D::Update(const double dElapsedTime)
 	UpdateJumpFall(dElapsedTime);
 
 	// Update the UV Coordinates
-	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
-	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
+	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x * cSettings->MICRO_STEP_XAXIS);
+	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y * cSettings->MICRO_STEP_YAXIS);
 }
 
 /**
@@ -574,20 +611,20 @@ void CEnemy2D::UpdateJumpFall(const double dElapsedTime)
 /**
  @brief Let enemy2D interact with the player.
  */
-//				
+ //				
 
 bool CEnemy2D::InteractWithPlayer(void)
 {
 	glm::i32vec2 i32vec2PlayerPos = cPlayer2D->vec2Index;
-	
+
 	// Check if the enemy2D is within 1.5 indices of the player2D
-	if (((vec2Index.x >= i32vec2PlayerPos.x - 6.5) && 
+	if (((vec2Index.x >= i32vec2PlayerPos.x - 6.5) &&
 		(vec2Index.x <= i32vec2PlayerPos.x + 6.5))
-		&& 
+		&&
 		((vec2Index.y >= i32vec2PlayerPos.y - 6.5) &&
-		(vec2Index.y <= i32vec2PlayerPos.y + 6.5)))
+			(vec2Index.y <= i32vec2PlayerPos.y + 6.5)))
 	{
-		cout << "Gotcha!" << endl;
+		//	cout << "Gotcha!" << endl;
 		chase = true;
 		//cPlayer2D->SetbActive();
 		// Since the player has been caught, then reset the FSM
@@ -595,7 +632,7 @@ bool CEnemy2D::InteractWithPlayer(void)
 		return true;
 	}
 
-	
+
 
 
 
@@ -652,7 +689,7 @@ void CEnemy2D::UpdatePosition(void)
 		const int iOldIndex = vec2Index.x;
 		if (vec2Index.x >= 0)
 		{
-			i32vec2NumMicroSteps.x-=speed;
+			i32vec2NumMicroSteps.x -= speed;
 			if (i32vec2NumMicroSteps.x < 0)
 			{
 				i32vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
@@ -684,7 +721,7 @@ void CEnemy2D::UpdatePosition(void)
 		const int iOldIndex = vec2Index.x;
 		if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 		{
-			i32vec2NumMicroSteps.x+= speed;
+			i32vec2NumMicroSteps.x += speed;
 
 			if (i32vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
 			{

@@ -80,6 +80,8 @@ public:
 
 	void SetHp(int i);
 
+	int rand_dir;
+
 protected:
 	enum DIRECTION
 	{
@@ -94,6 +96,8 @@ protected:
 	{
 		IDLE = 0,
 		HUNT = 1,
+		TARGETX = 2,
+		TARGETY = 3,
 		NUM_FSM
 	};
 
