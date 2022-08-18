@@ -89,9 +89,22 @@ bool CEnemy2D::Init(void)
 	// Find the indices for the player in arrMapInfo, and assign it to cPlayer2D
 	unsigned int uiRow = -1;
 	unsigned int uiCol = -1;
-	if (cMap2D->FindValue(300, uiRow, uiCol) == false)
+	//if (cMap2D->FindValue(300, uiRow, uiCol) == false)
+	//{
+	//	return false;	// Unable to find the start position of the player, so quit this game
+	//}
+
+	if (cMap2D->FindValue(302, uiRow, uiCol) == false) // Unable to find the start position of the player, so quit this game
 	{
-		return false;	// Unable to find the start position of the player, so quit this game
+		isBlues = false;
+	}
+
+	if (isBlues == false)
+	{
+		if (cMap2D->FindValue(301, uiRow, uiCol) == false) // Unable to find the start position of the player, so quit this game
+		{
+			return false;
+		}
 	}
 
 
@@ -110,7 +123,18 @@ bool CEnemy2D::Init(void)
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load the enemy2D texture
+	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
+
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
+	if (isBlues == false)
+	{
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Clifford.tga", true);
+	}
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/Enemy.tga" << endl;
+		return false;
+	}
 
 	if (iTextureID == 0)
 	{
@@ -144,68 +168,95 @@ void CEnemy2D::Update(const double dElapsedTime)
 	if (!bIsActive)
 		return;
 
-
-	switch (sCurrentFSM)
+	if (isBlues == true) // FSM for blues
 	{
-	case IDLE:
-		if (iFSMCounter > iMaxFSMCounter)
+		switch (sCurrentFSM)
+		{
+		case IDLE:
+			if (iFSMCounter > iMaxFSMCounter)
+			{
+				iFSMCounter = 0;
+				//cout << "Switching to Patrol State" << endl;
+			}
+			if (chase == true)
+			{
+				sCurrentFSM = HUNT;
+			}
+
+			iFSMCounter++;
+			break;
+
+		case HUNT:
 		{
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
+			ShortCutPath(cPlayer2D->vec2Index);
+			UpdatePosition();
 		}
-		if (chase == true)
+		iFSMCounter++;
+		break;
+
+		default:
+			break;
+		}
+	}
+
+	else //FSM for Clifford
+	{
+		switch (sCurrentFSM)
 		{
-			if (rand_dir == 0)
+		case IDLE:
+		{
+			if (iFSMCounter > iMaxFSMCounter)
 			{
-				sCurrentFSM = TARGETX;
+				iFSMCounter = 0;
+				//cout << "Switching to Patrol State" << endl;
 			}
-			else
+			if (chase == true)
 			{
-				sCurrentFSM = TARGETY;
+				if (rand_dir == 0)
+				{
+					sCurrentFSM = TARGETX;
+				}
+				else
+				{
+					sCurrentFSM = TARGETY;
+				}
 			}
 		}
 
 		iFSMCounter++;
 		break;
 
-	case HUNT:
-	{
-		iFSMCounter = 0;
-		//cout << "Switching to Patrol State" << endl;
-		ShortCutPath(cPlayer2D->vec2Index);
-		UpdatePosition();
-	}
-	iFSMCounter++;
-	break;
-
-	case TARGETX:
-	{
-		iFSMCounter = 0;
-		//cout << "Switching to Patrol State" << endl;
-		glm::vec2 rundes;
-		rundes.x = cPlayer2D->vec2Index.x;
-		rundes.y = vec2Index.y;
-		ShortCutPath(rundes);
-		UpdatePosition();
-	}
-	iFSMCounter++;
-	break;
-
-	case TARGETY:
-	{
-		iFSMCounter = 0;
-		//cout << "Switching to Patrol State" << endl;
-		glm::vec2 rundes;
-		rundes.y = cPlayer2D->vec2Index.y;
-		rundes.x = vec2Index.x;
-		ShortCutPath(rundes);
-		UpdatePosition();
-	}
-	iFSMCounter++;
-	break;
-
-	default:
+		case TARGETX:
+		{
+			iFSMCounter = 0;
+			//cout << "Switching to Patrol State" << endl;
+			glm::vec2 rundes;
+			rundes.x = cPlayer2D->vec2Index.x;
+			rundes.y = vec2Index.y;
+			ShortCutPath(rundes);
+			UpdatePosition();
+		}
+		iFSMCounter++;
 		break;
+
+		case TARGETY:
+		{
+			iFSMCounter = 0;
+			//cout << "Switching to Patrol State" << endl;
+			glm::vec2 rundes;
+			rundes.y = cPlayer2D->vec2Index.y;
+			rundes.x = vec2Index.x;
+			ShortCutPath(rundes);
+			UpdatePosition();
+		}
+		iFSMCounter++;
+		break;
+
+		default:
+			break;
+		}
 	}
 
 	InteractWithPlayer();

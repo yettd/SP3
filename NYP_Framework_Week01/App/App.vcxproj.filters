@@ -80,9 +80,6 @@
     <ClCompile Include="Source\GameStateManagement\end.cpp">
       <Filter>GameStateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene2D\ghens.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -144,9 +141,6 @@
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\end.h">
       <Filter>GameStateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\ghens.h">
-      <Filter>Scene2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

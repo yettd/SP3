@@ -51,6 +51,10 @@ bool CPlayGameState::Init(void)
 		return false;
 	}
 
+	background = new CBackgroundEntity("Image/unknown1.png");
+	background->SetShader("Shader2D");
+	background->Init();
+
 	return true;
 }
 
@@ -99,10 +103,14 @@ void CPlayGameState::Render(void)
 	cScene2D->PreRender();
 
 	// Call the cScene2D's Render method
+	
+
+	background->Render();
 	cScene2D->Render();
 
 	// Call the cScene2D's PostRender method
 	cScene2D->PostRender();
+
 }
 
 /**

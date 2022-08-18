@@ -184,5 +184,8 @@ protected:
 	float speed=.2f;
 
 	bool chase = false;
+
+	int enemyHealth = 100;
+	bool isBlues = true;
 };
 
