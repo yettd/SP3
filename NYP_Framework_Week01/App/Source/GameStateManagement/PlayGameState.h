@@ -10,6 +10,7 @@
 #include "GameStateBase.h"
 
 #include "..\Scene2D\Scene2D.h"
+#include "../Scene2D/BackgroundEntity.h"
 
 class CPlayGameState : public CGameStateBase
 {
@@ -31,4 +32,6 @@ public:
 protected:
 	// The handler to the CScene2D instance
 	CScene2D* cScene2D;
+	CBackgroundEntity* background;
+
 };
