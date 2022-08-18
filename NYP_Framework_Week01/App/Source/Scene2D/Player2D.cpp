@@ -139,7 +139,7 @@ bool CPlayer2D::Init(void)
 	Rflip = false;
 
 	CSC = CSoundController::GetInstance();
-	iFrame = false;
+
 	return true;
 }
 
@@ -202,18 +202,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Store the old position
 	if (bActive ==false)
 	{
-		
-	}
-	static float iFrameCounter = 1;
-	if (iFrame)
-	{
-		iFrameCounter -= dt;
-
-		if (iFrameCounter <= 0)
-		{
-			iFrame = false;
-			iFrameCounter = 1;
-		}
 		
 	}
 
@@ -345,10 +333,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		//runtimeColour = glm::vec4(0.0f, 1.0, 0.0, 0.5f);
 
 	}
-	if (cKeyboardController->IsKeyDown(GLFW_KEY_N))
-	{
-		SetIframe();
-	}
+
 	
 
 
@@ -768,7 +753,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 				if (breakTimer >=2 )
 				{
 					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
-					addToinventory(100,"WoodenBlock",1,10);
+					addToinventory(100,"WoodenBlock",1);
 					breakTimer=0;
 				}
 			}
@@ -793,8 +778,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					cII = cIM->GetItem(equip);
 					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
 					cII->Remove(1);
-					hotKeyInvQuantity[select - 1]--;
-					if (hotKeyInvQuantity[select-1] == 0)
+					if (cII->GetCount() == 0)
 					{
 						hotKeyInv[select - 1] = "";
 						hotKeyInvID[select - 1] = 0;
@@ -866,17 +850,15 @@ void CPlayer2D::selectKey()
 	equip = hotKeyInv[select - 1];
 }
 
-void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
+void CPlayer2D::addToinventory(int num,string name,int amt)
 {
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
-		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]!=maxQuitity)
+		if (hotKeyInv[i] == name)
 		{
 			cII = cIM->GetItem(name);
 			cII->Add(amt);
-			hotKeyInvQuantity[i]++;
-			changed = true;
 			return;
 		}
 	}
@@ -884,13 +866,10 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 	{
 		if (hotKeyInv[i] == "")
 		{
-
 			hotKeyInv[i] = name;
 			hotKeyInvID[i] = num;
-			hotKeyInvQuantity[i]++;
 			cII = cIM->GetItem(name);
 			cII->Add(amt);
-			changed = true;
 			return;
 		}
 	}
@@ -963,39 +942,7 @@ std::vector<string> CPlayer2D::GetHotKeyInv()
 	return hotKeyInv;
 }
 
-std::vector<int> CPlayer2D::GetHotKeyQuitity()
-{
-	return hotKeyInvQuantity;
-}
-
-std::vector<int> CPlayer2D::GetHotKeyid()
-{
-	return hotKeyInvID;
-}
-
-void CPlayer2D::setHotKeyInventory(std::vector<string> name, std::vector<int> id, std::vector<int> quan)
-{
-	hotKeyInv = name;
-	hotKeyInvID = id;
-	hotKeyInvQuantity = quan;
-}
-
-int CPlayer2D::GetSelect()
-{
-	return select-1;
-}
-
 int CPlayer2D::getSelected()
 {
 	return select;
-}
-
-bool CPlayer2D::getIframe()
-{
-	return iFrame;
-}
-
-void CPlayer2D::SetIframe()
-{
-	iFrame = true;
 }
