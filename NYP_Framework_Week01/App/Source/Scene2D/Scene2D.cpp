@@ -219,13 +219,14 @@ bool CScene2D::Update(const double dElapsedTime)
 	//	}
 	//}
 
-	
+	static int hunger = 0;
 
 	
 	
-	if (worldTime >= 1)
+	if (worldTime >= 15) //change this to set how long you want it to take to 1 hour ( worldtime = 1 means every 1 sec 1 hour passes)
 	{
-		clock += 1;
+		hunger++;
+		clock ++;
 		if (clock == 24)
 		{
 			clock = 0;
@@ -234,7 +235,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cout << clock << endl;
 		if (clock >= 18 || clock<=6)
 		{
-			if (worldTime1 >= 1)
+			if (worldTime1 >= 10)//change this to see how fast you want enemy to be spawn 
 			{
 				while (true)
 				{
@@ -269,9 +270,11 @@ bool CScene2D::Update(const double dElapsedTime)
 			}
 		}
 	}
-
-		
-	
+	if (hunger >= 1)
+	{
+		cPlayer2D->fuelTime();
+		hunger = 0;
+	}
 
 	return true;
 }

@@ -102,6 +102,10 @@ public:
 	bool getIframe();
 	void SetIframe();
 
+	void fuelTime();
+
+	void setHealth(int damage);
+
 	void addToinventory(int num, string name, int amt, int maxQuantity);
 
 	bool changed=false;
@@ -191,5 +195,7 @@ protected:
 
 	void InventoryMan();
 	void selectKey();
+
+	void MouseAction();
 };
 

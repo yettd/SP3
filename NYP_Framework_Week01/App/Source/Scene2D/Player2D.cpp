@@ -178,7 +178,7 @@ void CPlayer2D::InteractWithMap(void)
 {
 	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x))
 	{
-	
+
 	default:
 		break;
 	}
@@ -219,6 +219,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 
 	MouseInteracteWithMap(dElapsedTime);
+	MouseAction();
 
 	vec2OldIndex = vec2Index;
 	runtimeColour = glm::vec4(1.0f, 1.0, 0.0, 1.0f);
@@ -350,7 +351,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		SetIframe();
 	}
 	
-
+	
 
 	InteractWithMap();
 
@@ -787,7 +788,6 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 
 				string checker = equip;
 				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-				cout << checker << endl;
 				if (checker.find("block") != string::npos)
 				{
 					cII = cIM->GetItem(equip);
@@ -813,11 +813,14 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("Lives", "Image/Scene2D_Lives.tga", 3, 3);
 	cII->vec2Size = glm::vec2(25, 25);
 
+	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 10);
+	cII->vec2Size = glm::vec2(25, 25);
+
 	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 3, 3);
+	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 2);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
@@ -864,6 +867,38 @@ void CPlayer2D::selectKey()
 		select = 9;
 	}
 	equip = hotKeyInv[select - 1];
+}
+
+void CPlayer2D::MouseAction()
+{
+	if (cMouseController->IsButtonDown(1))
+	{
+		
+		string checker = equip;
+		std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+
+		if (checker.find("food") != string::npos)
+		{	
+			cII = cIM->GetItem("Fuel");
+			if (cII->GetCount() < cII->GetMaxCount())
+			{
+
+				cII = cIM->GetItem(equip);
+				cII->Remove(1);
+				cII = cIM->GetItem("Fuel");
+				cII->Add(1);
+				hotKeyInvQuantity[select - 1]--;
+				if (hotKeyInvQuantity[select - 1] == 0)
+				{
+					hotKeyInv[select - 1] = "";
+					hotKeyInvID[select - 1] = 0;
+					equip = hotKeyInv[select - 1];
+				}
+
+			}
+		}
+
+	}
 }
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
@@ -998,4 +1033,26 @@ bool CPlayer2D::getIframe()
 void CPlayer2D::SetIframe()
 {
 	iFrame = true;
+}
+
+void CPlayer2D::fuelTime()
+{
+	
+	cII = cIM->GetItem("Fuel");
+	
+
+	if (cII->GetCount() == 0)
+	{
+		setHealth(2);
+	}
+	else
+	{
+		cII->Remove(1);
+	}
+}
+
+void CPlayer2D::setHealth(int damage)
+{
+	cII = cIM->GetItem("Health");
+	cII->Remove(damage);
 }

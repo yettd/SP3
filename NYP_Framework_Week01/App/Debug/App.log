@@ -1,671 +1,313 @@
-﻿  Application.cpp
-  GameStateManager.cpp
-  IntroState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-D:\nyp\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\IntroState.cpp(80,23): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
-  MenuState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-D:\nyp\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(130,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(129,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(131,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(131,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  PauseState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-D:\nyp\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\PauseState.cpp(105,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\PauseState.cpp(104,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\PauseState.cpp(106,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\PauseState.cpp(106,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  PlayGameState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-D:\nyp\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-  end.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-D:\nyp\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(131,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(130,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(132,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(132,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  BackgroundEntity.cpp
-  Enemy2D.cpp
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(216,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+﻿  Player2D.cpp
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(179,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(217,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(179,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(291,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(184,2): warning C4065: switch statement contains 'default' but no 'case' labels
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(199,52): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(210,22): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(240,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(292,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(330,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(302,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(369,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(303,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(370,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(344,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(447,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(352,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(465,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(382,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(468,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(382,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(490,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(391,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(494,57): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(391,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(497,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(392,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(502,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(392,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(505,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(411,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(510,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(411,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(526,82): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(420,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(526,68): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(420,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(527,80): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(421,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(527,66): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(421,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(528,80): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(441,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(528,66): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(441,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(529,79): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(450,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(529,65): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(450,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(530,79): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(451,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(530,65): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(451,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(562,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(463,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(572,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(463,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(641,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(472,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(641,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(472,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(649,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(473,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(649,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(473,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(649,111): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(496,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(649,97): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(496,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(667,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(517,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(667,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(537,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(676,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(541,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(676,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(571,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(694,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(578,60): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(694,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(581,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(703,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(591,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(703,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(595,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(715,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(601,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(715,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(659,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(724,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(660,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(724,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(689,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(756,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(757,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(762,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(689,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(762,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(695,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(767,19): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(771,44): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(721,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(771,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(721,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(786,47): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(758,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(786,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(758,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(794,45): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(792,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(794,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(792,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Enemy2D.cpp(798,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-  GUI_Scene2D.cpp
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(332,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(331,58): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(364,21): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
-  GameManager.cpp
-  InventoryItem.cpp
-  InventoryManager.cpp
-  Map2D.cpp
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(519,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(519,24): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(520,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(520,23): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(573,41): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(573,26): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(723,46): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(752,20): warning C4018: '<': signed/unsigned mismatch
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(761,20): warning C4018: '<': signed/unsigned mismatch
-  Physics2D.cpp
-  Player2D.cpp
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(179,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(179,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(184,2): warning C4065: switch statement contains 'default' but no 'case' labels
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(199,52): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(210,22): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(239,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(329,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(368,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(369,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(446,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(464,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(467,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(489,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(493,57): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(496,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(501,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(504,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(509,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(525,82): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(525,68): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(526,80): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(526,66): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(527,80): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(527,66): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(528,79): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(528,65): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(529,79): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(529,65): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(561,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(571,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(640,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(640,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(648,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(648,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(648,111): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(648,97): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(666,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(666,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(675,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(675,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(693,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(693,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(702,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(702,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(714,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(714,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(723,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(723,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(755,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(756,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(761,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(761,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(766,19): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(770,44): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(770,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(785,47): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(785,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(794,45): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(794,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(955,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Player2D.cpp(990,23): warning C4018: '<': signed/unsigned mismatch
   Scene2D.cpp
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(87,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(163,23): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(165,27): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(166,28): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(196,20): warning C4018: '<': signed/unsigned mismatch
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(242,21): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(87,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(163,23): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(165,27): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(166,28): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(196,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(243,21): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(244,21): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(245,21): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(246,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(247,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(246,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(247,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(248,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(249,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(248,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(249,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-D:\nyp\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(315,20): warning C4018: '<': signed/unsigned mismatch
-  SoundController.cpp
-  SoundInfo.cpp
-  main.cpp
+C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(318,20): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  LINK : D:\nyp\SP3\NYP_Framework_Week01\Debug\App.exe not found or not built by the last incremental link; performing full link
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  App.vcxproj -> D:\nyp\SP3\NYP_Framework_Week01\Debug\App.exe
+  App.vcxproj -> C:\Users\Daphne\Dropbox\My PC (LAPTOP-M6DPSDNL)\Desktop\SP3\SP3\NYP_Framework_Week01\Debug\App.exe
