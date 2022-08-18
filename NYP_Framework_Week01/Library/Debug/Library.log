@@ -1,4 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Library.vcxproj, m.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Library.vcxproj, m.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   imgui_impl_glfw.cpp
   imgui_impl_opengl3.cpp
   imgui.cpp
@@ -17,7 +17,7 @@
   Mesh.cpp
   MeshBuilder.cpp
   SpriteAnimation.cpp
-C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Library\Source\Primitives\SpriteAnimation.cpp(75,62): warning C4244: 'argument': conversion from 'double' to 'const unsigned int', possible loss of data
+D:\nyp\SP3\NYP_Framework_Week01\Library\Source\Primitives\SpriteAnimation.cpp(75,62): warning C4244: 'argument': conversion from 'double' to 'const unsigned int', possible loss of data
   ShaderManager.cpp
   ImageLoader.cpp
   Generating Code...
@@ -26,4 +26,4 @@ C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Library\Source\Primitives\Sprit
   FPSCounter.cpp
   StopWatch.cpp
   Generating Code...
-  Library.vcxproj -> C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Debug\liabary.lib
+  Library.vcxproj -> D:\nyp\SP3\NYP_Framework_Week01\Debug\liabary.lib
