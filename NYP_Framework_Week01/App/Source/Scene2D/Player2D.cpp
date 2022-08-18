@@ -178,7 +178,17 @@ void CPlayer2D::InteractWithMap(void)
 {
 	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x))
 	{
-	
+	case 100: //brick
+	case 101: //steel pile
+	case 102: //rusting trees
+	case 103: //metal cubes+
+	case 104: //upgrading altar
+	case 201: //AI Kun-J
+	case 300: //Ghens
+	case 301: //Clifford
+	case 302: //Blues
+	case 400: //mechanic cow
+	case 401: //iron unicorn
 	default:
 		break;
 	}
