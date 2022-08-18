@@ -109,7 +109,6 @@ bool CGUI_Scene2D::Init(void)
  */
 void CGUI_Scene2D::Update(const double dElapsedTime)
 {
-	cout << Clock << endl;
 	// Calculate the relative scale to our default windows width
 	const float relativeScale_x = cSettings->iWindowWidth / 800.0f;
 	const float relativeScale_y = cSettings->iWindowHeight / 600.0f;
@@ -353,8 +352,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 			ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * i) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * .9f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			ImGui::SetWindowFontScale(1.f * relativeScale_y);
-			if (PHK[i] != "")
-			{
+	
 		
 				cInventoryItem = cInventoryManager->GetItem(PHK[i]);
 
@@ -377,8 +375,10 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 					}
 				}
-				ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[i]);
-			}
+				if (PHK[i] != "")
+				{
+					ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[i]);
+				}
 
 
 			ImGui::End();
@@ -388,7 +388,79 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	}
 	ImGui::PopStyleColor();
-	
+
+
+	static bool openInv = false;
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+	{
+		if (openInv)
+		{
+			openInv = false;
+		}
+		else
+		{
+			openInv = true;
+		}
+	}
+
+	if (openInv)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+
+		int startingpoint = 9;
+		for (size_t i = 0; i < 2; i++)
+		{
+			for (size_t j = 0; j < 9; j++)
+			{
+
+				ss << i;
+				string a = ss.str();
+				const char* b = a.c_str();
+				if (timer <= 0)
+				{
+					ImGui::Begin(b, NULL, vv);
+					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * j) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * 0.09f * i+ cSettings->iWindowHeight * .3f));
+					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+					ImGui::SetWindowFontScale(1.f * relativeScale_y);
+					
+
+						cInventoryItem = cInventoryManager->GetItem(PHK[startingpoint]);
+
+						if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
+							ImVec2(cInventoryItem->vec2Size.x * relativeScale_x * 0.80,
+								cInventoryItem->vec2Size.y * relativeScale_y * 0.80),
+							ImVec2(0, 1), ImVec2(1, 0)))
+						{
+							if (startingpoint != PS)
+							{
+								string tempname = PHK[startingpoint];
+								int tempQuant = PHKQ[startingpoint];
+								int tempid = PHKID[startingpoint];
+								PHK[startingpoint] = PHK[PS];
+								PHKQ[startingpoint] = PHKQ[PS];
+								PHKID[startingpoint] = PHKID[PS];
+								PHK[PS] = tempname;
+								PHKQ[PS] = tempQuant;
+								CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
+
+							}
+						}
+						if (PHK[startingpoint] != "")
+						{
+						ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[startingpoint]);
+
+						}
+					
+
+
+					ImGui::End();
+				}
+
+				startingpoint++;
+			}
+		}
+		ImGui::PopStyleColor();
+	}
 	
 
 
