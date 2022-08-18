@@ -89,9 +89,24 @@ public:
 
 	std::vector<string> GetHotKeyInv();
 
+	std::vector<int> GetHotKeyQuitity();
+
+	std::vector<int> GetHotKeyid();
+
+	void setHotKeyInventory(std::vector<string> name, std::vector<int> id, std::vector<int> quan);
+
+	int GetSelect();
+
 	int getSelected();
 
+	bool getIframe();
+	void SetIframe();
+
+	void addToinventory(int num, string name, int amt, int maxQuantity);
+
+	bool changed=false;
 protected:
+	int select = 5;
 	enum DIRECTION
 	{
 		LEFT = 0,
@@ -100,7 +115,7 @@ protected:
 		DOWN = 3,
 		NUM_DIRECTIONS
 	};
-
+	bool iFrame;
 	CSpriteAnimation* animatedSprites;
 
 	CPhysics2D cPhysics2D;
@@ -169,12 +184,12 @@ protected:
 
 	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
 
+	std::vector<int> hotKeyInvQuantity = { 1,0,1,0,0,0,0,0,0 };
+
 
 	string equip="";
-	int select = 5;
 
 	void InventoryMan();
 	void selectKey();
-	void addToinventory(int num, string name, int amt);
 };
 
