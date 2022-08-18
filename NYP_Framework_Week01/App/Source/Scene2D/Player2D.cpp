@@ -205,6 +205,11 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
+	{
+		addToinventory(100, "WoodenBlock", 1, 2);
+
+	}
 	static float RespawnTimer = 5;
 	CGameManager::GetInstance()->timer += dElapsedTime;
 	dt = dElapsedTime;
@@ -784,7 +789,6 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 			if (cMouseController->IsButtonDown(0))
 			{
 				breakTimer+=dt;
-				cout << breakTimer << endl;
 				if (breakTimer >=2 )
 				{
 					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
@@ -889,6 +893,22 @@ void CPlayer2D::selectKey()
 		select = 9;
 	}
 	equip = hotKeyInv[select - 1];
+	dmg = 1;
+	string checker = equip;
+	std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+	if (checker.find("wepon") != string::npos)
+	{
+		Wepon(checker);
+	}
+	cout << getDmg() << endl;
+}
+void CPlayer2D::Wepon(string wepon)
+{
+	if (wepon.find("wooden") != string::npos)
+	{
+		dmg = 2;
+	}
+
 }
 
 void CPlayer2D::MouseAction()
@@ -925,6 +945,7 @@ void CPlayer2D::MouseAction()
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
+	cout << hotKeyInv.size() << endl;
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
@@ -941,7 +962,6 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 	{
 		if (hotKeyInv[i] == "")
 		{
-
 			hotKeyInv[i] = name;
 			hotKeyInvID[i] = num;
 			hotKeyInvQuantity[i]++;
@@ -952,6 +972,11 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 		}
 	}
 	
+}
+
+float CPlayer2D::getDmg()
+{
+	return dmg;
 }
 
 
