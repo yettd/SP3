@@ -245,7 +245,16 @@ bool CScene2D::Update(const double dElapsedTime)
 
 					if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 						timer = 10;
-						cMap2D->SetMapInfo(asd.y, asd.x, 300);
+						int random_enemy_spawn = rand() % 2;
+						if (random_enemy_spawn == 0)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 302);
+						}
+						else
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+						}
+						
 						while (true)
 						{
 							CEnemy2D* cE = new CEnemy2D();
