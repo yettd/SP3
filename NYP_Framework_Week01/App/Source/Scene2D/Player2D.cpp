@@ -900,7 +900,6 @@ void CPlayer2D::selectKey()
 	{
 		Wepon(checker);
 	}
-	cout << getDmg() << endl;
 }
 void CPlayer2D::Wepon(string wepon)
 {
