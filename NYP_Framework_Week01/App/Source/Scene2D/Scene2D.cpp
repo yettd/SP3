@@ -99,7 +99,7 @@ bool CScene2D::Init(void)
 		return false;
 	}
 
-	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_0.csv") == false)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middle.csv") == false)
 	{
 		cout << "map failed" << endl;
 

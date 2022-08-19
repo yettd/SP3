@@ -1,4 +1,54 @@
 ﻿  PlayGameState.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
 C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
+  Scene2D.cpp
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(87,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(163,23): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(164,27): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(165,28): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(195,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(222,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(249,20): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(251,20): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(253,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(253,31): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(258,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(258,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(262,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(262,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\Scene2D\Scene2D.cpp(326,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   App.vcxproj -> C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\Debug\App.exe
