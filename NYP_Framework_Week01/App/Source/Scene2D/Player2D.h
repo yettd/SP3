@@ -113,6 +113,9 @@ public:
 	float healthTime = 0;//this is the counter for how long until health increase
 
 	float getDmg();
+
+	int enemies_unalived = 0;
+
 protected:
 	int select = 5;
 	enum DIRECTION

@@ -376,7 +376,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		if (healthTime >= 2) // set timing for how fast u want the health to increase
 		{
 			cII = cIM->GetItem("Health");
-			cII->Add(2);
+			cII->Add(20);
 			healthTime = 0;
 		}
 	}

@@ -94,17 +94,31 @@ bool CEnemy2D::Init(void)
 	//	return false;	// Unable to find the start position of the player, so quit this game
 	//}
 
-	if (cMap2D->FindValue(302, uiRow, uiCol) == false) // Unable to find the start position of the player, so quit this game
+	if (cMap2D->FindValue(302, uiRow, uiCol) == false && enemyType == 0) // Unable to find the start position of the player, so quit this game
 	{
-		isBlues = false;
+		//Clifford
+		enemyType = 1;
 	}
 
-	if (isBlues == false)
+	if (cMap2D->FindValue(301, uiRow, uiCol) == false && enemyType==1)
 	{
-		if (cMap2D->FindValue(301, uiRow, uiCol) == false) // Unable to find the start position of the player, so quit this game
-		{
-			return false;
-		}
+		//Mechanical cow
+		enemyType = 2;
+	}
+
+	 if (cMap2D->FindValue(400, uiRow, uiCol) == false && enemyType == 2)
+	{
+		//Iron unicorn
+		enemyType = 3;
+	}
+
+	if (cMap2D->FindValue(401, uiRow, uiCol) == false && enemyType == 3)
+	{
+		enemyType = 4;
+	}
+	if (enemyType==4) // Unable to find the start position of the player, so quit this game
+	{
+		return false;
 	}
 
 
@@ -125,10 +139,22 @@ bool CEnemy2D::Init(void)
 	// Load the enemy2D texture
 	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
-	if (isBlues == false)
+	if (enemyType == 0)
+	{
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/robodog.tga", true);
+
+	}
+	else if (enemyType == 1)
 	{
 		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Clifford.tga", true);
+	}
+	else if (enemyType == 2)
+	{
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/mechanicalcow.tga", true);
+	}
+	else if (enemyType == 3)
+	{
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/ironunicorn.tga", true);
 	}
 	if (iTextureID == 0)
 	{
@@ -163,16 +189,24 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
-
+	if (enemyHealth <= 0)
+	{
+		if (enemyType < 3)
+		{
+			cPlayer2D->enemies_unalived++;
+		}
+		bIsActive = false;
+	}
 
 	if (!bIsActive)
 		return;
 
-	if (isBlues == true) // FSM for blues
+	if (enemyType == 0) // FSM for blues
 	{
 		switch (sCurrentFSM)
 		{
 		case IDLE:
+		{
 			if (iFSMCounter > iMaxFSMCounter)
 			{
 				iFSMCounter = 0;
@@ -182,9 +216,9 @@ void CEnemy2D::Update(const double dElapsedTime)
 			{
 				sCurrentFSM = HUNT;
 			}
-
-			iFSMCounter++;
-			break;
+		}
+		iFSMCounter++;
+		break;
 
 		case HUNT:
 		{
@@ -201,7 +235,7 @@ void CEnemy2D::Update(const double dElapsedTime)
 		}
 	}
 
-	else //FSM for Clifford
+	if (enemyType == 1) //FSM for Clifford
 	{
 		switch (sCurrentFSM)
 		{
@@ -224,7 +258,6 @@ void CEnemy2D::Update(const double dElapsedTime)
 				}
 			}
 		}
-
 		iFSMCounter++;
 		break;
 
@@ -253,6 +286,55 @@ void CEnemy2D::Update(const double dElapsedTime)
 		}
 		iFSMCounter++;
 		break;
+
+		default:
+			break;
+		}
+	}
+
+	if (enemyType == 2 || enemyType == 3) // FSM for mechanical cow & iron unicorn
+	{
+		switch (sCurrentFSM)
+		{
+		case IDLE:
+		{
+				iFSMCounter = 0;
+				walktimer += dElapsedTime;
+				if (walktimer > 0.3f)
+				{
+					int random_walk_direction = rand() % 4;
+					
+					if (random_walk_direction == 1)
+					{
+						i32vec2Direction.y = 1;
+						i32vec2Direction.x = 0;
+					}
+					else if (random_walk_direction == 2)
+					{
+						i32vec2Direction.y = 0;
+						i32vec2Direction.x = 1;
+					}
+					else if (random_walk_direction == 3)
+					{
+						i32vec2Direction.y = -5;
+						i32vec2Direction.x = 1;
+					}
+					else
+					{
+						i32vec2Direction.y = 0;
+						i32vec2Direction.x = -1;
+					}
+					walktimer = 0.0f;
+					UpdatePosition();
+				}
+				
+
+			
+		}
+		iFSMCounter++;
+		break;
+
+		
 
 		default:
 			break;
@@ -680,10 +762,48 @@ bool CEnemy2D::InteractWithPlayer(void)
 		//cPlayer2D->SetbActive();
 		// Since the player has been caught, then reset the FSM
 		iFSMCounter = 0;
-		return true;
 	}
 
+	//if enemy is Blues, deal dmg to player when in range :D
+	if (enemyType == 0)
+	{
+		if (((vec2Index.x >= i32vec2PlayerPos.x - 2) &&
+			(vec2Index.x <= i32vec2PlayerPos.x + 2))
+			&&
+			((vec2Index.y >= i32vec2PlayerPos.y - 2) &&
+				(vec2Index.y <= i32vec2PlayerPos.y + 2)))
+		{
+			if (cPlayer2D->getIframe() == false)
+			{
+				cPlayer2D->SetIframe();
+				cPlayer2D->setHealth(10);
+			}
+		}
+	}
 
+	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (CMouseController::GetInstance()->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
+
+	if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
+	{
+		if (((vec2Index.x >= mousePos.x - 2) &&
+			(vec2Index.x <= mousePos.x + 2))
+			&&
+			((vec2Index.y >= mousePos.y - 2) &&
+				(vec2Index.y <= mousePos.y + 2)))
+		{
+			if (CMouseController::GetInstance()->IsButtonDown(0))
+			{
+				enemyHealth -= cPlayer2D->getDmg();
+			}
+			if (CMouseController::GetInstance()->IsButtonDown(0) && cowplscome == true)
+			{
+				enemyHealth -= cPlayer2D->getDmg();
+			}
+		}
+		
+	}
 
 
 

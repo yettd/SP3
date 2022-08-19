@@ -231,7 +231,6 @@ bool CScene2D::Update(const double dElapsedTime)
 			clock = 0;
 		}
 		worldTime = 0;
-		cout << clock << endl;
 		
 	}
 	if (hunger >= 1)
@@ -252,14 +251,29 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
-					int random_enemy_spawn = rand() % 2;
-					if (random_enemy_spawn == 0)
+					if (enemies_spawnned < 11)
 					{
-						cMap2D->SetMapInfo(asd.y, asd.x, 302);
-					}
-					else
-					{
-						cMap2D->SetMapInfo(asd.y, asd.x, 301);
+						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						if (random_enemy_spawn == 0)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 302);
+							enemies_spawnned++;
+						}
+						else if (random_enemy_spawn == 1)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 400);
+							enemies_spawnned++;
+						}
+						else if (random_enemy_spawn == 2)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 401);
+							enemies_spawnned++;
+						}
+						else
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;
+						}
 					}
 					while (true)
 					{
@@ -323,6 +337,7 @@ void CScene2D::Render(void)
 	cPlayer2D->PostRender();
 
 	cGUI_Scene2D->Render();
+
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->PreRender();

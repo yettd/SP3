@@ -64,6 +64,8 @@ public:
 
 	float clock = 0;
 
+	int enemies_spawnned = 1;
+
 protected:
 	// Keyboard Controller singleton instance
 	CKeyboardController* cKeyboardController;

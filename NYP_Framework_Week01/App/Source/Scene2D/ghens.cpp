@@ -154,16 +154,25 @@ void ghens::Update(const double dElapsedTime)
 		}
 		iFSMCounter++;
 		break;
-	case ATTACK1:
+
+	case PULSE: //8 directional shooting
 	{
 
 	}
 		break;
-	case ATTACK2:
+
+	case ERUPT: //eruptions
 		{
 		
 		}
 		
+		break;
+
+	case SUMMON: //summon undeads
+	{
+
+	}
+
 		break;
 	default:
 		break;
