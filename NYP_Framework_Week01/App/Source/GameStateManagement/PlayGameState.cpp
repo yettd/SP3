@@ -51,9 +51,9 @@ bool CPlayGameState::Init(void)
 		return false;
 	}
 
-	background = new CBackgroundEntity("Image/unknown1.png");
-	background->SetShader("Shader2D");
-	background->Init();
+	//background = new CBackgroundEntity("Image/IntroBackground.jpg");
+	//background->SetShader("Shader2D");
+	//background->Init();
 
 	return true;
 }
@@ -87,11 +87,11 @@ bool CPlayGameState::Update(const double dElapsedTime)
 	// Call the cScene2D's Update method
 	cScene2D->Update(dElapsedTime);
 
-	
+
 
 	return true;
 }
-
+	
 /**
  @brief Render this class instance
  */
@@ -103,14 +103,11 @@ void CPlayGameState::Render(void)
 	cScene2D->PreRender();
 
 	// Call the cScene2D's Render method
-	
-
-	background->Render();
+	//background->Render();
 	cScene2D->Render();
 
 	// Call the cScene2D's PostRender method
 	cScene2D->PostRender();
-
 }
 
 /**
