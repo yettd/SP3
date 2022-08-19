@@ -324,7 +324,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 
 
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.66f, 0.66f, 0.66f, 1.f));  // Set a background color
 	 ImGuiWindowFlags vv = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoMove |
@@ -379,12 +379,17 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 				{
 					ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[i]);
 				}
+				else
+				{
+					ImGui::TextColored(ImVec4(1, 1, 1, 1), "");
+				}
 
 
 			ImGui::End();
 		}
 			ImGui::PopStyleColor();
-			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.66f, 0.66f, 0.66f,1.f));  // Set a background color
+
 
 	}
 	ImGui::PopStyleColor();
@@ -405,7 +410,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	if (openInv)
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));  // Set a background color
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.66f, 0.66f, 0.66f, 1.f));  // Set a background color
+
 
 		int startingpoint = 9;
 		for (size_t i = 0; i < 2; i++)
@@ -450,7 +456,10 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 						ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", PHKQ[startingpoint]);
 
 						}
-					
+						else
+						{
+							ImGui::TextColored(ImVec4(1, 1, 1, 1), "");
+						}
 
 
 					ImGui::End();
