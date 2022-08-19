@@ -111,6 +111,8 @@ public:
 	bool changed=false;
 
 	float healthTime = 0;//this is the counter for how long until health increase
+
+	float getDmg();
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -186,17 +188,25 @@ protected:
 
 	double dt;
 
-	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",""};
+	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",
+									"Food","","","Food","","","","","",
+									"Food","","Food","","","","","","" };
 
-	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0};
+	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0,
+									 0,0,0,0,0,0,0,0,0,
+									 0,0,0,0,0,0,0,0,0 };
 
-	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 };
+	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 ,
+											99,0,0,1,0,0,0,0,0,
+											99,0,1,0,0,0,0,0,0 };
 
 
 	string equip="";
-
+	float dmg = 1;
 	void InventoryMan();
 	void selectKey();
+
+	void Wepon(string e);
 
 	void MouseAction();
 };

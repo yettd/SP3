@@ -181,7 +181,54 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
 
-
+	// Load the steel pile texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/steelpile.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/steelpile.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(101, iTextureID));
+	}
+	// Load the rusting trees texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/rustingtree.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/rustingtree.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(102, iTextureID));
+	}
+	// Load the metal cubes+ texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/metalcubes+.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/metalcubes+.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(103, iTextureID));
+	}
+	// Load the upgrading altar texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/upgradingaltar.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/upgradingaltar.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(104, iTextureID));
+	}
 
 	// Initialise the variables for AStar
 	m_weight = 1;
