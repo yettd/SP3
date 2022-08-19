@@ -134,6 +134,7 @@ bool CScene2D::Init(void)
 	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
 
 	enemyVector.clear();
+	bulletVector.clear();
 	while (true)
 	{
 		CEnemy2D* cE = new CEnemy2D();
@@ -190,13 +191,26 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->Reset();
 		return false;
 	}
+	bulletVector.clear();
+	bulletVector=cPlayer2D->pBullet;
 
+	for (size_t i = 0; i < a.size(); i++)
+	{
+		//
+		/*for (size_t i = 0; i < length; i++)
+		{
+			bulletVector.push_back();
+		}*/
+	}
 	
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->Update(dElapsedTime);
 	}
-	
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		bulletVector[i]->Update(dElapsedTime);
+	}
 
 
 	//	//spawn Enemy
@@ -330,6 +344,16 @@ void CScene2D::Render(void)
 		enemyVector[i]->Render();
 
 		enemyVector[i]->PostRender();
+	}
+
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+
+		bulletVector[i]->PreRender();
+
+		bulletVector[i]->Render();
+
+		bulletVector[i]->PostRender();
 	}
 
 }

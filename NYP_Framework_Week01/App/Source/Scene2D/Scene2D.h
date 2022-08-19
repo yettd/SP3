@@ -36,6 +36,7 @@
 #include "GUI_Scene2D.h"
 #include "GameManager.h"
 #include "Enemy2D.h"
+#include "bullet.h"
 #include <vector>
 // Add your include files here
 
@@ -88,6 +89,8 @@ protected:
 	CGUI_Scene2D* cGUI_Scene2D;
 	CGameManager* cGameManager;
 	CSoundController* CSC;
+
+	std::vector<CEntity2D*> bulletVector;
 
 };
 
