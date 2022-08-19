@@ -205,6 +205,11 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
+	{
+		addToinventory(100, "WoodenBlock", 1, 2);
+
+	}
 	static float RespawnTimer = 5;
 	CGameManager::GetInstance()->timer += dElapsedTime;
 	dt = dElapsedTime;
@@ -229,11 +234,13 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 
 	MouseInteracteWithMap(dElapsedTime);
+	MouseAction();
 
 	vec2OldIndex = vec2Index;
 	runtimeColour = glm::vec4(1.0f, 1.0, 0.0, 1.0f);
 	static int dir=2;
 	static int tid = 100;
+	healthTime += dElapsedTime;
 	selectKey();
 
 	
@@ -360,11 +367,19 @@ void CPlayer2D::Update(const double dElapsedTime)
 		SetIframe();
 	}
 	
-
+	
 
 	InteractWithMap();
-
-	
+	cII = cIM->GetItem("Fuel");
+	if (cII->GetCount() == cII->GetMaxCount())
+	{
+		if (healthTime >= 2) // set timing for how fast u want the health to increase
+		{
+			cII = cIM->GetItem("Health");
+			cII->Add(2);
+			healthTime = 0;
+		}
+	}
 
 	
 
@@ -774,7 +789,6 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 			if (cMouseController->IsButtonDown(0))
 			{
 				breakTimer+=dt;
-				cout << breakTimer << endl;
 				if (breakTimer >=2 )
 				{
 					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
@@ -797,7 +811,6 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 
 				string checker = equip;
 				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-				cout << checker << endl;
 				if (checker.find("block") != string::npos)
 				{
 					cII = cIM->GetItem(equip);
@@ -823,15 +836,21 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("Lives", "Image/Scene2D_Lives.tga", 3, 3);
 	cII->vec2Size = glm::vec2(25, 25);
 
+	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 10);
+	cII->vec2Size = glm::vec2(25, 25);
+
 	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 3, 3);
+	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 2);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
 	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("", "Image/blank.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 }
 
@@ -874,10 +893,58 @@ void CPlayer2D::selectKey()
 		select = 9;
 	}
 	equip = hotKeyInv[select - 1];
+	dmg = 1;
+	string checker = equip;
+	std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+	if (checker.find("wepon") != string::npos)
+	{
+		Wepon(checker);
+	}
+}
+void CPlayer2D::Wepon(string wepon)
+{
+	if (wepon.find("wooden") != string::npos)
+	{
+		dmg = 2;
+	}
+
+}
+
+void CPlayer2D::MouseAction()
+{
+	if (cMouseController->IsButtonDown(1))
+	{
+		
+		string checker = equip;
+		std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+
+		if (checker.find("food") != string::npos)
+		{	
+			cII = cIM->GetItem("Fuel");
+			if (cII->GetCount() < cII->GetMaxCount())
+			{
+
+				cII = cIM->GetItem(equip);
+				cII->Remove(1);
+				cII = cIM->GetItem("Fuel");
+				cII->Add(1);
+				hotKeyInvQuantity[select - 1]--;
+				if (hotKeyInvQuantity[select - 1] == 0)
+				{
+					hotKeyInv[select - 1] = "";
+					hotKeyInvID[select - 1] = 0;
+					equip = hotKeyInv[select - 1];
+				}
+
+			}
+		}
+
+	}
 }
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
+	cout << hotKeyInv.size() << endl;
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
@@ -894,7 +961,6 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 	{
 		if (hotKeyInv[i] == "")
 		{
-
 			hotKeyInv[i] = name;
 			hotKeyInvID[i] = num;
 			hotKeyInvQuantity[i]++;
@@ -905,6 +971,11 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 		}
 	}
 	
+}
+
+float CPlayer2D::getDmg()
+{
+	return dmg;
 }
 
 
@@ -1008,4 +1079,26 @@ bool CPlayer2D::getIframe()
 void CPlayer2D::SetIframe()
 {
 	iFrame = true;
+}
+
+void CPlayer2D::fuelTime()
+{
+	
+	cII = cIM->GetItem("Fuel");
+	
+
+	if (cII->GetCount() == 0)
+	{
+		setHealth(2);
+	}
+	else
+	{
+		cII->Remove(1);
+	}
+}
+
+void CPlayer2D::setHealth(int damage)
+{
+	cII = cIM->GetItem("Health");
+	cII->Remove(damage);
 }
