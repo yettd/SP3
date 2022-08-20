@@ -117,6 +117,7 @@ public:
 
 	float getDmg();
 	std::vector<CEntity2D*> pBullet;
+	int enemies_unalived = 0;
 
 protected:
 	int select = 5;

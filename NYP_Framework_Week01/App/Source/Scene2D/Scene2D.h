@@ -64,6 +64,7 @@ public:
 	float worldTime1=0;
 
 	float clock = 0;
+	int enemies_spawnned = 1;
 
 protected:
 	// Keyboard Controller singleton instance

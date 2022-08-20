@@ -94,8 +94,9 @@ protected:
 	enum FSM
 	{
 		IDLE = 0,
-		ATTACK1 = 1,
-		ATTACK2 = 2,
+		PULSE = 1,
+		ERUPT = 2,
+		SUMMON = 3,
 		NUM_FSM
 	};
 
