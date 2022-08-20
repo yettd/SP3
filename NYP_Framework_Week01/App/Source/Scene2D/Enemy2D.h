@@ -205,5 +205,7 @@ protected:
 	*/
 
 	float walktimer = 0.0f;
+
+	bool targetLocked = false;
 };
 

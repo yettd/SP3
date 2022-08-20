@@ -147,7 +147,7 @@ void bullet::Update(const double dElapsedTime)
 	work.y = vector2.y / mag;
 	//cout << vector2.x << endl;
 	i32vec2Direction = vector2;
-	cout << i32vec2Direction.x <<" : "<< i32vec2Direction.y << endl;
+	//cout << i32vec2Direction.x <<" : "<< i32vec2Direction.y << endl;
 	UpdatePosition();
 
 
