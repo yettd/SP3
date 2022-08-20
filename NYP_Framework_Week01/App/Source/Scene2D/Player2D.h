@@ -215,7 +215,7 @@ protected:
 	string equip="";
 	float dmg = 1;
 
-	float gunDmg = 1;
+	float gunDmg = 10;
 
 	void InventoryMan();
 

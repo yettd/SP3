@@ -221,6 +221,8 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
+	cout << vec2Index.x << ',' << vec2Index.y << endl;
+
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{

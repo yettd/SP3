@@ -37,6 +37,7 @@
 #include "GameManager.h"
 #include "Enemy2D.h"
 #include "bullet.h"
+#include "ghens.h"
 #include <vector>
 // Add your include files here
 
@@ -75,6 +76,8 @@ protected:
 
 	// Add your variables and methods here.
 	std::vector<CEntity2D*> enemyVector;
+	CEntity2D* boss;
+	ghens* G;
 
 
 	std::vector<CEnemy2D*> a;
@@ -92,6 +95,8 @@ protected:
 	CSoundController* CSC;
 
 	std::vector<bullet*> bulletVector;
+
+	bool spawnGhens = false;
 
 };
 

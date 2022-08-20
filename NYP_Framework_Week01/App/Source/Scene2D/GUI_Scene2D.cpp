@@ -440,7 +440,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 				if (timer <= 0)
 				{
 					ImGui::Begin(b, NULL, vv);
-					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * j) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * 0.09f * i+ cSettings->iWindowHeight * .3f));
+					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * j) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * 0.09f * i+ cSettings->iWindowHeight * .3f - offset));
 					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.f * relativeScale_y);
 					
