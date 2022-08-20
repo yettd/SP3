@@ -29,6 +29,8 @@ class CMap2D;
 // Include Player2D
 #include "Player2D.h"
 
+#include "bullet.h"
+
 class CEnemy2D : public CEntity2D
 {
 public:
@@ -81,6 +83,11 @@ public:
 	void SetHp(int i);
 
 	int rand_dir; //random direction Clifford moves
+
+	vector<bullet*> eBullet;
+
+
+	vector<bullet*> watchout;
 
 protected:
 	enum DIRECTION

@@ -77,6 +77,7 @@ public:
 	void SetEscape();
 	// boolean flag to indicate if this enemy is active
 	bool bIsActive;
+	bool player=false;
 
 	void SetHp(int i);
 

@@ -76,6 +76,7 @@ void CMouseController::UpdateMouseButtonReleased(const int _slot)
  */
 void CMouseController::UpdateMouseScroll(const double WheelOffset_X, const double WheelOffset_Y)
 {
+
 	this->WheelOffset_X += WheelOffset_X;
 	if (this->WheelOffset_X > 3.0)
 		this->WheelOffset_X = 3.0;
