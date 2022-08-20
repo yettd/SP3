@@ -230,12 +230,16 @@ bool CScene2D::Update(const double dElapsedTime)
 	cPlayer2D->pBullet.clear();
 	cPlayer2D->WatchOutBullet.clear();
 
-	for (size_t i = 0; i < G->eBullet.size(); i++)
+	if (boss)
 	{
-		bulletVector.push_back(G->eBullet[i]);
+
+		for (size_t i = 0; i < G->eBullet.size(); i++)
+		{
+			bulletVector.push_back(G->eBullet[i]);
+		}
+		G->eBullet.clear();
+		G->watchout.clear();
 	}
-	G->eBullet.clear();
-	G->watchout.clear();
 
 	for (size_t i = 0; i < enemyVector.size(); i++)
 	{
@@ -261,6 +265,11 @@ bool CScene2D::Update(const double dElapsedTime)
 				{
 					a[j]->watchout.push_back(bulletVector[i]);
 
+				}
+				if (boss)
+				{
+					G->watchout.push_back(bulletVector[i]);
+				
 				}
 			}
 		}

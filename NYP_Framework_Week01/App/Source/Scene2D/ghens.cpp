@@ -162,7 +162,7 @@ void ghens::Update(const double dElapsedTime)
 		{
 			//shoot
 
-			int shoottype = rand() % 3; // 0 for + direction | 1 for X direction | 2 for all directions
+			int shoottype = 0; // 0 for + direction | 1 for X direction | 2 for all directions
 
 			if (shoottype == 0) // +
 			{
@@ -331,7 +331,7 @@ void ghens::Update(const double dElapsedTime)
 
 	// Update Jump or Fall
 	UpdateJumpFall(dElapsedTime);
-
+	InteractWithPlayer();
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
@@ -752,8 +752,21 @@ bool ghens::InteractWithPlayer(void)
 		// Since the player has been caught, then reset the FSM
 		sCurrentFSM = IDLE;
 		iFSMCounter = 0;
-		return true;
 	}
+	for (size_t i = 0; i < watchout.size(); i++)
+	{
+		if (((vec2Index.x >= watchout[i]->vec2Index.x - .5) &&
+			(vec2Index.x <= watchout[i]->vec2Index.x + .5))
+			&&
+			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
+				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
+		{
+			//enemyHealth -= cPlayer2D->getGunDmg();
+			watchout[i]->bIsActive = false;
+		}
+
+	}
+
 	return false;
 }
 void ghens::ESCAPE(void)
