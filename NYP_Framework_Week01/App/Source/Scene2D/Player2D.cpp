@@ -192,6 +192,22 @@ void CPlayer2D::InteractWithMap(void)
 	default:
 		break;
 	}
+
+	for (size_t i = 0; i < WatchOutBullet.size(); i++)
+	{
+		if (((vec2Index.x >= WatchOutBullet[i]->vec2Index.x - 1) &&
+			(vec2Index.x <= WatchOutBullet[i]->vec2Index.x + 1))
+			&&
+			((vec2Index.y >= WatchOutBullet[i]->vec2Index.y - 1) &&
+				(vec2Index.y <= WatchOutBullet[i]->vec2Index.y + 1)))
+		{
+			setHealth(1);
+			WatchOutBullet[i]->bIsActive = false;
+		}
+
+	}
+
+
 }
 
 bool CPlayer2D::bInteractWithMap(int i)
@@ -205,9 +221,11 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
+	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(100, "gun", 1, 2);
+		addToinventory(100, "WoodenBlock", 1, 10);
+		addToinventory(100, "Food", 1, 10);
 
 	}
 	static float RespawnTimer = 5;
@@ -846,7 +864,7 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 2);
+	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
@@ -907,6 +925,10 @@ void CPlayer2D::selectKey()
 		Wepon(checker);
 	}
 }
+float CPlayer2D::getGunDmg()
+{
+	return gunDmg;
+}
 void CPlayer2D::Wepon(string wepon)
 {
 	if (wepon.find("wooden") != string::npos)
@@ -950,10 +972,12 @@ void CPlayer2D::MouseAction()
 		else if (checker.find("gun") != string::npos)
 		{
 			//shooting
+			shooting = true;
 			cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,372);
 			bullet* p = new bullet();
 			p->SetShader("Shader2D_Colour");
 			p->Init();
+			p->player = true;
 			p->des = mousePos;
 			pBullet.push_back(p);
 		}
@@ -967,7 +991,7 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
-		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]!=maxQuitity)
+		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]<maxQuitity)
 		{
 			cII = cIM->GetItem(name);
 			cII->Add(amt);

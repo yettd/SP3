@@ -31,7 +31,7 @@ CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL
  @brief Destructor
  */
 CScene2D::~CScene2D(void)
-{
+{ 
 	if (cKeyboardController)
 	{
 		// We won't delete this since it was created elsewhere
@@ -193,14 +193,34 @@ bool CScene2D::Update(const double dElapsedTime)
 	}
 	bulletVector.clear();
 	bulletVector=cPlayer2D->pBullet;
+	cPlayer2D->WatchOutBullet.clear();
 
-	for (size_t i = 0; i < a.size(); i++)
+	for (size_t i = 0; i < enemyVector.size(); i++)
 	{
-		//
-		/*for (size_t i = 0; i < length; i++)
+		a[i]->watchout.clear();
+		for (size_t j = 0; j < a[i]->eBullet.size(); j++)
 		{
-			bulletVector.push_back();
-		}*/
+			bulletVector.push_back(a[i]->eBullet[j]);
+		}
+	}
+
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		if (bulletVector[i]->bIsActive)
+		{
+			if (bulletVector[i]->player == false)
+			{
+				cPlayer2D->WatchOutBullet.push_back(bulletVector[i]);
+			}
+			else
+			{
+				for (size_t j = 0; j < a.size(); j++)
+				{
+					a[j]->watchout.push_back(bulletVector[i]);
+
+				}
+			}
+		}
 	}
 	
 	for (int i = 0; i < enemyVector.size(); i++)

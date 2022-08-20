@@ -91,7 +91,7 @@ protected:
 	CGameManager* cGameManager;
 	CSoundController* CSC;
 
-	std::vector<CEntity2D*> bulletVector;
+	std::vector<bullet*> bulletVector;
 
 };
 

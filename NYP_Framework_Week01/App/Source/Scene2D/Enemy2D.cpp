@@ -764,6 +764,21 @@ bool CEnemy2D::InteractWithPlayer(void)
 		iFSMCounter = 0;
 	}
 
+	for (size_t i = 0; i < watchout.size(); i++)
+	{
+		if (((vec2Index.x >= watchout[i]->vec2Index.x - .5) &&
+			(vec2Index.x <= watchout[i]->vec2Index.x + .5))
+			&&
+			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
+				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
+		{
+			enemyHealth -= cPlayer2D->getDmg();
+			watchout[i]->bIsActive = false;
+		}
+
+	}
+
+
 	//if enemy is Blues, deal dmg to player when in range :D
 	if (enemyType == 0)
 	{

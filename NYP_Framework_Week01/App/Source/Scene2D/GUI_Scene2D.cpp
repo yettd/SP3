@@ -44,6 +44,8 @@ CGUI_Scene2D::~CGUI_Scene2D(void)
 	cSettings = NULL;
 }
 
+
+
 /**
   @brief Initialise this instance
   */
@@ -300,17 +302,16 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	ostringstream ss;
 	
-	std::vector<string>PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
-	std::vector<int>PHKQ = CPlayer2D::GetInstance()->GetHotKeyQuitity();
-	std::vector<int> PHKID = CPlayer2D::GetInstance()->GetHotKeyid();
-	int PS = CPlayer2D::GetInstance()->GetSelect();
+	PHK = CPlayer2D::GetInstance()->GetHotKeyInv();
+	PHKQ = CPlayer2D::GetInstance()->GetHotKeyQuitity();
+	PHKID = CPlayer2D::GetInstance()->GetHotKeyid();
+	PS = CPlayer2D::GetInstance()->GetSelect();
 	static float timer = 0.0f;
 
 	if (CPlayer2D::GetInstance()->changed==true)
 	{
 		timer = 0.0001f;
 		CPlayer2D::GetInstance()->changed = false;
-		cout << timer  << endl;
 	}
 
 
@@ -319,10 +320,12 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	PHKID = CPlayer2D::GetInstance()->GetHotKeyid();
 	PS = CPlayer2D::GetInstance()->GetSelect();
 
+	static float offset;
 
 
 
-
+	
+	 
 
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.66f, 0.66f, 0.66f, 1.f));  // Set a background color
 	 ImGuiWindowFlags vv = ImGuiWindowFlags_AlwaysAutoResize |
@@ -331,8 +334,6 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
-
-
 
 	for (size_t i = 0; i <9; i++)
 	{
@@ -349,7 +350,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		if (timer <= 0)
 		{
 			ImGui::Begin(b, NULL, vv);
-			ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * i) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * .9f));
+			ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * i) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * .9f ));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			ImGui::SetWindowFontScale(1.f * relativeScale_y);
 	
@@ -395,6 +396,17 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	}
 	ImGui::PopStyleColor();
 
+	if (CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) > 0 || CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) < 0)
+	{
+		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET);
+		CMouseController::GetInstance()->UpdateMouseScroll(0, -CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET));
+		if (offset < 0)
+		{
+			offset = 0;
+		}
+
+	}
+
 
 	static bool openInv = false;
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
@@ -406,6 +418,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		else
 		{
 			openInv = true;
+			offset = 0;
+
 		}
 	}
 
@@ -473,6 +487,13 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGui::PopStyleColor();
 	}
 	
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_Z))
+	{
+		if (craftable(0))
+		{
+			craft(0);
+		}
+	}
 
 
 	timer-=dElapsedTime;
@@ -487,7 +508,65 @@ void CGUI_Scene2D::setClock(int i)
 {
 	Clock = i;
 }
+void CGUI_Scene2D::craft(int i)
+{
+	for (size_t j = 0; j < recipie[i].size(); j++)
+	{
+		int amtNeeded = recipie[i][j].second;
+		int invFinder = -1;
+		cout << "NEED " << amtNeeded << " FOR " << recipie[i][j].first << endl;
+		while (amtNeeded > 0)
+		{
+			invFinder++;
+			if (PHK[invFinder] == recipie[i][j].first)//name same
+			{
+				amtNeeded -= PHKQ[invFinder];
+				cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
+				cInventoryItem->Remove(PHKQ[invFinder]);
+				PHKQ[invFinder] -= PHKQ[invFinder];
 
+				if (amtNeeded < 0)
+				{
+					PHKQ[invFinder] -= amtNeeded;
+					cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
+					cInventoryItem->Add(-amtNeeded);
+					cout << "STILL HAVE " << cInventoryItem->GetCount() << endl;
+					break;
+				}
+				else
+				{
+
+					PHKQ[invFinder] = 0;
+					PHKID[invFinder] = 0;
+					PHK[invFinder] = "";
+					cout << "NEED MORE" << amtNeeded << " FOR " << recipie[i][j].first << endl;
+				}
+
+
+			}
+
+		
+
+		}
+	}
+	CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
+	CPlayer2D::GetInstance()->addToinventory(nameID[i].second, nameID[i].first,1,maxAmt[i]);
+}
+
+bool CGUI_Scene2D::craftable(int i)
+{
+	for (size_t j = 0; j < recipie[i].size(); j++)
+	{
+		cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
+		if (cInventoryItem->GetCount() < recipie[i][j].second)
+		{
+			cout << "not enough" << endl;
+			return false;
+		}
+	}
+
+	return true;
+}
 
 /**
  @brief Set up the OpenGL display environment before rendering
