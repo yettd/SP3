@@ -20,7 +20,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL)
+CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL), boss(NULL)
 {
 
 
@@ -50,6 +50,11 @@ CScene2D::~CScene2D(void)
 	{
 		cPlayer2D->Destroy();
 		cPlayer2D = NULL;
+	}
+	if (boss)
+	{
+		delete boss;
+		boss = NULL;
 	}
 	if (cGUI_Scene2D)
 	{
@@ -185,6 +190,28 @@ bool CScene2D::Update(const double dElapsedTime)
 		cGameManager->bPlayerLost = true;
 	}
 
+	if (cMap2D->GetCurrentLevel() == 0)
+	{
+		if (spawnGhens == false)
+		{
+			//spawn ghens
+			ghens* cE = new ghens();
+			cE->SetShader("Shader2D_Colour");
+			if (cE->Init())
+			{
+				cE->SetPlayer2D(cPlayer2D);
+				boss = cE;
+				G = cE;
+				/*enemyVector.push_back(cE);*/
+			}
+			spawnGhens = true;
+		}
+	}
+
+	if (boss)
+	{
+		boss->Update(dElapsedTime);
+	}
 
 	if (cGameManager->bPlayerLost)
 	{
@@ -202,6 +229,13 @@ bool CScene2D::Update(const double dElapsedTime)
 	}
 	cPlayer2D->pBullet.clear();
 	cPlayer2D->WatchOutBullet.clear();
+
+	for (size_t i = 0; i < G->eBullet.size(); i++)
+	{
+		bulletVector.push_back(G->eBullet[i]);
+	}
+	G->eBullet.clear();
+	G->watchout.clear();
 
 	for (size_t i = 0; i < enemyVector.size(); i++)
 	{
@@ -294,10 +328,12 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
+					//change back
 					int random_enemy_spawn = rand() % 2;
 					if (enemies_spawnned < 11)
 					{
-						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						/*int random_enemy_spawn = rand() % 4;*/ // 0 1 2 3
+						int random_enemy_spawn = 777;
 						if (random_enemy_spawn == 0)
 						{
 							cMap2D->SetMapInfo(asd.y, asd.x, 302);
@@ -315,8 +351,8 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else
 						{
-							cMap2D->SetMapInfo(asd.y, asd.x, 301);
-							enemies_spawnned++;
+							/*cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;*/
 						}
 					}
 					while (true)
@@ -379,6 +415,15 @@ void CScene2D::Render(void)
 	cPlayer2D->Render();
 
 	cPlayer2D->PostRender();
+
+	if (boss)
+	{
+		boss->PreRender();
+
+		boss->Render();
+
+		boss->PostRender();
+	}
 
 
 	for (int i = 0; i < enemyVector.size(); i++)

@@ -29,6 +29,8 @@ class CMap2D;
 // Include Player2D
 #include "Player2D.h"
 
+#include "bullet.h"
+
 class ghens : public CEntity2D
 {
 public:
@@ -80,6 +82,13 @@ public:
 	bool bIsActive;
 
 	void SetHp(int i);
+
+	vector<bullet*> eBullet;
+
+
+	vector<bullet*> watchout;
+
+	int shotsfired = 0;
 
 protected:
 	enum DIRECTION
@@ -139,6 +148,8 @@ protected:
 	CPlayer2D* cPlayer2D;
 
 	glm::vec2 escapeDestination;
+
+	
 
 
 	// Current FSM
