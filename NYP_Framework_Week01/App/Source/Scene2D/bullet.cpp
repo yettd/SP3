@@ -137,9 +137,7 @@ void bullet::Update(const double dElapsedTime)
 		return;
 
 	glm::vec2 vector2;
-
-	des.x = floor(des.x);
-	des.y = floor(des.y);
+	
 
 	vector2.x = (des.x - startPos.x)*4;
 	vector2.y = (des.y - startPos.y)*4;
@@ -256,7 +254,7 @@ void bullet::Seti32vec2NumMicroSteps(const int iNumMicroSteps_XAxis, const int i
 
 void bullet::SetHp(int i)
 {
-	hp -= i;
+
 }
 
 
@@ -275,14 +273,14 @@ void bullet::Constraint(DIRECTION eDirection)
 	}
 	else if (eDirection == RIGHT)
 	{
-		if (vec2Index.x >= (int)cSettings->NUM_TILES_XAXIS - 1)
+		if (vec2Index.x >= (int)cSettings->NUM_TILES_XAXIS)
 		{
 			bIsActive = false;
 		}
 	}
 	else if (eDirection == UP)
 	{
-		if (vec2Index.y >= (int)cSettings->NUM_TILES_YAXIS - 1)
+		if (vec2Index.y >= (int)cSettings->NUM_TILES_YAXIS)
 		{
 			bIsActive = false;
 		}
@@ -318,7 +316,7 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			}
 		}
 		// If the new position is between 2 rows, then check both rows as well
-		else if (i32vec2NumMicroSteps.y != 0)
+		else if (i32vec2NumMicroSteps.y != 0 && vec2Index.y< cSettings->NUM_TILES_YAXIS-1)
 		{
 			// If the 2 grids are not accessible, then return false
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100) ||
@@ -333,7 +331,7 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 		// If the new position is at the top row, then return true
 		if (vec2Index.x >= cSettings->NUM_TILES_XAXIS - 1)
 		{
-			i32vec2NumMicroSteps.x = 0;
+			
 			return true;
 		}
 
@@ -347,7 +345,7 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			}
 		}
 		// If the new position is between 2 rows, then check both rows as well
-		else if (i32vec2NumMicroSteps.y != 0)
+		else if (i32vec2NumMicroSteps.y != 0 && vec2Index.y < cSettings->NUM_TILES_YAXIS-1)
 		{
 			// If the 2 grids are not accessible, then return false
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100) ||
@@ -363,7 +361,7 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 		// If the new position is at the top row, then return true
 		if (vec2Index.y >= cSettings->NUM_TILES_YAXIS - 1)
 		{
-			i32vec2NumMicroSteps.y = 0;
+			
 			return true;
 		}
 
@@ -532,8 +530,8 @@ void bullet::UpdatePosition(void)
 		}
 
 		// Constraint the enemy2D's position within the screen boundary
-		Constraint(UP);
 
+		Constraint(UP);
 		// Find a feasible position for the enemy2D's current position
 		if (CheckPosition(UP) == false)
 		{

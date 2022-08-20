@@ -371,6 +371,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 						PHKID[i] = PHKID[PS];
 						PHK[PS] = tempname;
 						PHKQ[PS] = tempQuant;
+						PHKID[PS] = tempid;
 						CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
 
 					}
@@ -447,6 +448,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 								PHKID[startingpoint] = PHKID[PS];
 								PHK[PS] = tempname;
 								PHKQ[PS] = tempQuant;
+								PHKID[PS] = tempid;
 								CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
 
 							}

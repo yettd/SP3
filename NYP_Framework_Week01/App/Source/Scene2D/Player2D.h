@@ -118,7 +118,7 @@ public:
 	float getDmg();
 	std::vector<CEntity2D*> pBullet;
 	int enemies_unalived = 0;
-
+	void selectKey();
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -210,7 +210,7 @@ protected:
 	string equip="";
 	float dmg = 1;
 	void InventoryMan();
-	void selectKey();
+
 
 	void Wepon(string e);
 

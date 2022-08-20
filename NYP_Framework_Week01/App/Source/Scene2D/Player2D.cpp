@@ -782,53 +782,55 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
 	glm::vec2 mousePos(posX, posY);
 	
-	if (cPhysics2D.CalculateDistance(vec2Index, mousePos)<=3)
-	{
-		switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
-		{
-		case 100:
-			if (cMouseController->IsButtonDown(0))
-			{
-				breakTimer+=dt;
-				if (breakTimer >=2 )
-				{
-					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
-					addToinventory(100,"WoodenBlock",1,10);
-					breakTimer=0;
-				}
-			}
-		
-		default:
-			break;
-		}
-	}
-
-	if (cMouseController->IsButtonDown(1))
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
-			if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
-
-				string checker = equip;
-				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-				if (checker.find("block") != string::npos)
+			case 100:
+				if (cMouseController->IsButtonDown(0))
 				{
-					cII = cIM->GetItem(equip);
-					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
-					cII->Remove(1);
-					hotKeyInvQuantity[select - 1]--;
-					if (hotKeyInvQuantity[select-1] == 0)
+					breakTimer += dt;
+					if (breakTimer >= 2)
 					{
-						hotKeyInv[select - 1] = "";
-						hotKeyInvID[select - 1] = 0;
-						equip = hotKeyInv[select - 1];
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(100, "WoodenBlock", 1, 10);
+						breakTimer = 0;
+					}
+				}
+
+			default:
+				break;
+			}
+		}
+
+		if (cMouseController->IsButtonDown(1))
+		{
+			if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
+			{
+				if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+				{
+
+					string checker = equip;
+					std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+					if (checker.find("block") != string::npos)
+					{
+						cII = cIM->GetItem(equip);
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
+						cII->Remove(1);
+						hotKeyInvQuantity[select - 1]--;
+						if (hotKeyInvQuantity[select - 1] == 0)
+						{
+							hotKeyInv[select - 1] = "";
+							hotKeyInvID[select - 1] = 0;
+							equip = hotKeyInv[select - 1];
+						}
 					}
 				}
 			}
 		}
 	}
-	
 }
 
 void CPlayer2D::InventoryMan()

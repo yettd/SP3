@@ -351,7 +351,7 @@ void CScene2D::Render(void)
 
 	cPlayer2D->PostRender();
 
-	cGUI_Scene2D->Render();
+
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->PreRender();
@@ -370,7 +370,7 @@ void CScene2D::Render(void)
 
 		bulletVector[i]->PostRender();
 	}
-
+	cGUI_Scene2D->Render();//render last alll the time
 }
 
 /**
