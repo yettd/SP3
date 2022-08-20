@@ -105,7 +105,9 @@ void CPlayGameState::Render(void)
 	// Call the cScene2D's Render method
 	
 
+	CShaderManager::GetInstance()->Use("Shader2D");
 	background->Render();
+
 	cScene2D->Render();
 
 	// Call the cScene2D's PostRender method

@@ -50,5 +50,6 @@ protected:
 	CBackgroundEntity* background;
 	ButtonData startButtonData;
 	ButtonData play3DButtonData;
+	ButtonData text;
 	ButtonData exitButtonData;
 };

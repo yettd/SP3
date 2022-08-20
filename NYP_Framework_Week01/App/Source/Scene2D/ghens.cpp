@@ -154,17 +154,22 @@ void ghens::Update(const double dElapsedTime)
 		}
 		iFSMCounter++;
 		break;
-	case ATTACK1:
+	case PULSE:
 	{
 
 	}
 		break;
-	case ATTACK2:
+	case ERUPT:
 		{
 		
 		}
 		
 		break;
+	case SUMMON:
+	{
+
+	}
+	break;
 	default:
 		break;
 	}

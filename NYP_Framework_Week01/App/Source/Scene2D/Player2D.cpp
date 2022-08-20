@@ -207,7 +207,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 {
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(100, "WoodenBlock", 1, 2);
+		addToinventory(100, "gun", 1, 2);
 
 	}
 	static float RespawnTimer = 5;
@@ -392,6 +392,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
+
 }
 
 /**
@@ -852,6 +853,9 @@ void CPlayer2D::InventoryMan()
 
 	cII = cIM->Add("", "Image/blank.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("gun", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
 }
 
 void CPlayer2D::selectKey()
@@ -912,6 +916,9 @@ void CPlayer2D::Wepon(string wepon)
 
 void CPlayer2D::MouseAction()
 {
+	float posX = cMouseController->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
 	if (cMouseController->IsButtonDown(1))
 	{
 		
@@ -937,6 +944,16 @@ void CPlayer2D::MouseAction()
 				}
 
 			}
+		}
+		else if (checker.find("gun") != string::npos)
+		{
+			//shooting
+			cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,372);
+			bullet* p = new bullet();
+			p->SetShader("Shader2D_Colour");
+			p->Init();
+			p->des = mousePos;
+			pBullet.push_back(p);
 		}
 
 	}

@@ -80,7 +80,7 @@ public:
 
 	void SetHp(int i);
 
-	int rand_dir;
+	int rand_dir; //random direction Clifford moves
 
 protected:
 	enum DIRECTION
@@ -187,5 +187,16 @@ protected:
 
 	int enemyHealth = 100;
 	bool isBlues = true;
+	bool cowplscome;
+
+	int enemyType = 0;
+	/*
+	0 for Blues
+	1 for Clifford
+	2 for Mechanical Cow
+	3 for Iron Unicorn
+	*/
+
+	float walktimer = 0.0f;
 };
 
