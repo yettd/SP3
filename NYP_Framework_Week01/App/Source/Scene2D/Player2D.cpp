@@ -192,6 +192,22 @@ void CPlayer2D::InteractWithMap(void)
 	default:
 		break;
 	}
+
+	for (size_t i = 0; i < WatchOutBullet.size(); i++)
+	{
+		if (((vec2Index.x >= WatchOutBullet[i]->vec2Index.x - 1) &&
+			(vec2Index.x <= WatchOutBullet[i]->vec2Index.x + 1))
+			&&
+			((vec2Index.y >= WatchOutBullet[i]->vec2Index.y - 1) &&
+				(vec2Index.y <= WatchOutBullet[i]->vec2Index.y + 1)))
+		{
+			setHealth(1);
+			WatchOutBullet[i]->bIsActive = false;
+		}
+
+	}
+
+
 }
 
 bool CPlayer2D::bInteractWithMap(int i)
@@ -205,9 +221,11 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
+	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(100, "WoodenBlock", 1, 2);
+		addToinventory(100, "WoodenBlock", 1, 10);
+		addToinventory(100, "Food", 1, 10);
 
 	}
 	static float RespawnTimer = 5;
@@ -376,7 +394,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		if (healthTime >= 2) // set timing for how fast u want the health to increase
 		{
 			cII = cIM->GetItem("Health");
-			cII->Add(20);
+			cII->Add(2);
 			healthTime = 0;
 		}
 	}
@@ -392,6 +410,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
+
 }
 
 /**
@@ -781,53 +800,55 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
 	glm::vec2 mousePos(posX, posY);
 	
-	if (cPhysics2D.CalculateDistance(vec2Index, mousePos)<=3)
-	{
-		switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
-		{
-		case 100:
-			if (cMouseController->IsButtonDown(0))
-			{
-				breakTimer+=dt;
-				if (breakTimer >=2 )
-				{
-					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
-					addToinventory(100,"WoodenBlock",1,10);
-					breakTimer=0;
-				}
-			}
-		
-		default:
-			break;
-		}
-	}
-
-	if (cMouseController->IsButtonDown(1))
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
-			if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
-
-				string checker = equip;
-				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-				if (checker.find("block") != string::npos)
+			case 100:
+				if (cMouseController->IsButtonDown(0))
 				{
-					cII = cIM->GetItem(equip);
-					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
-					cII->Remove(1);
-					hotKeyInvQuantity[select - 1]--;
-					if (hotKeyInvQuantity[select-1] == 0)
+					breakTimer += dt;
+					if (breakTimer >= 2)
 					{
-						hotKeyInv[select - 1] = "";
-						hotKeyInvID[select - 1] = 0;
-						equip = hotKeyInv[select - 1];
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(100, "WoodenBlock", 1, 10);
+						breakTimer = 0;
+					}
+				}
+
+			default:
+				break;
+			}
+		}
+
+		if (cMouseController->IsButtonDown(1))
+		{
+			if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
+			{
+				if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+				{
+
+					string checker = equip;
+					std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+					if (checker.find("block") != string::npos)
+					{
+						cII = cIM->GetItem(equip);
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
+						cII->Remove(1);
+						hotKeyInvQuantity[select - 1]--;
+						if (hotKeyInvQuantity[select - 1] == 0)
+						{
+							hotKeyInv[select - 1] = "";
+							hotKeyInvID[select - 1] = 0;
+							equip = hotKeyInv[select - 1];
+						}
 					}
 				}
 			}
 		}
 	}
-	
 }
 
 void CPlayer2D::InventoryMan()
@@ -843,7 +864,7 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 2);
+	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
@@ -851,6 +872,9 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 	cII = cIM->Add("", "Image/blank.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("gun", "Image/door.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 }
 
@@ -901,6 +925,10 @@ void CPlayer2D::selectKey()
 		Wepon(checker);
 	}
 }
+float CPlayer2D::getGunDmg()
+{
+	return gunDmg;
+}
 void CPlayer2D::Wepon(string wepon)
 {
 	if (wepon.find("wooden") != string::npos)
@@ -912,6 +940,9 @@ void CPlayer2D::Wepon(string wepon)
 
 void CPlayer2D::MouseAction()
 {
+	float posX = cMouseController->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
 	if (cMouseController->IsButtonDown(1))
 	{
 		
@@ -938,6 +969,18 @@ void CPlayer2D::MouseAction()
 
 			}
 		}
+		else if (checker.find("gun") != string::npos)
+		{
+			//shooting
+			shooting = true;
+			cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,372);
+			bullet* p = new bullet();
+			p->SetShader("Shader2D_Colour");
+			p->Init();
+			p->player = true;
+			p->des = mousePos;
+			pBullet.push_back(p);
+		}
 
 	}
 }
@@ -948,7 +991,7 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 	//check For existence
 	for (size_t i = 0; i < hotKeyInv.size(); i++)
 	{
-		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]!=maxQuitity)
+		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]<maxQuitity)
 		{
 			cII = cIM->GetItem(name);
 			cII->Add(amt);

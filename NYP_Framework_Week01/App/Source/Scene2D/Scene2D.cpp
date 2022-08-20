@@ -20,7 +20,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL)
+CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL)
 {
 
 
@@ -31,7 +31,7 @@ CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL
  @brief Destructor
  */
 CScene2D::~CScene2D(void)
-{
+{ 
 	if (cKeyboardController)
 	{
 		// We won't delete this since it was created elsewhere
@@ -68,12 +68,18 @@ CScene2D::~CScene2D(void)
 		CSC->Destroy();
 		CSC = NULL;
 	}
+
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		delete enemyVector[i];
 		enemyVector[i] = NULL;	
 	}
-	
+	for (int i = 0; i < bulletVector.size(); i++)
+	{
+		delete bulletVector[i];
+		bulletVector[i] = NULL;
+	}
+	bulletVector.clear();
 	enemyVector.clear();
 }
 
@@ -134,6 +140,7 @@ bool CScene2D::Init(void)
 	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
 
 	enemyVector.clear();
+	bulletVector.clear();
 	while (true)
 	{
 		CEnemy2D* cE = new CEnemy2D();
@@ -181,8 +188,6 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (cGameManager->bPlayerLost)
 	{
-		
-
 		CGameStateManager::GetInstance()->SetActiveGameState("END");
 		cPlayer2D->Reset();
 		CSC->PlaySoundByID(2);
@@ -191,12 +196,50 @@ bool CScene2D::Update(const double dElapsedTime)
 		return false;
 	}
 
+	for (size_t i = 0; i < cPlayer2D->pBullet.size(); i++)
+	{
+		bulletVector.push_back(cPlayer2D->pBullet[i]);
+	}
+	cPlayer2D->pBullet.clear();
+	cPlayer2D->WatchOutBullet.clear();
+
+	for (size_t i = 0; i < enemyVector.size(); i++)
+	{
+		a[i]->watchout.clear();
+		for (size_t j = 0; j < a[i]->eBullet.size(); j++)
+		{
+			bulletVector.push_back(a[i]->eBullet[j]);
+			a[i]->eBullet.clear();
+		}
+	}
+
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		if (bulletVector[i]->bIsActive)
+		{
+			if (bulletVector[i]->player == false)
+			{
+				cPlayer2D->WatchOutBullet.push_back(bulletVector[i]);
+			}
+			else
+			{
+				for (size_t j = 0; j < a.size(); j++)
+				{
+					a[j]->watchout.push_back(bulletVector[i]);
+
+				}
+			}
+		}
+	}
 	
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->Update(dElapsedTime);
 	}
-	
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		bulletVector[i]->Update(dElapsedTime);
+	}
 
 
 	//	//spawn Enemy
@@ -251,6 +294,7 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
+					int random_enemy_spawn = rand() % 2;
 					if (enemies_spawnned < 11)
 					{
 						int random_enemy_spawn = rand() % 4; // 0 1 2 3
@@ -336,7 +380,6 @@ void CScene2D::Render(void)
 
 	cPlayer2D->PostRender();
 
-	cGUI_Scene2D->Render();
 
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
@@ -347,6 +390,16 @@ void CScene2D::Render(void)
 		enemyVector[i]->PostRender();
 	}
 
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+
+		bulletVector[i]->PreRender();
+
+		bulletVector[i]->Render();
+
+		bulletVector[i]->PostRender();
+	}
+	cGUI_Scene2D->Render();//render last alll the time
 }
 
 /**

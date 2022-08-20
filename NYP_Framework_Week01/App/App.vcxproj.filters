@@ -83,6 +83,9 @@
     <ClCompile Include="Source\Scene2D\ghens.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene2D\bullet.cpp">
+      <Filter>Scene2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -146,6 +149,9 @@
       <Filter>GameStateManager</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene2D\ghens.h">
+      <Filter>Scene2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene2D\bullet.h">
       <Filter>Scene2D</Filter>
     </ClInclude>
   </ItemGroup>

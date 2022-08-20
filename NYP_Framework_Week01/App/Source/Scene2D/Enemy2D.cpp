@@ -189,6 +189,8 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
+	cout << enemyHealth << endl;
+
 	if (enemyHealth <= 0)
 	{
 		if (enemyType < 3)
@@ -265,10 +267,18 @@ void CEnemy2D::Update(const double dElapsedTime)
 		{
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
-			glm::vec2 rundes;
+			glm::vec2 rundes; //run destination
 			rundes.x = cPlayer2D->vec2Index.x;
 			rundes.y = vec2Index.y;
 			ShortCutPath(rundes);
+			if (vec2Index.x == cPlayer2D->vec2Index.x)
+			{
+				targetLocked = true;
+			}
+			else
+			{
+				targetLocked = false;
+			}
 			UpdatePosition();
 		}
 		iFSMCounter++;
@@ -278,10 +288,18 @@ void CEnemy2D::Update(const double dElapsedTime)
 		{
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
-			glm::vec2 rundes;
+			glm::vec2 rundes; //run destination
 			rundes.y = cPlayer2D->vec2Index.y;
 			rundes.x = vec2Index.x;
 			ShortCutPath(rundes);
+			if (vec2Index.y == cPlayer2D->vec2Index.y)
+			{
+				targetLocked = true;
+			}
+			else
+			{
+				targetLocked = false;
+			}
 			UpdatePosition();
 		}
 		iFSMCounter++;
@@ -750,7 +768,7 @@ bool CEnemy2D::InteractWithPlayer(void)
 {
 	glm::i32vec2 i32vec2PlayerPos = cPlayer2D->vec2Index;
 
-	// Check if the enemy2D is within 1.5 indices of the player2D
+	// Check if the enemy2D is within 6.5 indices of the player2D
 	if (((vec2Index.x >= i32vec2PlayerPos.x - 6.5) &&
 		(vec2Index.x <= i32vec2PlayerPos.x + 6.5))
 		&&
@@ -763,6 +781,21 @@ bool CEnemy2D::InteractWithPlayer(void)
 		// Since the player has been caught, then reset the FSM
 		iFSMCounter = 0;
 	}
+
+	for (size_t i = 0; i < watchout.size(); i++)
+	{
+		if (((vec2Index.x >= watchout[i]->vec2Index.x - .5) &&
+			(vec2Index.x <= watchout[i]->vec2Index.x + .5))
+			&&
+			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
+				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
+		{
+			enemyHealth -= cPlayer2D->getGunDmg();
+			watchout[i]->bIsActive = false;
+		}
+
+	}
+
 
 	//if enemy is Blues, deal dmg to player when in range :D
 	if (enemyType == 0)
@@ -779,6 +812,16 @@ bool CEnemy2D::InteractWithPlayer(void)
 				cPlayer2D->setHealth(10);
 			}
 		}
+	}
+
+	if (targetLocked == true)
+	{
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+		bullet* p = new bullet();
+		p->SetShader("Shader2D_Colour");
+		p->Init();
+		p->des = cPlayer2D->vec2Index;
+		eBullet.push_back(p);
 	}
 
 	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)

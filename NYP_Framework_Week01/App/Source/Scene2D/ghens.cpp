@@ -154,26 +154,28 @@ void ghens::Update(const double dElapsedTime)
 		}
 		iFSMCounter++;
 		break;
-
-	case PULSE: //8 directional shooting
+	case PULSE:
 	{
-
-	}
-		break;
-
-	case ERUPT: //eruptions
+		pulsetimer += dElapsedTime;
+		if (pulsetimer >= 2)
 		{
-		
+			//shoot
+			cout << "uerhgvbej" << endl;
+			pulsetimer = 0.f;
 		}
-		
+	}
 		break;
+	case ERUPT:
+	{
+		
 
-	case SUMMON: //summon undeads
+	}
+		break;
+	case SUMMON:
 	{
 
 	}
-
-		break;
+	break;
 	default:
 		break;
 	}

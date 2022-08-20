@@ -39,6 +39,9 @@ class CMap2D;
 #include "../SoundController/SoundController.h"
 
 #include "Physics2D.h"
+#include "bullet.h"
+
+
 
 
 class CPlayer2D : public CSingletonTemplate<CPlayer2D>, public CEntity2D
@@ -113,9 +116,14 @@ public:
 	float healthTime = 0;//this is the counter for how long until health increase
 
 	float getDmg();
+	std::vector<bullet*> pBullet;
 
+
+	std::vector<bullet*> WatchOutBullet;
 	int enemies_unalived = 0;
-
+	void selectKey();
+	float getGunDmg();
+	bool shooting;
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -191,23 +199,26 @@ protected:
 
 	double dt;
 
-	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",
-									"Food","","","Food","","","","","",
-									"Food","","Food","","","","","","" };
+	std::vector<string> hotKeyInv = {"","","","","","","","","",
+									"","","","","","","","","",
+									"","","","","","","","","" };
 
 	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0,
 									 0,0,0,0,0,0,0,0,0,
 									 0,0,0,0,0,0,0,0,0 };
 
-	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 ,
-											99,0,0,1,0,0,0,0,0,
-											99,0,1,0,0,0,0,0,0 };
+	std::vector<int> hotKeyInvQuantity = {  0,0,0,10,0,0,0,0,0,
+											0,0,0,0,0,0,0,0,0,
+											0,0,0,0,0,0,0,0,0 };
 
 
 	string equip="";
 	float dmg = 1;
+
+	float gunDmg = 10;
+
 	void InventoryMan();
-	void selectKey();
+
 
 	void Wepon(string e);
 

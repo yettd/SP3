@@ -64,7 +64,7 @@ bool CMenuState::Init(void)
 	//CShaderManager::GetInstance()->activeShader->setInt("texture1", 0);
 
 	//Create Background Entity
-	background = new CBackgroundEntity("Image/unknown.png");
+	background = new CBackgroundEntity("Image/MenuBackground.png");
 	background->SetShader("Shader2D");
 	background->Init();
 
@@ -86,6 +86,9 @@ bool CMenuState::Init(void)
 	CImageLoader* il = CImageLoader::GetInstance();
 	startButtonData.fileName = "Image\\GUI\\PlayButton.png";
 	startButtonData.textureID = il->LoadTextureGetID(startButtonData.fileName.c_str(), false);
+
+	text.fileName = "Image\\GUI\\Title.png";
+	text.textureID = il->LoadTextureGetID(text.fileName.c_str(), false);
 
 	exitButtonData.fileName = "Image\\GUI\\ExitButton.png";
 	exitButtonData.textureID = il->LoadTextureGetID(exitButtonData.fileName.c_str(), false);
@@ -116,8 +119,10 @@ bool CMenuState::Update(const double dElapsedTime)
 	window_flags |= ImGuiWindowFlags_NoCollapse;
 	window_flags |= ImGuiWindowFlags_NoNav;
 
-	float buttonWidth = 256;
-	float buttonHeight = 128;
+	float titleWidth = 560;
+	float titleHeight = 91;
+	float buttonWidth = 200;
+	float buttonHeight = 50;
 
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 	{
@@ -132,8 +137,11 @@ bool CMenuState::Update(const double dElapsedTime)
 
 		//Added rounding for nicer effect
 		ImGuiStyle& style = ImGui::GetStyle();
-		style.FrameRounding = 200.0f;
+		style.FrameRounding = 200.0f;	
+		ImGui::ImageButton((ImTextureID)text.textureID,
+			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 		
+
 		// Add codes for Start button here
 		if (ImGui::ImageButton((ImTextureID)startButtonData.textureID, 
 			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))

@@ -181,5 +181,7 @@ protected:
 
 	float hp=11;
 	float speed=1;
+
+	float pulsetimer = 0.f;
 };
 
