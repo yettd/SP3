@@ -114,7 +114,7 @@ protected:
 	int PS;
 //crafting stuff
 	//name and ID of iteam that can craft
-	vector<std::pair<string, int>> nameID = { {"gun",2} };
+	vector<std::pair<string, int>> nameID = { {"gun",2}};
 
 	vector<int> maxAmt = { 1 };
 

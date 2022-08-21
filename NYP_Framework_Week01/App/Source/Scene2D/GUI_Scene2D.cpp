@@ -490,6 +490,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	static float distanceGap = 0;
 	if (openInv)
 	{
+
+		distanceGap = 0;
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.f, 0.f, 0.f, 1.f));  // Set a background color
 		for (size_t i = 0; i <nameID.size() ; i++)
 		{
@@ -505,10 +507,10 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 				if (timer <= 0)
 				{
 					ImGui::Begin(b, NULL, vv);
-					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.0f), cSettings->iWindowHeight * 0.09f * i + cSettings->iWindowHeight * .3f  + distanceGap*i));
+					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.0f), cSettings->iWindowHeight * 0.09f * i + cSettings->iWindowHeight * .3f  + distanceGap-offset));
 					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.f * relativeScale_y);
-					distanceGap = 0;
+					distanceGap += 25.0f * relativeScale_y;
 					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
 					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);
 
