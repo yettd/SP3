@@ -509,7 +509,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 					ImGui::Begin(b, NULL, vv);
 					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.0f), cSettings->iWindowHeight * 0.09f * i + cSettings->iWindowHeight * .3f  + distanceGap-offset));
 					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-					ImGui::SetWindowFontScale(1.f * relativeScale_y);
+					ImGui::SetWindowFontScale(1.1f * relativeScale_y);
 					distanceGap += 25.0f * relativeScale_y;
 					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
 					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);

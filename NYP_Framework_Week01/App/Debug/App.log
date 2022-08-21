@@ -7,5 +7,4 @@ C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.
 C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(519,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(518,59): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\App\Source\Scene2D\GUI_Scene2D.cpp(569,21): warning C4244: '-=': conversion from 'const double' to 'float', possible loss of data
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   App.vcxproj -> C:\NYP school\Year2Sem1\SP3\NYP_Framework_Week01\Debug\App.exe
