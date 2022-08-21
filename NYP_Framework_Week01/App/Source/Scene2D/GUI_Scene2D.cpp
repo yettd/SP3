@@ -440,7 +440,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 				if (timer <= 0)
 				{
 					ImGui::Begin(b, NULL, vv);
-					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * j) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * 0.09f * i+ cSettings->iWindowHeight * .3f - offset));
+					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.05f * j) + (cSettings->iWindowWidth * 0.3f), cSettings->iWindowHeight * 0.09f * i+ cSettings->iWindowHeight * .3f));
 					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.f * relativeScale_y);
 					
@@ -486,6 +486,74 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		}
 		ImGui::PopStyleColor();
 	}
+	//crafting UI
+	static float distanceGap = 0;
+	if (openInv)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.f, 0.f, 0.f, 1.f));  // Set a background color
+		for (size_t i = 0; i <nameID.size() ; i++)
+		{
+			if (craftable(i))
+			{
+				ImGui::PopStyleColor();
+
+				ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.f, 1.f, 0.f, 1.f));  // Set a background color
+			}
+				ss << i;
+				string a = ss.str();
+				const char* b = a.c_str();
+				if (timer <= 0)
+				{
+					ImGui::Begin(b, NULL, vv);
+					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.0f), cSettings->iWindowHeight * 0.09f * i + cSettings->iWindowHeight * .3f  + distanceGap*i));
+					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+					ImGui::SetWindowFontScale(1.f * relativeScale_y);
+					distanceGap = 0;
+					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
+					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);
+
+					if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
+						ImVec2(cInventoryItem->vec2Size.x * relativeScale_x * 0.80,
+							cInventoryItem->vec2Size.y * relativeScale_y * 0.80),
+						ImVec2(0, 1), ImVec2(1, 0)))
+					{
+						if (craftable(i))
+						{
+							craft(i);
+						}
+					}
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4(1, 1, 1, 1), ": ");
+					for (size_t j = 0; j < recipie[i].size(); j++)
+					{
+						if (j % 2 != 0 || j==0)
+						{
+							ImGui::SameLine();
+
+						}
+						else
+						{
+							distanceGap += 25.0f * relativeScale_y;
+						}
+						cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
+						ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+							ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
+								cInventoryItem->vec2Size.y * relativeScale_y),
+							ImVec2(0, 1), ImVec2(1, 0));
+						ImGui::SameLine();
+						ImGui::TextColored(ImVec4(1, 1, 1, 1), "x %d",recipie[i][j].second);
+						
+					}
+
+					ImGui::End();
+				}
+				ImGui::PopStyleColor();
+				ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.f, 0.f, 0.f, 1.f));  // Set a background color
+
+		}
+		ImGui::PopStyleColor();
+	}
+
 	
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_Z))
 	{
