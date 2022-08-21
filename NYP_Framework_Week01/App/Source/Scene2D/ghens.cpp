@@ -162,7 +162,7 @@ void ghens::Update(const double dElapsedTime)
 		{
 			//shoot
 
-			int shoottype = 0; // 0 for + direction | 1 for X direction | 2 for all directions
+			int shoottype = rand()%3; // 0 for + direction | 1 for X direction | 2 for all directions
 
 			if (shoottype == 0) // +
 			{
