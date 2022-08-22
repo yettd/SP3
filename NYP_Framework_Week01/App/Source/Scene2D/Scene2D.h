@@ -38,6 +38,8 @@
 #include "Enemy2D.h"
 #include "bullet.h"
 #include "ghens.h"
+
+#include "PickUP.h"
 #include <vector>
 // Add your include files here
 
@@ -76,9 +78,9 @@ protected:
 
 	// Add your variables and methods here.
 	std::vector<CEntity2D*> enemyVector;
+	std::vector<CEntity2D*> Pick;
 	CEntity2D* boss;
 	ghens* G;
-
 
 	std::vector<CEnemy2D*> a;
 
