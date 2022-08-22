@@ -147,7 +147,7 @@ void ghens::Update(const double dElapsedTime)
 		{
 			iFSMCounter = 0;
 			//cout << "Switching to Patrol State" << endl;
-			sCurrentFSM = PULSE;
+			sCurrentFSM = ERUPT;
 		}
 		if (hp <= 10)
 		{
@@ -162,7 +162,7 @@ void ghens::Update(const double dElapsedTime)
 		{
 			//shoot
 
-			int shoottype = rand()%3; // 0 for + direction | 1 for X direction | 2 for all directions
+			int shoottype = 0; // 0 for + direction | 1 for X direction | 2 for all directions
 
 			if (shoottype == 0) // +
 			{
@@ -316,7 +316,45 @@ void ghens::Update(const double dElapsedTime)
 		break;
 	case ERUPT:
 	{
-		
+		glm::vec2 rand_erupt_tile;
+		if (eruptcount < 1)
+		{
+			rand_erupt_tile.x = rand() % 32;
+			rand_erupt_tile.y = rand() % 24;
+			if
+				(
+					/*cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1) != 200 &&
+					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1) != 200*/
+					true
+					)
+			{
+				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 301);
+				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 301);
+				eruptcount++;
+			}
+			else
+			{
+
+			}
+		}
+		else
+		{
+			sCurrentFSM = IDLE;
+		}
 
 	}
 		break;
@@ -325,6 +363,7 @@ void ghens::Update(const double dElapsedTime)
 
 	}
 	break;
+
 	default:
 		break;
 	}
