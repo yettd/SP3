@@ -92,6 +92,18 @@ public:
 
 	int eruptcount = 0;
 
+	bool corpse_arise = false;
+
+	bool teleported = false;
+
+	float tptime = 0.f;
+
+	bool summonDone = false;
+
+	int summoned = 0;
+
+	int random_move = -1;
+
 protected:
 	enum DIRECTION
 	{
@@ -108,6 +120,7 @@ protected:
 		PULSE = 1,
 		ERUPT = 2,
 		SUMMON = 3,
+		TELEPORT = 4,
 		NUM_FSM
 	};
 
@@ -189,12 +202,16 @@ protected:
 	// Update position
 	void UpdatePosition(void);
 
+	void ShortCutPath(glm::vec2 des);
+
 
 	//myStuff;
 
-	float hp=11;
+	float hp=100;
 	float speed=1;
 
 	float pulsetimer = 0.f;
+
+	
 };
 

@@ -124,6 +124,10 @@ public:
 	void selectKey();
 	float getGunDmg();
 	bool shooting;
+
+	bool drop = false;
+	bool InventoryIsFull = false;
+	int amtDrop;
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -187,6 +191,8 @@ protected:
 
 	void UpdateHealthLives();
 
+	void UpdateFull(int max, string name);
+
 	bool canTP = false;
 
 
@@ -207,7 +213,7 @@ protected:
 									 0,0,0,0,0,0,0,0,0,
 									 0,0,0,0,0,0,0,0,0 };
 
-	std::vector<int> hotKeyInvQuantity = {  0,0,0,10,0,0,0,0,0,
+	std::vector<int> hotKeyInvQuantity = {  0,0,0,0,0,0,0,0,0,
 											0,0,0,0,0,0,0,0,0,
 											0,0,0,0,0,0,0,0,0 };
 
