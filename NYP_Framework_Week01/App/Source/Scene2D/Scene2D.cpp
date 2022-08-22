@@ -335,7 +335,8 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				asd.y = rand() % 24;
 
-				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
+				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0)
+				{
 					timer = 10;
 					//change back
 					int random_enemy_spawn = rand() % 2;
@@ -379,11 +380,11 @@ bool CScene2D::Update(const double dElapsedTime)
 							break;
 						}
 					}
+					worldTime1 = 0;
 					break;
 				}
 
 			}
-			worldTime1 = 0;
 		}
 	}
 

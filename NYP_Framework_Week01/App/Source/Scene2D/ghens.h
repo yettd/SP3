@@ -90,6 +90,8 @@ public:
 
 	int shotsfired = 0;
 
+	int eruptcount = 0;
+
 protected:
 	enum DIRECTION
 	{
