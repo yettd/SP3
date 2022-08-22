@@ -127,6 +127,8 @@ public:
 
 	bool drop = false;
 	bool InventoryIsFull = false;
+
+	int amtDrop = -1;
 protected:
 	int select = 5;
 	enum DIRECTION

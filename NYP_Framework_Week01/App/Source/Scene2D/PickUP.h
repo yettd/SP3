@@ -89,6 +89,8 @@ public:
 
 	vector<bullet*> watchout;
 
+	int getId();
+
 protected:
 	enum DIRECTION
 	{

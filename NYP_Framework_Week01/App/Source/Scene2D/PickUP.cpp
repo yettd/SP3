@@ -354,6 +354,11 @@ void PickUP::SetHp(int i)
 	hp -= i;
 }
 
+int PickUP::getId()
+{
+	return Iid;
+}
+
 
 /**
  @brief Constraint the enemy2D's position within a boundary

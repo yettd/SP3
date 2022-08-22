@@ -394,14 +394,25 @@ bool CScene2D::Update(const double dElapsedTime)
 	}
 	if (cPlayer2D->drop)
 	{
-		cPlayer2D->drop = false;
-		PickUP* cPU = new PickUP();
-		cPU->SetShader("Shader2D_Colour");
-		if (cPU->Init())
+		cout << cPlayer2D->amtDrop << endl;
+		while (cPlayer2D->amtDrop >= 0)
 		{
-			cPU->SetPlayer2D(cPlayer2D);
-			Pick.push_back(cPU);
+			cPlayer2D->drop = false;
+			
+			PickUP* cPU = new PickUP();
+			cPU->SetShader("Shader2D_Colour");
+			if (cPU->Init())
+			{
+				cPU->SetPlayer2D(cPlayer2D);
+				Pick.push_back(cPU);
+			}
+			if (cPlayer2D->amtDrop != 0)
+			{
+				cMap2D->SetMapInfo(cPU->vec2Index.y,cPU->vec2Index.x,cPU->getId());
+			}
+			cPlayer2D->amtDrop--;
 		}
+		cPlayer2D->amtDrop = -1;
 	}
 	for (int i = 0; i < Pick.size(); i++)
 	{

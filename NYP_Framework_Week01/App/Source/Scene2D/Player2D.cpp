@@ -223,9 +223,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 {
 
 	shooting = false;
-	if (cKeyboardController->IsKeyDown(GLFW_KEY_F))
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(15, "Food", 1, 10);
+		addToinventory(15, "Food",4, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -243,6 +243,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 				equip = hotKeyInv[select - 1];
 			}
 			drop = true;
+			amtDrop++;
 		}
 	}
 	static float RespawnTimer = 5;
@@ -1019,35 +1020,49 @@ void CPlayer2D::MouseAction()
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
-	cout << hotKeyInv.size() << endl;
-	//check For existence
-	for (size_t i = 0; i < hotKeyInv.size(); i++)
+	static bool done = false;
+	for (size_t j = 0; j < amt; j++)
 	{
-		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]<maxQuitity)
+		done = false;
+		//check For existence
+		for (size_t i = 0; i < hotKeyInv.size(); i++)
 		{
-			cII = cIM->GetItem(name);
-			cII->Add(amt);
-			hotKeyInvQuantity[i]++;
-			changed = true;
-			return;
+			if (hotKeyInv[i] == name && hotKeyInvQuantity[i] < maxQuitity)
+			{
+				cII = cIM->GetItem(name);
+				cII->Add(1);
+				hotKeyInvQuantity[i]++;
+				changed = true;
+				done = true;
+				break;
+			}
+		}
+		if (!done)
+		{
+
+			for (size_t i = 0; i < hotKeyInv.size(); i++)
+			{
+				if (hotKeyInv[i] == "")
+				{
+					hotKeyInv[i] = name;
+					hotKeyInvID[i] = num;
+					hotKeyInvQuantity[i]++;
+					cII = cIM->GetItem(name);
+					cII->Add(1);
+					changed = true;
+					done = true;
+
+					break;
+				}
+			}
+		}
+		if (!done)
+		{
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, (num + 1000));
+		drop = true;
+		amtDrop++;
 		}
 	}
-	for (size_t i = 0; i < hotKeyInv.size(); i++)
-	{
-		if (hotKeyInv[i] == "")
-		{
-			hotKeyInv[i] = name;
-			hotKeyInvID[i] = num;	
-			hotKeyInvQuantity[i]++;
-			cII = cIM->GetItem(name);
-			cII->Add(amt);
-			changed = true;
-	
-			return;
-		}
-	}
-	cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,(num+1000));
-	drop = true;
 }
 
 float CPlayer2D::getDmg()
