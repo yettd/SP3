@@ -92,6 +92,8 @@ public:
 
 	int eruptcount = 0;
 
+	bool erupt = false;
+
 protected:
 	enum DIRECTION
 	{
@@ -196,5 +198,7 @@ protected:
 	float speed=1;
 
 	float pulsetimer = 0.f;
+
+	
 };
 

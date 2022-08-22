@@ -191,6 +191,11 @@ bool CScene2D::Update(const double dElapsedTime)
 		cGameManager->bLevelCompleted = false;
 	}
 
+	/*if (G->erupt == true)
+	{
+
+	}*/
+
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_C))
 	{
 		cGameManager->bPlayerLost = true;
