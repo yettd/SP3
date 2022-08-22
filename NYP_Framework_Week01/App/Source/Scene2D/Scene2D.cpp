@@ -20,7 +20,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL), boss(NULL)
+CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL), boss(NULL), Pick(NULL)
 {
 
 
@@ -84,7 +84,13 @@ CScene2D::~CScene2D(void)
 		delete bulletVector[i];
 		bulletVector[i] = NULL;
 	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		delete Pick[i];
+		Pick[i] = NULL;
+	}
 	bulletVector.clear();
+	Pick.clear();
 	enemyVector.clear();
 }
 
@@ -155,7 +161,7 @@ bool CScene2D::Init(void)
 			cE->SetPlayer2D(cPlayer2D);
 			enemyVector.push_back(cE);
 			a.push_back(cE);
-		}
+		} 
 		else
 		{
 			break;
@@ -386,7 +392,21 @@ bool CScene2D::Update(const double dElapsedTime)
 			worldTime1 = 0;
 		}
 	}
-
+	if (cPlayer2D->drop)
+	{
+		cPlayer2D->drop = false;
+		PickUP* cPU = new PickUP();
+		cPU->SetShader("Shader2D_Colour");
+		if (cPU->Init())
+		{
+			cPU->SetPlayer2D(cPlayer2D);
+			Pick.push_back(cPU);
+		}
+	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		Pick[i]->Update(dElapsedTime);
+	}
 	return true;
 }
 
@@ -443,7 +463,14 @@ void CScene2D::Render(void)
 
 		enemyVector[i]->PostRender();
 	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		Pick[i]->PreRender();
 
+		Pick[i]->Render();
+
+		Pick[i]->PostRender();
+	}
 	for (size_t i = 0; i < bulletVector.size(); i++)
 	{
 

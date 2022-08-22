@@ -121,9 +121,8 @@ protected:
 	//first vector to decide what to craft
 	//second vector what is needed to craft
 	vector<std::vector<std::pair<string, int>>> recipie = {
-		{ {"WoodenBlock",1},{"Food",2}},
-
-		{ {"WoodenBlock",1},{"gun",1}},
+		{{"WoodenBlock",1},{"Food",2}},
+		{{"WoodenBlock",1},{"gun",1}},
 	};
 
 };
