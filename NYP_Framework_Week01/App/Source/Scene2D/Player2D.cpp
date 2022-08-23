@@ -189,6 +189,7 @@ void CPlayer2D::InteractWithMap(void)
 	case 302: //Blues
 	case 400: //mechanic cow
 	case 401: //iron unicorn
+	case 9: //eruption tile
 	default:
 		break;
 	}
@@ -851,10 +852,76 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					if (breakTimer >= 2)
 					{
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(100, "WoodenBlock", 1, 10);
+						addToinventory(100, "WoodenBlock (block)", 1, 10);
 						breakTimer = 0;
 					}
 				}
+				break;
+
+			case 101: //steelpile
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(11, "metalcube", 1, 10);
+						breakTimer = 0;
+					}
+				}
+				break;
+
+			case 102: //rusted tree
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(10, "rustedwood", 1, 10);
+						breakTimer = 0;
+					}
+				}
+				break;
+
+			case 103:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(103, "metalcubePLUS", 1, 10);
+						breakTimer = 0;
+					}
+				}
+				break;
+
+			case 104:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(104, "upgradealtar", 1, 10);
+						breakTimer = 0;
+					}
+				}
+				break;
+
+			case 105:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(105, "rustedwoodPLUS", 1, 10);
+						breakTimer = 0;
+					}
+				}
+				break;
 
 			default:
 				break;
@@ -903,18 +970,77 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
-	cII->vec2Size = glm::vec2(25, 25);
-
-
-	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 999, 0);
-	cII->vec2Size = glm::vec2(25, 25);
+	/*cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);*/
 
 	cII = cIM->Add("", "Image/blank.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("gun (weapon)", "Image/door.tga", 999, 0);
+
+	//weaponary
+	cII = cIM->Add("pistol mark1 (weapon)", "Image/door.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("pistol mark2 (weapon)", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("energy gun (weapon)", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("rusted sword (weapon)", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metal sword (weapon)", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("photon sword (weapon)", "Image/door.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//placeable blocks
+	cII = cIM->Add("WoodenBlock (block)", "Image/Scene2D_GroundTile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("rustedwoodPLUS (block)", "Image/rustedwoodPLUS.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("upgradealtar (block)", "Image/upgradealtar.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalcubePLUS (block)", "Image/metalcubePLUS.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//environmental blocks
+	cII = cIM->Add("rustedtree", "Image/rustedtree.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("steelpile", "Image/steelpile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//background blocks
+	cII = cIM->Add("rustedwood", "Image/rustedwood.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalcube", "Image/metalcube.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("firepowder", "Image/gunpowder.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalparts", "Image/metalparts.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("ironhorn", "Image/ironhorn.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("oilcan", "Image/oilcan.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	/*cII = cIM->Add("ghensheart", "Image/Scene2D_GroundTile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);*/
+
+	cII = cIM->Add("portal", "Image/Scene2D_PI.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
 }
 
 void CPlayer2D::selectKey()
@@ -992,7 +1118,7 @@ void CPlayer2D::MouseAction()
 		string checker = equip;
 		std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
 
-		if (checker.find("food") != string::npos)
+		if (checker.find("oilcan") != string::npos)
 		{	
 			cII = cIM->GetItem("Fuel");
 			if (cII->GetCount() < cII->GetMaxCount())

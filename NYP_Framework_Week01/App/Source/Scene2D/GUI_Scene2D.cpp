@@ -448,7 +448,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
 					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);
-
+					cout << i << " : " << endl;
 					if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
 						ImVec2(cInventoryItem->vec2Size.x * relativeScale_x * 0.80,
 							cInventoryItem->vec2Size.y * relativeScale_y * 0.80),

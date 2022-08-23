@@ -114,15 +114,34 @@ protected:
 	int PS;
 //crafting stuff
 	//name and ID of iteam that can craft
-	vector<std::pair<string, int>> nameID = { {"gun (weapon)",2},{"Food",0} };
+	vector<std::pair<string, int>> nameID = 
+	{ 
+		{"metalcubePLUS (block)",103},
+		{"rustedwoodPLUS (block)",105},
+		{"upgradealtar (block)",104},
+		{"pistol mark1 (weapon)",880},
+		{"pistol mark2 (weapon)",881},
+		{"energy gun (weapon)",882},
+		{"rusted sword (weapon)",872},
+		{"metal sword (weapon)",873},
+		{"photon sword (weapon)",874},
+	};
 
-	vector<int> maxAmt = { 1,1 };
+	vector<int> maxAmt = { 1,1,1,1,1,1,1,1,1 };
 
 	//first vector to decide what to craft
 	//second vector what is needed to craft
-	vector<std::vector<std::pair<string, int>>> recipie = {
-		{{"WoodenBlock",1},{"Food",2}},
-		{{"WoodenBlock",1},{"gun (weapon)",1}},
+	vector<std::vector<std::pair<string, int>>> recipie = 
+	{
+		{{"metalcube",4}},
+		{{"rustedwood",4}},
+		{{"metalparts",7},{"ironhorn",5}},
+		{{"firepowder",3}, {"metalparts",4}, {"rustedwood",2}},
+		{{"firepowder",5}, {"metalparts",6}, {"pistol mark1 (weapon)",1}},
+		{{"firepowder",10}, {"metalparts",12}, {"pistol mark2 (weapon)",1}},
+		{{"metalparts",5}, {"rustedwood",3}},
+		{{"metalparts",7}, {"rustedwood",5}, {"rusted sword (weapon)",1}},
+		{{"metalparts",14}, {"rustedwood",10}, {"metal sword (weapon)",1}},
 	};
 
 };
