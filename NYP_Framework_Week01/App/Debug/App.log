@@ -1,0 +1,39 @@
+﻿  Map2D.cpp
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(696,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(696,24): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(697,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(697,23): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(750,41): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(750,26): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(900,46): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(929,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\App\Source\Scene2D\Map2D.cpp(938,20): warning C4018: '<': signed/unsigned mismatch
+  App.vcxproj -> C:\Users\sheng\OneDrive\Desktop\SP\ccb webdev\SP3\NYP_Framework_Week01\Debug\App.exe
