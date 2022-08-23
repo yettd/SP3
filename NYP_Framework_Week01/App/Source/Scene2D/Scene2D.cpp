@@ -221,6 +221,53 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (boss)
 	{
+		if (G->corpse_arise == true)
+		{
+			glm::vec2 corpse_tile;
+
+			if (G->summoned <= cPlayer2D->enemies_unalived)
+			{
+				corpse_tile.x = rand() % 32;
+
+				corpse_tile.y = rand() % 24;
+
+				if (cMap2D->GetMapInfo(corpse_tile.y, corpse_tile.x) == 0)
+				{
+					int rand_enemy = rand() % 2;
+					if (rand_enemy == 0)
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 302);
+						G->summoned++;
+					}
+					else
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 301);
+						G->summoned++;
+					}
+
+					while (true)
+					{
+						CEnemy2D* cE = new CEnemy2D();
+						cE->SetShader("Shader2D_Colour");
+						if (cE->Init())
+						{
+							cE->SetPlayer2D(cPlayer2D);
+							enemyVector.push_back(cE);
+							a.push_back(cE);
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			G->summonDone = true;
+		}
+	}
+
+	if (boss)
+	{
 		boss->Update(dElapsedTime);
 	}
 
@@ -349,11 +396,11 @@ bool CScene2D::Update(const double dElapsedTime)
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
 					//change back
-					int random_enemy_spawn = rand() % 2;
+					//int random_enemy_spawn = rand() % 2;
 					if (enemies_spawnned < 11)
 					{
-						/*int random_enemy_spawn = rand() % 4;*/ // 0 1 2 3
-						int random_enemy_spawn = 777;
+						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						//int random_enemy_spawn = 777;
 						if (random_enemy_spawn == 0)
 						{
 							cMap2D->SetMapInfo(asd.y, asd.x, 302);
@@ -371,8 +418,8 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else
 						{
-							/*cMap2D->SetMapInfo(asd.y, asd.x, 301);
-							enemies_spawnned++;*/
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;
 						}
 					}
 					while (true)
@@ -397,7 +444,7 @@ bool CScene2D::Update(const double dElapsedTime)
 			worldTime1 = 0;
 		}
 	}
-	if (cPlayer2D->drop)
+	/*if (cPlayer2D->drop)
 	{
 		cPlayer2D->drop = false;
 		PickUP* cPU = new PickUP();
@@ -407,6 +454,28 @@ bool CScene2D::Update(const double dElapsedTime)
 			cPU->SetPlayer2D(cPlayer2D);
 			Pick.push_back(cPU);
 		}
+	}*/
+	if (cPlayer2D->drop)
+	{
+		cout <<"sgwigjw"<< cPlayer2D->amtDrop << endl;
+		while (cPlayer2D->amtDrop >= 0)
+		{
+			cPlayer2D->drop = false;
+
+			PickUP* cPU = new PickUP();
+			cPU->SetShader("Shader2D_Colour");
+			if (cPU->Init())
+			{
+				cPU->SetPlayer2D(cPlayer2D);
+				Pick.push_back(cPU);
+			}
+			if (cPlayer2D->amtDrop != 0)
+			{
+				cMap2D->SetMapInfo(cPU->vec2Index.y, cPU->vec2Index.x, cPU->getId());
+			}
+			cPlayer2D->amtDrop--;
+		}
+		cPlayer2D->amtDrop = -1;
 	}
 	for (int i = 0; i < Pick.size(); i++)
 	{

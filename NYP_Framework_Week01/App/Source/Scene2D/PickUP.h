@@ -89,6 +89,8 @@ public:
 
 	vector<bullet*> watchout;
 
+	int getId();
+
 protected:
 	enum DIRECTION
 	{
@@ -209,7 +211,7 @@ protected:
 	int MaxQuant;
 	vector<int> id = {1100,1015,1002 };//id + 1000
 	vector<string> image = {"Image/Scene2D_GroundTile.tga","Image/dogFood.tga", "Image/door.tga" };//image for drop
-	vector<string>nameList = { "WoodenBlock","Food","gun" };//name of item
+	vector<string>nameList = { "WoodenBlock","Food","gun (weapon)" };//name of item
 	vector<int> quantity = {10,10,1};//max amt
 	float inactive = 1.f;
 };

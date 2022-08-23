@@ -114,7 +114,7 @@ protected:
 	int PS;
 //crafting stuff
 	//name and ID of iteam that can craft
-	vector<std::pair<string, int>> nameID = { {"gun",2},{"Food",0} };
+	vector<std::pair<string, int>> nameID = { {"gun (weapon)",2},{"Food",0} };
 
 	vector<int> maxAmt = { 1,1 };
 
@@ -122,7 +122,7 @@ protected:
 	//second vector what is needed to craft
 	vector<std::vector<std::pair<string, int>>> recipie = {
 		{{"WoodenBlock",1},{"Food",2}},
-		{{"WoodenBlock",1},{"gun",1}},
+		{{"WoodenBlock",1},{"gun (weapon)",1}},
 	};
 
 };

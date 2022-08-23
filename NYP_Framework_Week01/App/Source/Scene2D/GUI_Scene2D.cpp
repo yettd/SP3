@@ -631,7 +631,6 @@ bool CGUI_Scene2D::craftable(int i)
 		cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
 		if (cInventoryItem->GetCount() < recipie[i][j].second)
 		{
-			cout << "not enough" << endl;
 			return false;
 		}
 	}

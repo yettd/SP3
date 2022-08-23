@@ -133,6 +133,7 @@ bool ghens::Init(void)
  */
 void ghens::Update(const double dElapsedTime)
 {
+	cout << random_move << endl;
 	if (!bIsActive)
 		return;
 
@@ -146,12 +147,41 @@ void ghens::Update(const double dElapsedTime)
 		if (iFSMCounter > iMaxFSMCounter)
 		{
 			iFSMCounter = 0;
+			pulsetimer = 0.f;
+			shotsfired = 0;
+			eruptcount = 0;
+			corpse_arise = false;
 			//cout << "Switching to Patrol State" << endl;
-			sCurrentFSM = ERUPT;
-		}
-		if (hp <= 10)
-		{
-		
+			
+			if (hp <= 30) //critical hp zone
+			{
+				random_move = rand() % 4; // 0 Pulse 1 Erupt 2 Teleport 3 Summon
+			}
+			else //not critical hp zone
+			{
+				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
+			}
+
+			switch (random_move)
+			{
+			case 0:
+				sCurrentFSM = PULSE;
+				break;
+			case 1:
+				sCurrentFSM = ERUPT;
+				break;
+			case 2:
+				sCurrentFSM = TELEPORT;
+				break;
+			case 3:
+				sCurrentFSM = SUMMON;
+				break;
+
+			default:
+				sCurrentFSM = IDLE;
+				break;
+			}
+
 		}
 		iFSMCounter++;
 		break;
@@ -162,7 +192,7 @@ void ghens::Update(const double dElapsedTime)
 		{
 			//shoot
 
-			int shoottype = 0; // 0 for + direction | 1 for X direction | 2 for all directions
+			int shoottype = rand() % 3; // 0 for + direction | 1 for X direction | 2 for all directions
 
 			if (shoottype == 0) // +
 			{
@@ -316,41 +346,21 @@ void ghens::Update(const double dElapsedTime)
 		break;
 	case ERUPT:
 	{
-		erupt = true;
 		glm::vec2 rand_erupt_tile;
-		if (eruptcount < 13)
+		if (eruptcount < 10)
 		{
-			rand_erupt_tile.x = rand() % 30;
-			rand_erupt_tile.y = rand() % 22;
-			//if
-			//	(
-			//		/*cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1) != 200 &&
-			//		cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1) != 200*/
-			//		
-			//		)
-			//{
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 100);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 100);
-				eruptcount++;
-			//}
-			/*else
-			{
-
-			}*/
+			rand_erupt_tile.x = rand() % 28 + 2;
+			rand_erupt_tile.y = rand() % 20 + 2;
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 11);
+			eruptcount++;
 		}
 		else
 		{
@@ -361,7 +371,40 @@ void ghens::Update(const double dElapsedTime)
 		break;
 	case SUMMON:
 	{
+		if (corpse_arise == false)
+		{
+			corpse_arise = true;
+		}
+		if (summonDone == true)
+		{
+			sCurrentFSM = IDLE;
+		}
+	}
+	break;
 
+	case TELEPORT:
+	{
+		if (teleported == false)
+		{
+			//tp
+			tptime += dElapsedTime;
+			if (tptime >= 0.3)
+			{
+				glm::vec2 tp_tile;
+				tp_tile.x = rand() % 32;
+				tp_tile.y = rand() % 24;
+				if (cMap2D->GetMapInfo(tp_tile.y, tp_tile.x) == 0)
+				{
+					vec2Index = tp_tile;
+					teleported = true;
+				}
+			}
+		}
+		else
+		{
+			tptime = 0.f;
+			sCurrentFSM = IDLE;
+		}
 	}
 	break;
 
@@ -1012,5 +1055,39 @@ void ghens::UpdatePosition(void)
 
 		// Interact with the Player
 		InteractWithPlayer();
+	}
+}
+
+
+void ghens::ShortCutPath(glm::vec2 des)
+{
+	auto path = cMap2D->PathFind(vec2Index,
+		des,
+		heuristic::euclidean,
+		10);
+
+	// Calculate new destination
+	bool bFirstPosition = true;
+	for (const auto& coord : path)
+	{
+		//std::cout << coord.x << "," << coord.y << "\n";
+		if (bFirstPosition == true)
+		{
+			// Set a destination
+			i32vec2Destination = coord;
+			// Calculate the direction between enemy2D and this destination
+			i32vec2Direction = i32vec2Destination - vec2Index;
+			bFirstPosition = false;
+		}
+		else
+		{
+			if ((coord - i32vec2Destination) == i32vec2Direction)
+			{
+				// Set a destination
+				i32vec2Destination = coord;
+			}
+			//else
+			//	break;
+		}
 	}
 }
