@@ -125,6 +125,9 @@ public:
 	float getGunDmg();
 	bool shooting;
 
+
+	std::vector<std::pair<int,int>> DropId;
+
 	bool drop = false;
 	bool InventoryIsFull = false;
 	int amtDrop=-1;

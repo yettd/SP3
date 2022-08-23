@@ -228,11 +228,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 {
 	fireRate -= dElapsedTime;
 	shooting = false;
-	if (cKeyboardController->IsKeyDown(GLFW_KEY_F))
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(100, "firepowder", 3, 10);
-		addToinventory(15, "metalparts", 4, 10);
-		addToinventory(15, "rustedwood", 4, 10);
+		addToinventory(12, "firepowder", 3, 10);
+		addToinventory(13, "metalparts", 4, 10);
+		addToinventory(10, "rustedwood", 4, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -240,8 +240,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 		{
 
 			cII = cIM->GetItem(equip);
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, hotKeyInvID[select - 1] + 1000);
 			cII->Remove(1);
+			DropId.push_back(std::make_pair(hotKeyInvID[select - 1] + 1000, 1));
 			hotKeyInvQuantity[select - 1]--;
 			if (hotKeyInvQuantity[select - 1] == 0)
 			{
@@ -249,8 +249,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 				hotKeyInvID[select - 1] = 0;
 				equip = hotKeyInv[select - 1];
 			}
-			drop = true;
-			amtDrop++;
 		}
 	}
 	static float RespawnTimer = 5;
@@ -1156,7 +1154,6 @@ void CPlayer2D::MouseAction()
 				p->des = mousePos;
 				pBullet.push_back(p);
 				fireRate = defaultRate;
-				cout << "sadasfg" << endl;
 			}
 		}
 
@@ -1235,10 +1232,13 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 		}
 		if (!done)
 		{
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, (num + 1000));
-			drop = true;
 			amtDrop++;
 		}
+	}
+	if (amtDrop > 0)
+	{
+		DropId.push_back(std::make_pair(num+1000, amtDrop));
+		amtDrop = 0;
 	}
 }
 

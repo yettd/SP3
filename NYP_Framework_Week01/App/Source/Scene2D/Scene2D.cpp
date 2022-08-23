@@ -455,28 +455,24 @@ bool CScene2D::Update(const double dElapsedTime)
 			Pick.push_back(cPU);
 		}
 	}*/
-	if (cPlayer2D->drop)
+	if (cPlayer2D->DropId.size()>0)
 	{
-		cout <<"sgwigjw"<< cPlayer2D->amtDrop << endl;
-		while (cPlayer2D->amtDrop >= 0)
+		for (size_t i = 0; i < cPlayer2D->DropId.size(); i++)
 		{
-			cPlayer2D->drop = false;
-
-			PickUP* cPU = new PickUP();
-			cPU->SetShader("Shader2D_Colour");
-			if (cPU->Init())
+			for (size_t j = 0; j < cPlayer2D->DropId[i].second; j++)
 			{
-				cPU->SetPlayer2D(cPlayer2D);
-				Pick.push_back(cPU);
+				cMap2D->SetMapInfo(cPlayer2D->vec2Index.y, cPlayer2D->vec2Index.x, cPlayer2D->DropId[i].first);
+				PickUP* cPU = new PickUP();
+				cPU->SetShader("Shader2D_Colour");
+				if (cPU->Init())
+				{
+					cPU->SetPlayer2D(cPlayer2D);
+					Pick.push_back(cPU);
+				}
 			}
-			if (cPlayer2D->amtDrop != 0)
-			{
-				cMap2D->SetMapInfo(cPU->vec2Index.y, cPU->vec2Index.x, cPU->getId());
-			}
-			cPlayer2D->amtDrop--;
 		}
-		cPlayer2D->amtDrop = -1;
 	}
+	cPlayer2D->DropId.clear();
 	for (int i = 0; i < Pick.size(); i++)
 	{
 		Pick[i]->Update(dElapsedTime);
