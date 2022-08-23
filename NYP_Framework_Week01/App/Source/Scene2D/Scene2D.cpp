@@ -396,11 +396,11 @@ bool CScene2D::Update(const double dElapsedTime)
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
 					//change back
-					int random_enemy_spawn = rand() % 2;
+					//int random_enemy_spawn = rand() % 2;
 					if (enemies_spawnned < 11)
 					{
-						/*int random_enemy_spawn = rand() % 4;*/ // 0 1 2 3
-						int random_enemy_spawn = 777;
+						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						//int random_enemy_spawn = 777;
 						if (random_enemy_spawn == 0)
 						{
 							cMap2D->SetMapInfo(asd.y, asd.x, 302);
@@ -418,8 +418,8 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else
 						{
-							/*cMap2D->SetMapInfo(asd.y, asd.x, 301);
-							enemies_spawnned++;*/
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;
 						}
 					}
 					while (true)
