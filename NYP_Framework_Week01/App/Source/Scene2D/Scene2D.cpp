@@ -219,48 +219,51 @@ bool CScene2D::Update(const double dElapsedTime)
 		}
 	}
 
-	if (G->corpse_arise == true)
+	if (boss)
 	{
-		glm::vec2 corpse_tile;
-
-		if (G->summoned <= cPlayer2D->enemies_unalived)
+		if (G->corpse_arise == true)
 		{
-			corpse_tile.x = rand() % 32;
+			glm::vec2 corpse_tile;
 
-			corpse_tile.y = rand() % 24;
-
-			if (cMap2D->GetMapInfo(corpse_tile.y, corpse_tile.x) == 0)
+			if (G->summoned <= cPlayer2D->enemies_unalived)
 			{
-				int rand_enemy = rand() % 2;
-				if (rand_enemy == 0)
+				corpse_tile.x = rand() % 32;
+
+				corpse_tile.y = rand() % 24;
+
+				if (cMap2D->GetMapInfo(corpse_tile.y, corpse_tile.x) == 0)
 				{
-					cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 302);
-					G->summoned++;
-				}
-				else
-				{
-					cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 301);
-					G->summoned++;
-				}
-				
-				while (true)
-				{
-					CEnemy2D* cE = new CEnemy2D();
-					cE->SetShader("Shader2D_Colour");
-					if (cE->Init())
+					int rand_enemy = rand() % 2;
+					if (rand_enemy == 0)
 					{
-						cE->SetPlayer2D(cPlayer2D);
-						enemyVector.push_back(cE);
-						a.push_back(cE);
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 302);
+						G->summoned++;
 					}
 					else
 					{
-						break;
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 301);
+						G->summoned++;
+					}
+
+					while (true)
+					{
+						CEnemy2D* cE = new CEnemy2D();
+						cE->SetShader("Shader2D_Colour");
+						if (cE->Init())
+						{
+							cE->SetPlayer2D(cPlayer2D);
+							enemyVector.push_back(cE);
+							a.push_back(cE);
+						}
+						else
+						{
+							break;
+						}
 					}
 				}
 			}
+			G->summonDone = true;
 		}
-		G->summonDone = true;
 	}
 
 	if (boss)
@@ -454,7 +457,7 @@ bool CScene2D::Update(const double dElapsedTime)
 	}*/
 	if (cPlayer2D->drop)
 	{
-		cout << cPlayer2D->amtDrop << endl;
+		cout <<"sgwigjw"<< cPlayer2D->amtDrop << endl;
 		while (cPlayer2D->amtDrop >= 0)
 		{
 			cPlayer2D->drop = false;

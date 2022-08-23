@@ -189,7 +189,10 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
-	cout << enemyHealth << endl;
+
+	dt = dElapsedTime;
+
+	/*cout << enemyHealth << endl;*/
 
 	if (enemyHealth <= 0)
 	{
@@ -816,12 +819,17 @@ bool CEnemy2D::InteractWithPlayer(void)
 
 	if (targetLocked == true)
 	{
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
-		bullet* p = new bullet();
-		p->SetShader("Shader2D_Colour");
-		p->Init();
-		p->des = cPlayer2D->vec2Index;
-		eBullet.push_back(p);
+		firerate += dt;
+		if (firerate >= 0.3)
+		{
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+			bullet* p = new bullet();
+			p->SetShader("Shader2D_Colour");
+			p->Init();
+			p->des = cPlayer2D->vec2Index;
+			eBullet.push_back(p);
+			firerate = 0.f;
+		}
 	}
 
 	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)

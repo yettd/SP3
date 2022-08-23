@@ -149,6 +149,7 @@ void ghens::Update(const double dElapsedTime)
 			iFSMCounter = 0;
 			pulsetimer = 0.f;
 			shotsfired = 0;
+			eruptcount = 0;
 			corpse_arise = false;
 			//cout << "Switching to Patrol State" << endl;
 			
@@ -158,7 +159,7 @@ void ghens::Update(const double dElapsedTime)
 			}
 			else //not critical hp zone
 			{
-				random_move = 3; // 0 Pulse 1 Erupt 2 Teleport
+				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
 			}
 
 			switch (random_move)
