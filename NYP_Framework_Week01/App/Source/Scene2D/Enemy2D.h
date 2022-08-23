@@ -29,6 +29,8 @@ class CMap2D;
 // Include Player2D
 #include "Player2D.h"
 
+#include "bullet.h"
+
 class CEnemy2D : public CEntity2D
 {
 public:
@@ -80,7 +82,16 @@ public:
 
 	void SetHp(int i);
 
-	int rand_dir;
+	int rand_dir; //random direction Clifford moves
+
+	vector<bullet*> eBullet;
+
+
+	vector<bullet*> watchout;
+
+	float firerate = 2.f;
+
+	float dt = 0.f;
 
 protected:
 	enum DIRECTION
@@ -187,5 +198,18 @@ protected:
 
 	int enemyHealth = 100;
 	bool isBlues = true;
+	bool cowplscome;
+
+	int enemyType = 0;
+	/*
+	0 for Blues
+	1 for Clifford
+	2 for Mechanical Cow
+	3 for Iron Unicorn
+	*/
+
+	float walktimer = 0.0f;
+
+	bool targetLocked = false;
 };
 

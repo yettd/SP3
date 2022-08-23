@@ -20,7 +20,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL)
+CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL),cGUI_Scene2D(NULL),cGameManager(NULL), cMouseController(NULL),CSC(NULL),enemyVector(NULL), bulletVector(NULL), boss(NULL), Pick(NULL)
 {
 
 
@@ -31,7 +31,7 @@ CScene2D::CScene2D(void) : cMap2D(NULL),cKeyboardController(NULL),cPlayer2D(NULL
  @brief Destructor
  */
 CScene2D::~CScene2D(void)
-{
+{ 
 	if (cKeyboardController)
 	{
 		// We won't delete this since it was created elsewhere
@@ -51,6 +51,11 @@ CScene2D::~CScene2D(void)
 		cPlayer2D->Destroy();
 		cPlayer2D = NULL;
 	}
+	if (boss)
+	{
+		delete boss;
+		boss = NULL;
+	}
 	if (cGUI_Scene2D)
 	{
 
@@ -68,12 +73,24 @@ CScene2D::~CScene2D(void)
 		CSC->Destroy();
 		CSC = NULL;
 	}
+
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		delete enemyVector[i];
 		enemyVector[i] = NULL;	
 	}
-	
+	for (int i = 0; i < bulletVector.size(); i++)
+	{
+		delete bulletVector[i];
+		bulletVector[i] = NULL;
+	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		delete Pick[i];
+		Pick[i] = NULL;
+	}
+	bulletVector.clear();
+	Pick.clear();
 	enemyVector.clear();
 }
 
@@ -99,7 +116,7 @@ bool CScene2D::Init(void)
 		return false;
 	}
 
-	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middle.csv") == false)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_0.csv") == false)
 	{
 		cout << "map failed" << endl;
 
@@ -134,6 +151,7 @@ bool CScene2D::Init(void)
 	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
 
 	enemyVector.clear();
+	bulletVector.clear();
 	while (true)
 	{
 		CEnemy2D* cE = new CEnemy2D();
@@ -143,7 +161,7 @@ bool CScene2D::Init(void)
 			cE->SetPlayer2D(cPlayer2D);
 			enemyVector.push_back(cE);
 			a.push_back(cE);
-		}
+		} 
 		else
 		{
 			break;
@@ -173,16 +191,88 @@ bool CScene2D::Update(const double dElapsedTime)
 		cGameManager->bLevelCompleted = false;
 	}
 
+	/*if (G->erupt == true)
+	{
+
+	}*/
+
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_C))
 	{
 		cGameManager->bPlayerLost = true;
 	}
 
+	if (cMap2D->GetCurrentLevel() == 0)
+	{
+		if (spawnGhens == false)
+		{
+			//spawn ghens
+			ghens* cE = new ghens();
+			cE->SetShader("Shader2D_Colour");
+			if (cE->Init())
+			{
+				cE->SetPlayer2D(cPlayer2D);
+				boss = cE;
+				G = cE;
+				/*enemyVector.push_back(cE);*/
+			}
+			spawnGhens = true;
+		}
+	}
+
+	if (boss)
+	{
+		if (G->corpse_arise == true)
+		{
+			glm::vec2 corpse_tile;
+
+			if (G->summoned <= cPlayer2D->enemies_unalived)
+			{
+				corpse_tile.x = rand() % 32;
+
+				corpse_tile.y = rand() % 24;
+
+				if (cMap2D->GetMapInfo(corpse_tile.y, corpse_tile.x) == 0)
+				{
+					int rand_enemy = rand() % 2;
+					if (rand_enemy == 0)
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 302);
+						G->summoned++;
+					}
+					else
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 301);
+						G->summoned++;
+					}
+
+					while (true)
+					{
+						CEnemy2D* cE = new CEnemy2D();
+						cE->SetShader("Shader2D_Colour");
+						if (cE->Init())
+						{
+							cE->SetPlayer2D(cPlayer2D);
+							enemyVector.push_back(cE);
+							a.push_back(cE);
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			G->summonDone = true;
+		}
+	}
+
+	if (boss)
+	{
+		boss->Update(dElapsedTime);
+	}
 
 	if (cGameManager->bPlayerLost)
 	{
-		
-
 		CGameStateManager::GetInstance()->SetActiveGameState("END");
 		cPlayer2D->Reset();
 		CSC->PlaySoundByID(2);
@@ -191,12 +281,66 @@ bool CScene2D::Update(const double dElapsedTime)
 		return false;
 	}
 
+	for (size_t i = 0; i < cPlayer2D->pBullet.size(); i++)
+	{
+		bulletVector.push_back(cPlayer2D->pBullet[i]);
+	}
+	cPlayer2D->pBullet.clear();
+	cPlayer2D->WatchOutBullet.clear();
+
+	if (boss)
+	{
+
+		for (size_t i = 0; i < G->eBullet.size(); i++)
+		{
+			bulletVector.push_back(G->eBullet[i]);
+		}
+		G->eBullet.clear();
+		G->watchout.clear();
+	}
+
+	for (size_t i = 0; i < enemyVector.size(); i++)
+	{
+		a[i]->watchout.clear();
+		for (size_t j = 0; j < a[i]->eBullet.size(); j++)
+		{
+			bulletVector.push_back(a[i]->eBullet[j]);
+			a[i]->eBullet.clear();
+		}
+	}
+
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		if (bulletVector[i]->bIsActive)
+		{
+			if (bulletVector[i]->player == false)
+			{
+				cPlayer2D->WatchOutBullet.push_back(bulletVector[i]);
+			}
+			else
+			{
+				for (size_t j = 0; j < a.size(); j++)
+				{
+					a[j]->watchout.push_back(bulletVector[i]);
+
+				}
+				if (boss)
+				{
+					G->watchout.push_back(bulletVector[i]);
+				
+				}
+			}
+		}
+	}
 	
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->Update(dElapsedTime);
 	}
-	
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		bulletVector[i]->Update(dElapsedTime);
+	}
 
 
 	//	//spawn Enemy
@@ -231,7 +375,6 @@ bool CScene2D::Update(const double dElapsedTime)
 			clock = 0;
 		}
 		worldTime = 0;
-		cout << clock << endl;
 		
 	}
 	if (hunger >= 1)
@@ -252,14 +395,32 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
-					int random_enemy_spawn = rand() % 2;
-					if (random_enemy_spawn == 0)
+					//change back
+					//int random_enemy_spawn = rand() % 2;
+					if (enemies_spawnned < 11)
 					{
-						cMap2D->SetMapInfo(asd.y, asd.x, 302);
-					}
-					else
-					{
-						cMap2D->SetMapInfo(asd.y, asd.x, 301);
+						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						//int random_enemy_spawn = 777;
+						if (random_enemy_spawn == 0)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 302);
+							enemies_spawnned++;
+						}
+						else if (random_enemy_spawn == 1)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 400);
+							enemies_spawnned++;
+						}
+						else if (random_enemy_spawn == 2)
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 401);
+							enemies_spawnned++;
+						}
+						else
+						{
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;
+						}
 					}
 					while (true)
 					{
@@ -283,7 +444,43 @@ bool CScene2D::Update(const double dElapsedTime)
 			worldTime1 = 0;
 		}
 	}
+	/*if (cPlayer2D->drop)
+	{
+		cPlayer2D->drop = false;
+		PickUP* cPU = new PickUP();
+		cPU->SetShader("Shader2D_Colour");
+		if (cPU->Init())
+		{
+			cPU->SetPlayer2D(cPlayer2D);
+			Pick.push_back(cPU);
+		}
+	}*/
+	if (cPlayer2D->drop)
+	{
+		cout <<"sgwigjw"<< cPlayer2D->amtDrop << endl;
+		while (cPlayer2D->amtDrop >= 0)
+		{
+			cPlayer2D->drop = false;
 
+			PickUP* cPU = new PickUP();
+			cPU->SetShader("Shader2D_Colour");
+			if (cPU->Init())
+			{
+				cPU->SetPlayer2D(cPlayer2D);
+				Pick.push_back(cPU);
+			}
+			if (cPlayer2D->amtDrop != 0)
+			{
+				cMap2D->SetMapInfo(cPU->vec2Index.y, cPU->vec2Index.x, cPU->getId());
+			}
+			cPlayer2D->amtDrop--;
+		}
+		cPlayer2D->amtDrop = -1;
+	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		Pick[i]->Update(dElapsedTime);
+	}
 	return true;
 }
 
@@ -322,7 +519,16 @@ void CScene2D::Render(void)
 
 	cPlayer2D->PostRender();
 
-	cGUI_Scene2D->Render();
+	if (boss)
+	{
+		boss->PreRender();
+
+		boss->Render();
+
+		boss->PostRender();
+	}
+
+
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		enemyVector[i]->PreRender();
@@ -331,7 +537,24 @@ void CScene2D::Render(void)
 
 		enemyVector[i]->PostRender();
 	}
+	for (int i = 0; i < Pick.size(); i++)
+	{
+		Pick[i]->PreRender();
 
+		Pick[i]->Render();
+
+		Pick[i]->PostRender();
+	}
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+
+		bulletVector[i]->PreRender();
+
+		bulletVector[i]->Render();
+
+		bulletVector[i]->PostRender();
+	}
+	cGUI_Scene2D->Render();//render last alll the time
 }
 
 /**

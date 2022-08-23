@@ -39,6 +39,9 @@ class CMap2D;
 #include "../SoundController/SoundController.h"
 
 #include "Physics2D.h"
+#include "bullet.h"
+
+
 
 
 class CPlayer2D : public CSingletonTemplate<CPlayer2D>, public CEntity2D
@@ -113,6 +116,18 @@ public:
 	float healthTime = 0;//this is the counter for how long until health increase
 
 	float getDmg();
+	std::vector<bullet*> pBullet;
+
+
+	std::vector<bullet*> WatchOutBullet;
+	int enemies_unalived = 10;
+	void selectKey();
+	float getGunDmg();
+	bool shooting;
+
+	bool drop = false;
+	bool InventoryIsFull = false;
+	int amtDrop=-1;
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -176,6 +191,8 @@ protected:
 
 	void UpdateHealthLives();
 
+	void UpdateFull(int max, string name);
+
 	bool canTP = false;
 
 
@@ -188,26 +205,32 @@ protected:
 
 	double dt;
 
-	std::vector<string> hotKeyInv = {"Food","","Food","","","","","","",
-									"Food","","","Food","","","","","",
-									"Food","","Food","","","","","","" };
+	std::vector<string> hotKeyInv = {"","","","","","","","","",
+									"","","","","","","","","",
+									"","","","","","","","","" };
 
 	std::vector<int> hotKeyInvID = { 0,0,0,0,0,0,0,0,0,
 									 0,0,0,0,0,0,0,0,0,
 									 0,0,0,0,0,0,0,0,0 };
 
-	std::vector<int> hotKeyInvQuantity = { 99,0,1,0,0,0,0,0,0 ,
-											99,0,0,1,0,0,0,0,0,
-											99,0,1,0,0,0,0,0,0 };
+	std::vector<int> hotKeyInvQuantity = {  0,0,0,0,0,0,0,0,0,
+											0,0,0,0,0,0,0,0,0,
+											0,0,0,0,0,0,0,0,0 };
 
 
 	string equip="";
 	float dmg = 1;
+
+	float gunDmg = 10;
+
 	void InventoryMan();
-	void selectKey();
+
 
 	void Wepon(string e);
 
 	void MouseAction();
+
+	float fireRate=0;
+	float defaultRate;
 };
 

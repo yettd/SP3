@@ -36,6 +36,10 @@
 #include "GUI_Scene2D.h"
 #include "GameManager.h"
 #include "Enemy2D.h"
+#include "bullet.h"
+#include "ghens.h"
+
+#include "PickUP.h"
 #include <vector>
 // Add your include files here
 
@@ -63,6 +67,7 @@ public:
 	float worldTime1=0;
 
 	float clock = 0;
+	int enemies_spawnned = 1;
 
 protected:
 	// Keyboard Controller singleton instance
@@ -73,7 +78,9 @@ protected:
 
 	// Add your variables and methods here.
 	std::vector<CEntity2D*> enemyVector;
-
+	std::vector<CEntity2D*> Pick;
+	CEntity2D* boss;
+	ghens* G;
 
 	std::vector<CEnemy2D*> a;
 
@@ -88,6 +95,10 @@ protected:
 	CGUI_Scene2D* cGUI_Scene2D;
 	CGameManager* cGameManager;
 	CSoundController* CSC;
+
+	std::vector<bullet*> bulletVector;
+
+	bool spawnGhens = false;
 
 };
 

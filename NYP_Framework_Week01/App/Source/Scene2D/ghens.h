@@ -29,6 +29,8 @@ class CMap2D;
 // Include Player2D
 #include "Player2D.h"
 
+#include "bullet.h"
+
 class ghens : public CEntity2D
 {
 public:
@@ -81,6 +83,27 @@ public:
 
 	void SetHp(int i);
 
+	vector<bullet*> eBullet;
+
+
+	vector<bullet*> watchout;
+
+	int shotsfired = 0;
+
+	int eruptcount = 0;
+
+	bool corpse_arise = false;
+
+	bool teleported = false;
+
+	float tptime = 0.f;
+
+	bool summonDone = false;
+
+	int summoned = 0;
+
+	int random_move = -1;
+
 protected:
 	enum DIRECTION
 	{
@@ -94,8 +117,10 @@ protected:
 	enum FSM
 	{
 		IDLE = 0,
-		ATTACK1 = 1,
-		ATTACK2 = 2,
+		PULSE = 1,
+		ERUPT = 2,
+		SUMMON = 3,
+		TELEPORT = 4,
 		NUM_FSM
 	};
 
@@ -139,6 +164,8 @@ protected:
 
 	glm::vec2 escapeDestination;
 
+	
+
 
 	// Current FSM
 	FSM sCurrentFSM;
@@ -175,10 +202,16 @@ protected:
 	// Update position
 	void UpdatePosition(void);
 
+	void ShortCutPath(glm::vec2 des);
+
 
 	//myStuff;
 
-	float hp=11;
+	float hp=100;
 	float speed=1;
+
+	float pulsetimer = 0.f;
+
+	
 };
 

@@ -73,6 +73,8 @@ public:
 	void setUI(bool e);
 
 	void setClock(int i);
+	void craft(int i);
+	bool craftable(int i);
 protected:
 	// Constructor
 	CGUI_Scene2D(void);
@@ -104,4 +106,23 @@ protected:
 	CPlayer2D* lever;
 	CMap2D* map;
 	bool PressE;
+
+
+	std::vector<string>PHK;
+	std::vector<int>PHKQ;
+	std::vector<int> PHKID;
+	int PS;
+//crafting stuff
+	//name and ID of iteam that can craft
+	vector<std::pair<string, int>> nameID = { {"gun (weapon)",2},{"Food",0} };
+
+	vector<int> maxAmt = { 1,1 };
+
+	//first vector to decide what to craft
+	//second vector what is needed to craft
+	vector<std::vector<std::pair<string, int>>> recipie = {
+		{{"WoodenBlock",1},{"Food",2}},
+		{{"WoodenBlock",1},{"gun (weapon)",1}},
+	};
+
 };

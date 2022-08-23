@@ -192,6 +192,26 @@ void CPlayer2D::InteractWithMap(void)
 	default:
 		break;
 	}
+
+	for (size_t i = 0; i < WatchOutBullet.size(); i++)
+	{
+		if (((vec2Index.x >= WatchOutBullet[i]->vec2Index.x - 1) &&
+			(vec2Index.x <= WatchOutBullet[i]->vec2Index.x + 1))
+			&&
+			((vec2Index.y >= WatchOutBullet[i]->vec2Index.y - 1) &&
+				(vec2Index.y <= WatchOutBullet[i]->vec2Index.y + 1)))
+		{
+			if (getIframe()==false)
+			{
+				SetIframe();
+				setHealth(5);
+			}
+			WatchOutBullet[i]->bIsActive = false;
+		}
+
+	}
+
+
 }
 
 bool CPlayer2D::bInteractWithMap(int i)
@@ -205,10 +225,31 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
-	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
+	fireRate -= dElapsedTime;
+	shooting = false;
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_F))
 	{
-		addToinventory(100, "WoodenBlock", 1, 2);
+		addToinventory(100, "WoodenBlock", 1, 10);
+		addToinventory(15, "Food", 1, 10);
+	}
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
+	{
+		if (equip != "")
+		{
 
+			cII = cIM->GetItem(equip);
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, hotKeyInvID[select - 1] + 1000);
+			cII->Remove(1);
+			hotKeyInvQuantity[select - 1]--;
+			if (hotKeyInvQuantity[select - 1] == 0)
+			{
+				hotKeyInv[select - 1] = "";
+				hotKeyInvID[select - 1] = 0;
+				equip = hotKeyInv[select - 1];
+			}
+			drop = true;
+			amtDrop++;
+		}
 	}
 	static float RespawnTimer = 5;
 	CGameManager::GetInstance()->timer += dElapsedTime;
@@ -392,6 +433,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
+
 }
 
 /**
@@ -764,6 +806,21 @@ void CPlayer2D::UpdateHealthLives()
 	
 }
 
+void CPlayer2D::UpdateFull(int max,string name)
+{
+
+	for (size_t i = 0; i < hotKeyInv.size(); i++)
+	{
+		if (hotKeyInv[i] == "")
+		{
+			InventoryIsFull = false;
+			return;
+		}
+		
+	}
+	InventoryIsFull = true;
+}
+
 
 void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 {
@@ -781,53 +838,56 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
 	glm::vec2 mousePos(posX, posY);
 	
-	if (cPhysics2D.CalculateDistance(vec2Index, mousePos)<=3)
-	{
-		switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
-		{
-		case 100:
-			if (cMouseController->IsButtonDown(0))
-			{
-				breakTimer+=dt;
-				if (breakTimer >=2 )
-				{
-					cMap2D->SetMapInfo(mousePos.y,mousePos.x,0);
-					addToinventory(100,"WoodenBlock",1,10);
-					breakTimer=0;
-				}
-			}
-		
-		default:
-			break;
-		}
-	}
-
-	if (cMouseController->IsButtonDown(1))
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
-			if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
-
-				string checker = equip;
-				std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-				if (checker.find("block") != string::npos)
+			case 100:
+				if (cMouseController->IsButtonDown(0))
 				{
-					cII = cIM->GetItem(equip);
-					cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
-					cII->Remove(1);
-					hotKeyInvQuantity[select - 1]--;
-					if (hotKeyInvQuantity[select-1] == 0)
+					breakTimer += dt;
+					if (breakTimer >= 2)
 					{
-						hotKeyInv[select - 1] = "";
-						hotKeyInvID[select - 1] = 0;
-						equip = hotKeyInv[select - 1];
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(100, "WoodenBlock", 1, 10);
+						breakTimer = 0;
+					}
+				}
+
+			default:
+				break;
+			}
+		}
+
+		if (cMouseController->IsButtonDown(1))
+		{
+			if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
+			{
+				if (cMap2D->GetMapInfo(mousePos.y, mousePos.x) == 0)
+				{
+
+					string checker = equip;
+					std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
+					if (checker.find("block") != string::npos)
+					{
+						cII = cIM->GetItem(equip);
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
+						cII->Remove(1);
+						hotKeyInvQuantity[select - 1]--;
+						if (hotKeyInvQuantity[select - 1] == 0)
+						{
+							hotKeyInv[select - 1] = "";
+							hotKeyInvID[select - 1] = 0;
+							equip = hotKeyInv[select - 1];
+						}
+
 					}
 				}
 			}
 		}
 	}
-	
 }
 
 void CPlayer2D::InventoryMan()
@@ -843,7 +903,7 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 2);
+	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 
@@ -851,6 +911,9 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 	cII = cIM->Add("", "Image/blank.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("gun (weapon)", "Image/door.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 }
 
@@ -896,22 +959,33 @@ void CPlayer2D::selectKey()
 	dmg = 1;
 	string checker = equip;
 	std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-	if (checker.find("wepon") != string::npos)
+	if (checker.find("weapon") != string::npos)
 	{
 		Wepon(checker);
 	}
 }
+float CPlayer2D::getGunDmg()
+{
+	return gunDmg;
+}
 void CPlayer2D::Wepon(string wepon)
 {
-	if (wepon.find("wooden") != string::npos)
+	if (wepon.find("gun") != string::npos)
 	{
-		dmg = 2;
+		cout << "FOUND" << endl;
+		dmg = 1;
+		gunDmg = 5;
+		defaultRate = 2;
+		//fireRate = 0;
 	}
 
 }
 
 void CPlayer2D::MouseAction()
 {
+	float posX = cMouseController->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (cMouseController->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
 	if (cMouseController->IsButtonDown(1))
 	{
 		
@@ -935,7 +1009,24 @@ void CPlayer2D::MouseAction()
 					hotKeyInvID[select - 1] = 0;
 					equip = hotKeyInv[select - 1];
 				}
+			}
+		}
+		else if (checker.find("gun") != string::npos)
+		{
+			//shooting
+			if (fireRate <= 0)
+			{
 
+				shooting = true;
+				cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+				bullet* p = new bullet();
+				p->SetShader("Shader2D_Colour");
+				p->Init();
+				p->player = true;
+				p->des = mousePos;
+				pBullet.push_back(p);
+				fireRate = defaultRate;
+				cout << "sadasfg" << endl;
 			}
 		}
 
@@ -944,33 +1035,81 @@ void CPlayer2D::MouseAction()
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
-	cout << hotKeyInv.size() << endl;
-	//check For existence
-	for (size_t i = 0; i < hotKeyInv.size(); i++)
+	//cout << hotKeyInv.size() << endl;
+	////check For existence
+	//for (size_t i = 0; i < hotKeyInv.size(); i++)
+	//{
+	//	if (hotKeyInv[i] == name && hotKeyInvQuantity[i]<maxQuitity)
+	//	{
+	//		cII = cIM->GetItem(name);
+	//		cII->Add(amt);
+	//		hotKeyInvQuantity[i]++;
+	//		changed = true;
+	//		return;
+	//	}
+	//}
+	//for (size_t i = 0; i < hotKeyInv.size(); i++)
+	//{
+	//	if (hotKeyInv[i] == "")
+	//	{
+	//		hotKeyInv[i] = name;
+	//		hotKeyInvID[i] = num;	
+	//		hotKeyInvQuantity[i]++;
+	//		cII = cIM->GetItem(name);
+	//		cII->Add(amt);
+	//		changed = true;
+	//
+	//		return;
+	//	}
+	//}
+	//cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,(num+1000));
+	//drop = true;
+
+
+
+	static bool done = false;
+	for (size_t j = 0; j < amt; j++)
 	{
-		if (hotKeyInv[i] == name && hotKeyInvQuantity[i]!=maxQuitity)
+		done = false;
+		//check For existence
+		for (size_t i = 0; i < hotKeyInv.size(); i++)
 		{
-			cII = cIM->GetItem(name);
-			cII->Add(amt);
-			hotKeyInvQuantity[i]++;
-			changed = true;
-			return;
+			if (hotKeyInv[i] == name && hotKeyInvQuantity[i] < maxQuitity)
+			{
+				cII = cIM->GetItem(name);
+				cII->Add(1);
+				hotKeyInvQuantity[i]++;
+				changed = true;
+				done = true;
+				break;
+			}
+		}
+		if (!done)
+		{
+
+			for (size_t i = 0; i < hotKeyInv.size(); i++)
+			{
+				if (hotKeyInv[i] == "")
+				{
+					hotKeyInv[i] = name;
+					hotKeyInvID[i] = num;
+					hotKeyInvQuantity[i]++;
+					cII = cIM->GetItem(name);
+					cII->Add(1);
+					changed = true;
+					done = true;
+
+					break;
+				}
+			}
+		}
+		if (!done)
+		{
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, (num + 1000));
+			drop = true;
+			amtDrop++;
 		}
 	}
-	for (size_t i = 0; i < hotKeyInv.size(); i++)
-	{
-		if (hotKeyInv[i] == "")
-		{
-			hotKeyInv[i] = name;
-			hotKeyInvID[i] = num;
-			hotKeyInvQuantity[i]++;
-			cII = cIM->GetItem(name);
-			cII->Add(amt);
-			changed = true;
-			return;
-		}
-	}
-	
 }
 
 float CPlayer2D::getDmg()

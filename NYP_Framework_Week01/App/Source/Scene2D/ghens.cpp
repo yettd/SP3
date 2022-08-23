@@ -107,7 +107,7 @@ bool ghens::Init(void)
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load the enemy2D texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_EnemyTile.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/ghens.tga", true);
 	if (iTextureID == 0)
 	{
 		//cout << "Unable to load Image/Scene2D_EnemyTile.tga" << endl;
@@ -133,6 +133,7 @@ bool ghens::Init(void)
  */
 void ghens::Update(const double dElapsedTime)
 {
+	cout << random_move << endl;
 	if (!bIsActive)
 		return;
 
@@ -146,32 +147,274 @@ void ghens::Update(const double dElapsedTime)
 		if (iFSMCounter > iMaxFSMCounter)
 		{
 			iFSMCounter = 0;
+			pulsetimer = 0.f;
+			shotsfired = 0;
+			eruptcount = 0;
+			corpse_arise = false;
 			//cout << "Switching to Patrol State" << endl;
-		}
-		if (hp <= 10)
-		{
-		
+			
+			if (hp <= 30) //critical hp zone
+			{
+				random_move = rand() % 4; // 0 Pulse 1 Erupt 2 Teleport 3 Summon
+			}
+			else //not critical hp zone
+			{
+				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
+			}
+
+			switch (random_move)
+			{
+			case 0:
+				sCurrentFSM = PULSE;
+				break;
+			case 1:
+				sCurrentFSM = ERUPT;
+				break;
+			case 2:
+				sCurrentFSM = TELEPORT;
+				break;
+			case 3:
+				sCurrentFSM = SUMMON;
+				break;
+
+			default:
+				sCurrentFSM = IDLE;
+				break;
+			}
+
 		}
 		iFSMCounter++;
 		break;
-	case ATTACK1:
+	case PULSE:
 	{
+		pulsetimer += dElapsedTime;
+		if (pulsetimer >= 0.75)
+		{
+			//shoot
+
+			int shoottype = rand() % 3; // 0 for + direction | 1 for X direction | 2 for all directions
+
+			if (shoottype == 0) // +
+			{
+				//vert shooting
+				glm::vec2 shootdes;
+				for (int i = 0; i < 4; i++)
+				{
+					if (i == 0)
+					{
+						shootdes.x = vec2Index.x + 1;
+						shootdes.y = vec2Index.y;
+					}
+
+					else if (i == 1)
+					{
+						shootdes.x = vec2Index.x - 1;
+						shootdes.y = vec2Index.y;
+					}
+
+					else if (i == 2)
+					{
+						shootdes.x = vec2Index.x;
+						shootdes.y = vec2Index.y + 1;
+					}
+
+					else
+					{
+						shootdes.x = vec2Index.x;
+						shootdes.y = vec2Index.y - 1;
+					}
+
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+					bullet* p = new bullet();
+					p->SetShader("Shader2D_Colour");
+					p->Init();
+					p->des = shootdes;
+					eBullet.push_back(p);
+				}
+			}
+
+			else if (shoottype == 1) // X
+			{
+				//diag shooting
+				glm::vec2 shootdes;
+				for (int i = 0; i < 4; i++)
+				{
+					if (i == 0)
+					{
+						shootdes.x = 0;
+						shootdes.y = 0;
+					}
+
+					else if (i == 1)
+					{
+						shootdes.x = 31;
+						shootdes.y = 0;
+					}
+
+					else if (i == 2)
+					{
+						shootdes.x = 31;
+						shootdes.y = 23;
+					}
+
+					else
+					{
+						shootdes.x = 0;
+						shootdes.y = 23;
+					}
+					
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+					bullet* p = new bullet();
+					p->SetShader("Shader2D_Colour");
+					p->Init();
+					p->des = shootdes;
+					eBullet.push_back(p);
+				}
+			}
+
+			else // X+
+			{
+				glm::vec2 shootdes;
+				for (int i = 0; i < 8; i++)
+				{
+					if (i == 0)
+					{
+						shootdes.x = 0;
+						shootdes.y = 0;
+					}
+
+					else if (i == 1)
+					{
+						shootdes.x = 31;
+						shootdes.y = 0;
+					}
+
+					else if (i == 2)
+					{
+						shootdes.x = 31;
+						shootdes.y = 23;
+					}
+
+					else if (i == 3)
+					{
+						shootdes.x = 0;
+						shootdes.y = 23;
+					}
+
+					else if (i == 4)
+					{
+						shootdes.x = vec2Index.x;
+						shootdes.y = vec2Index.y + 1;
+					}
+
+					else if (i == 5)
+					{
+						shootdes.x = vec2Index.x;
+						shootdes.y = vec2Index.y - 1;
+					}
+
+					else if (i == 6)
+					{
+						shootdes.x = vec2Index.x + 1;
+						shootdes.y = vec2Index.y;
+					}
+
+					else
+					{
+						shootdes.x = vec2Index.x - 1;
+						shootdes.y = vec2Index.y;
+					}
+
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+					bullet* p = new bullet();
+					p->SetShader("Shader2D_Colour");
+					p->Init();
+					p->des = shootdes;
+					eBullet.push_back(p);
+				}
+			}
+			pulsetimer = 0.f;
+
+			shotsfired++;
+		}
+
+		if (shotsfired >= 10)
+		{
+			sCurrentFSM = IDLE;
+		}
+	}
+		break;
+	case ERUPT:
+	{
+		glm::vec2 rand_erupt_tile;
+		if (eruptcount < 10)
+		{
+			rand_erupt_tile.x = rand() % 28 + 2;
+			rand_erupt_tile.y = rand() % 20 + 2;
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 11);
+			eruptcount++;
+		}
+		else
+		{
+			sCurrentFSM = IDLE;
+		}
 
 	}
 		break;
-	case ATTACK2:
+	case SUMMON:
+	{
+		if (corpse_arise == false)
 		{
-		
+			corpse_arise = true;
 		}
-		
-		break;
+		if (summonDone == true)
+		{
+			sCurrentFSM = IDLE;
+		}
+	}
+	break;
+
+	case TELEPORT:
+	{
+		if (teleported == false)
+		{
+			//tp
+			tptime += dElapsedTime;
+			if (tptime >= 0.3)
+			{
+				glm::vec2 tp_tile;
+				tp_tile.x = rand() % 32;
+				tp_tile.y = rand() % 24;
+				if (cMap2D->GetMapInfo(tp_tile.y, tp_tile.x) == 0)
+				{
+					vec2Index = tp_tile;
+					teleported = true;
+				}
+			}
+		}
+		else
+		{
+			tptime = 0.f;
+			sCurrentFSM = IDLE;
+		}
+	}
+	break;
+
 	default:
 		break;
 	}
 
 	// Update Jump or Fall
 	UpdateJumpFall(dElapsedTime);
-
+	InteractWithPlayer();
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x*cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y*cSettings->MICRO_STEP_YAXIS);
@@ -592,8 +835,21 @@ bool ghens::InteractWithPlayer(void)
 		// Since the player has been caught, then reset the FSM
 		sCurrentFSM = IDLE;
 		iFSMCounter = 0;
-		return true;
 	}
+	for (size_t i = 0; i < watchout.size(); i++)
+	{
+		if (((vec2Index.x >= watchout[i]->vec2Index.x - .5) &&
+			(vec2Index.x <= watchout[i]->vec2Index.x + .5))
+			&&
+			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
+				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
+		{
+			//enemyHealth -= cPlayer2D->getGunDmg();
+			watchout[i]->bIsActive = false;
+		}
+
+	}
+
 	return false;
 }
 void ghens::ESCAPE(void)
@@ -799,5 +1055,39 @@ void ghens::UpdatePosition(void)
 
 		// Interact with the Player
 		InteractWithPlayer();
+	}
+}
+
+
+void ghens::ShortCutPath(glm::vec2 des)
+{
+	auto path = cMap2D->PathFind(vec2Index,
+		des,
+		heuristic::euclidean,
+		10);
+
+	// Calculate new destination
+	bool bFirstPosition = true;
+	for (const auto& coord : path)
+	{
+		//std::cout << coord.x << "," << coord.y << "\n";
+		if (bFirstPosition == true)
+		{
+			// Set a destination
+			i32vec2Destination = coord;
+			// Calculate the direction between enemy2D and this destination
+			i32vec2Direction = i32vec2Destination - vec2Index;
+			bFirstPosition = false;
+		}
+		else
+		{
+			if ((coord - i32vec2Destination) == i32vec2Direction)
+			{
+				// Set a destination
+				i32vec2Destination = coord;
+			}
+			//else
+			//	break;
+		}
 	}
 }
