@@ -189,6 +189,8 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
+	if (!bIsActive)
+		return;
 
 	dt = dElapsedTime;
 
@@ -200,11 +202,31 @@ void CEnemy2D::Update(const double dElapsedTime)
 		{
 			cPlayer2D->enemies_unalived++;
 		}
+
+		if (enemyType == 0) //blues
+		{
+			cPlayer2D->addToinventory(13,"metalparts", rand() % 2 + 1, 10);
+		}
+
+		else if (enemyType == 1) //clifford
+		{
+			cPlayer2D->addToinventory(12, "firepowder", rand() % 2 + 1, 10);
+		}
+
+		else if (enemyType == 2) //cow
+		{
+			cPlayer2D->addToinventory(15, "oilcan", 1, 1);
+		}
+
+		else //unicorn
+		{
+			cPlayer2D->addToinventory(14, "ironhorn", 1, 10);
+		}
+
 		bIsActive = false;
 	}
 
-	if (!bIsActive)
-		return;
+	
 
 	if (enemyType == 0) // FSM for blues
 	{

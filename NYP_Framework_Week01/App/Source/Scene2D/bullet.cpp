@@ -312,6 +312,10 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100)
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x,0);
+				}
 				return false;
 			}
 		}
@@ -322,6 +326,14 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) >= 100))
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+				}
+				else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
+				}
 				return false;
 			}
 		}
@@ -341,6 +353,11 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100)
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x+1, 0);
+
+				}
 				return false;
 			}
 		}
@@ -351,6 +368,14 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) >= 100))
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x+1, 0);
+				}
+				else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
+				}
 				return false;
 			}
 		}
@@ -371,6 +396,11 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) >= 100)
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x, 0);
+
+				}
 				return false;
 			}
 		}
@@ -381,6 +411,17 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) >= 100))
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
+
+				}
+				else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
+
+				}
+		
 				return false;
 			}
 		}
@@ -393,6 +434,11 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100)
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+
+				}
 				return false;
 			}
 		}
@@ -403,6 +449,17 @@ bool bullet::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100))
 			{
+				if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+
+				}
+				else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 105)
+				{
+					cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 0);
+
+				}
+	
 				return false;
 			}
 		}

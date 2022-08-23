@@ -209,10 +209,77 @@ protected:
 	string name;
 	int Iid;
 	int MaxQuant;
-	vector<int> id = {1100,1015,1002 };//id + 1000
-	vector<string> image = {"Image/Scene2D_GroundTile.tga","Image/dogFood.tga", "Image/door.tga" };//image for drop
-	vector<string>nameList = { "WoodenBlock","Food","gun (weapon)" };//name of item
-	vector<int> quantity = {10,10,1};//max amt
+	vector<int> id =
+	{
+		1100,
+		1000 + 101,
+		1000 + 104,
+		1000 + 105,
+		1000 + 10,
+		1000 + 11,
+		1000 + 12,
+		1000 + 13,
+		1000 + 14,
+		1000 + 15,
+		1000 + 20,
+		1000 + 30
+
+	};//id + 1000
+
+
+	vector<string> image = 
+	{
+		"Image/Scene2D_GroundTile.tga",
+		"Image/metalcubePLUS.tga",
+		"Image/upgradealtar.tga",
+		"Image/rustedwoodPLUS.tga",
+		"Image/rustedwood.tga",
+		"Image/metalcube.tga",
+		"Image/gunpowder.tga",
+		"Image/metalparts.tga",
+		"Image/ironhorn.tga",
+		"Image/oilcan.tga",
+		"Image/ghensheart.tga",
+		"Image/Scene2D_PI.tga"
+
+	};//image for drop
+
+
+	vector<string>nameList = 
+	{ 
+		"WoodenBlock (block)",
+		"metalcubePLUS (block)",
+		"upgradealtar (block)",
+		"rustedwoodPLUS (block)",
+		"rustedwood",
+		"metalcube",
+		"firepowder",
+		"metalparts",
+		"ironhorn",
+		"oilcan",
+		"ghensheart",
+		"portal",
+
+	};//name of item
+
+
+	vector<int> quantity = 
+	{
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		1,
+		1,
+		1,
+	};//max amt
+
+
 	float inactive = 1.f;
 };
 

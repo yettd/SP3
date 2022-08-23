@@ -119,18 +119,31 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(100, iTextureID));
 	}
-	// Load the tree texture
-	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/emptyDB.tga", true);
-	//if (iTextureID == 0)
-	//{
-	//	cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-	//	return false;
-	//}
-	//else
-	//{
-	//	// Store the texture ID into MapOfTextureIDs
-	//	MapOfTextureIDs.insert(pair<int, int>(10, iTextureID));
-	//}
+	 //Load the going erupt texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/gerupt.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/gerupt.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(6, iTextureID));
+	}
+
+	//Load the actual erupt texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/erupt.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/erupt.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(9, iTextureID));
+	}
 	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
 	//if (iTextureID == 0)
 	//{

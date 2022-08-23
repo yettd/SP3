@@ -8,3 +8,5 @@ C:\Users\wert\OneDrive\Desktop\mine\NYP_Framework_Week01\Debug\liabary.pdb
 C:\Users\wert\OneDrive\Desktop\mine\NYP_Framework_Week01\Library\Debug\liabary.pdb
 C:\Users\wert\OneDrive\Desktop\New folder\NYP_Framework_Week01\Debug\liabary.pdb
 C:\Users\wert\OneDrive\Desktop\New folder\NYP_Framework_Week01\Library\Debug\liabary.pdb
+C:\Users\wert\OneDrive\Desktop\NYP_Framework_Week01\Debug\liabary.pdb
+C:\Users\wert\OneDrive\Desktop\NYP_Framework_Week01\Library\Debug\liabary.pdb
