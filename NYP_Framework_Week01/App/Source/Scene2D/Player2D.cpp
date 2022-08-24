@@ -230,9 +230,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(12, "firepowder", 3, 10);
-		addToinventory(13, "metalparts", 4, 10);
-		addToinventory(10, "rustedwood", 4, 10);
+		addToinventory(12, "firepowder", 10, 10);
+		addToinventory(13, "metalparts", 10, 10);
+		addToinventory(10, "rustedwood", 10, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -978,22 +978,22 @@ void CPlayer2D::InventoryMan()
 
 
 	//weaponary
-	cII = cIM->Add("pistol mark1 (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("pistol mark1 (weapon)", "Image/pistolmark1.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("pistol mark2 (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("pistol mark2 (weapon)", "Image/pistolmark2.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("energy gun (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("energy gun (weapon)", "Image/energygun.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("rusted sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("rusted sword (weapon)", "Image/rustedsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("metal sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("metal sword (weapon)", "Image/metalsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("photon sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("photon sword (weapon)", "Image/photonsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 	//placeable blocks
