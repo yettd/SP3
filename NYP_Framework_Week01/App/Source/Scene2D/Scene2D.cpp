@@ -110,20 +110,100 @@ bool CScene2D::Init(void)
 
 	cMap2D->SetShader("Shader2D");
 	//cGUI_Scene2D->SetShader("Shader2D_Colour");
-	if (cMap2D->Init(2 , CSettings::GetInstance()->NUM_TILES_YAXIS, CSettings::GetInstance()->NUM_TILES_XAXIS) == false)
+	if (cMap2D->Init(12 , CSettings::GetInstance()->NUM_TILES_YAXIS, CSettings::GetInstance()->NUM_TILES_XAXIS) == false)
 	{
 		cout << "map2d failed" << endl;
 		return false;
 	}
 
-	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_0.csv") == false)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01.csv") == false)
 	{
-		cout << "map failed" << endl;
+		cout << "map 1 failed" << endl;
 
 		return false;
 	}
 
-	
+	//level 1
+	//top left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topleft.csv", 1) == false)
+	{
+		cout << "map 1 failed" << endl;
+
+		return false;
+	}
+	//top middle
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topmiddle.csv", 2) == false)
+	{
+		cout << "map 2 failed" << endl;
+
+		return false;
+	}
+	//top right
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topright.csv", 3) == false)
+	{
+		cout << "map 3 failed" << endl;
+
+		return false;
+	}
+	//middle left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middleleft.csv", 4) == false)
+	{
+		cout << "map 4 failed" << endl;
+
+		return false;
+	}
+	//middle: player spawns here first
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middle.csv", 5) == false)
+	{
+		cout << "map 5 failed" << endl;
+
+		return false;
+	}
+	//middle right
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middleright.csv", 6) == false)
+	{
+		cout << "map 6 failed" << endl;
+
+		return false;
+	}
+	//bottom left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01.csv", 7) == false)
+	{
+		cout << "map 7 failed" << endl;
+
+		return false;
+	}
+	//bottom middle
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_bottommiddle.csv", 8) == false)
+	{
+		cout << "map 8 failed" << endl;
+
+		return false;
+	}
+	//bottom right: portal placeholder
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_bottomright.csv", 9) == false)
+	{
+		cout << "map 9 failed" << endl;
+
+		return false;
+	}
+
+	//level 2
+	//left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_02_left.csv", 10) == false)
+	{
+		cout << "map 10 failed" << endl;
+
+		return false;
+	}
+	//right (ghens)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_02_right.csv", 11) == false)
+	{
+		cout << "map 11 failed" << endl;
+
+		return false;
+	}
+	cMap2D->SetCurrentLevel(5);
 	CShaderManager::GetInstance()->Use("Shader2D_Colour");
 	cPlayer2D = CPlayer2D::GetInstance();
 	cPlayer2D->SetShader("Shader2D_Colour");
@@ -455,27 +535,55 @@ bool CScene2D::Update(const double dElapsedTime)
 			Pick.push_back(cPU);
 		}
 	}*/
-	if (cPlayer2D->DropId.size()>0)
+	if (cPlayer2D->drop)
 	{
-		for (size_t i = 0; i < cPlayer2D->DropId.size(); i++)
+		cout <<"sgwigjw"<< cPlayer2D->amtDrop << endl;
+		while (cPlayer2D->amtDrop >= 0)
 		{
-			for (size_t j = 0; j < cPlayer2D->DropId[i].second; j++)
+			cPlayer2D->drop = false;
+
+			PickUP* cPU = new PickUP();
+			cPU->SetShader("Shader2D_Colour");
+			if (cPU->Init())
 			{
-				cMap2D->SetMapInfo(cPlayer2D->vec2Index.y, cPlayer2D->vec2Index.x, cPlayer2D->DropId[i].first);
-				PickUP* cPU = new PickUP();
-				cPU->SetShader("Shader2D_Colour");
-				if (cPU->Init())
-				{
-					cPU->SetPlayer2D(cPlayer2D);
-					Pick.push_back(cPU);
-				}
+				cPU->SetPlayer2D(cPlayer2D);
+				Pick.push_back(cPU);
 			}
+			if (cPlayer2D->amtDrop != 0)
+			{
+				cMap2D->SetMapInfo(cPU->vec2Index.y, cPU->vec2Index.x, cPU->getId());
+			}
+			cPlayer2D->amtDrop--;
 		}
+		cPlayer2D->amtDrop = -1;
 	}
-	cPlayer2D->DropId.clear();
 	for (int i = 0; i < Pick.size(); i++)
 	{
 		Pick[i]->Update(dElapsedTime);
+	}
+
+	//map changing
+	//left & right
+	if (cPlayer2D->vec2Index.x >= 31)
+	{
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 1);
+		cPlayer2D->vec2Index.x = 1;
+	}
+	else if (cPlayer2D->vec2Index.x <= 0)
+	{
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 1);
+		cPlayer2D->vec2Index.x = 30;
+	}
+	//up and down
+	if (cPlayer2D->vec2Index.y >= 23)
+	{
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 3);
+		cPlayer2D->vec2Index.y = 1;
+	}
+	else if (cPlayer2D->vec2Index.y <= 0)
+	{
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 3);
+		cPlayer2D->vec2Index.y = 22;
 	}
 	return true;
 }
