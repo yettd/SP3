@@ -166,7 +166,7 @@ void ghens::Update(const double dElapsedTime)
 			}
 			else //not critical hp zone
 			{
-				random_move = 1; // 0 Pulse 1 Erupt 2 Teleport
+				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
 			}
 
 			switch (random_move)
