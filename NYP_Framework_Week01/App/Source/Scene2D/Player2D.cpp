@@ -298,7 +298,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 				vec2Index.x--;
 			}
 		}
-		Constraint(LEFT);
+		//Constraint(LEFT);
 
 		if (!CheckPosition(LEFT))
 		{
@@ -327,7 +327,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			vec2Index.x++;
 		}
 
-		Constraint(RIGHT);
+		//Constraint(RIGHT);
 
  		if (!CheckPosition(RIGHT))
 		{
