@@ -133,9 +133,16 @@ bool ghens::Init(void)
  */
 void ghens::Update(const double dElapsedTime)
 {
-	cout << random_move << endl;
+
 	if (!bIsActive)
 		return;
+
+	if (hp <= 0)
+	{
+		/*cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 20);*/
+		cPlayer2D->addToinventory(20, "ghensheart", 1, 1);
+		bIsActive = false;
+	}
 
 	if (true)
 	{
@@ -159,7 +166,7 @@ void ghens::Update(const double dElapsedTime)
 			}
 			else //not critical hp zone
 			{
-				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
+				random_move = 1; // 0 Pulse 1 Erupt 2 Teleport
 			}
 
 			switch (random_move)
@@ -187,6 +194,7 @@ void ghens::Update(const double dElapsedTime)
 		break;
 	case PULSE:
 	{
+
 		pulsetimer += dElapsedTime;
 		if (pulsetimer >= 0.75)
 		{
@@ -228,6 +236,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -267,6 +276,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -329,6 +339,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -347,26 +358,96 @@ void ghens::Update(const double dElapsedTime)
 	case ERUPT:
 	{
 		glm::vec2 rand_erupt_tile;
-		if (eruptcount < 10)
+		glm::vec2 temp;
+		if (eruptcount < 1)
 		{
 			rand_erupt_tile.x = rand() % 28 + 2;
 			rand_erupt_tile.y = rand() % 20 + 2;
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 9);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 9);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 6);
+			erupt.push_back(rand_erupt_tile);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			erupt.push_back(temp);
+
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 6);
+			temp = rand_erupt_tile;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 6);
+			temp = rand_erupt_tile;
+			temp.y += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			temp.y += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			temp.y += 1;
+			erupt.push_back(temp);
+
 			eruptcount++;
 		}
 		else
 		{
-			sCurrentFSM = IDLE;
+			starterupt = true;
 		}
 
+		if (starterupt == true)
+		{
+			erupttimer += dElapsedTime;
+			if (erupttimer >= 3.0 && erupttimer <= 6.0)
+			{
+				//timer
+				for (size_t i = 0; i < erupt.size(); i++)
+				{
+					cout <<" id "<< i <<"::" <<erupt[i].x <<" : " << erupt[i].y<< endl;
+
+					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 9);
+				}
+			}
+
+			else if(erupttimer >= 6.0)
+			{
+				//timer
+				for (size_t i = 0; i < erupt.size(); i++)
+				{
+					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 0);
+				}
+				erupt.clear();
+				erupttimer = 0.f;
+				starterupt = false;
+				sCurrentFSM = IDLE;
+				//end
+			}
+			
+		}
 	}
 		break;
 	case SUMMON:

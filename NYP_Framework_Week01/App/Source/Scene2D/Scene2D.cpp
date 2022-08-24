@@ -281,7 +281,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cGameManager->bPlayerLost = true;
 	}
 
-	if (cMap2D->GetCurrentLevel() == 0)
+	if (cMap2D->GetCurrentLevel() == 10)
 	{
 		if (spawnGhens == false)
 		{
@@ -541,6 +541,7 @@ bool CScene2D::Update(const double dElapsedTime)
 			{
 					for (size_t j = 0; j < cPlayer2D->DropId[i].second; j++)
 					{
+						//cout << cPlayer2D->DropId.size() << endl;
 						cMap2D->SetMapInfo(cPlayer2D->vec2Index.y, cPlayer2D->vec2Index.x, cPlayer2D->DropId[i].first);
 						PickUP* cPU = new PickUP();
 						cPU->SetShader("Shader2D_Colour");
@@ -560,26 +561,40 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	//map changing
 	//left & right
+	static float asd = 5;
 	if (cPlayer2D->vec2Index.x >= 31)
 	{
+		asd += 1;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 1);
 		cPlayer2D->vec2Index.x = 1;
+		Pick.clear();
+		enemyVector.clear();
+
 	}
 	else if (cPlayer2D->vec2Index.x <= 0)
 	{
+		asd -= 1;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 1);
 		cPlayer2D->vec2Index.x = 30;
+		Pick.clear();
+		enemyVector.clear();
 	}
 	//up and down
 	if (cPlayer2D->vec2Index.y >= 23)
 	{
+		asd -= 3;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 3);
 		cPlayer2D->vec2Index.y = 1;
+		Pick.clear();
+		enemyVector.clear();
 	}
 	else if (cPlayer2D->vec2Index.y <= 0)
 	{
+		asd += 3;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 3);
 		cPlayer2D->vec2Index.y = 22;
+		Pick.clear();
+		enemyVector.clear();
 	}
 	return true;
 }

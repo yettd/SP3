@@ -190,6 +190,13 @@ void CPlayer2D::InteractWithMap(void)
 	case 400: //mechanic cow
 	case 401: //iron unicorn
 	case 9: //eruption tile
+		if (getIframe() == false)
+		{
+			SetIframe();
+			setHealth(15);
+		}
+	case 30:
+		cMap2D->SetCurrentLevel(10);
 	default:
 		break;
 	}
@@ -205,7 +212,14 @@ void CPlayer2D::InteractWithMap(void)
 			if (getIframe()==false)
 			{
 				SetIframe();
-				setHealth(5);
+				if (WatchOutBullet[i]->boss == false)
+				{
+					setHealth(5);
+				}
+				else
+				{
+					setHealth(10);
+				}
 			}
 			WatchOutBullet[i]->bIsActive = false;
 		}
@@ -1178,7 +1192,7 @@ void CPlayer2D::MouseAction()
 				}
 			}
 		}
-		else if ((checker.find("pistol") != string::npos)|| (checker.find("gun") != string::npos))
+		else if ((checker.find("mark1") != string::npos)|| (checker.find("mark2") != string::npos) || (checker.find("energy") != string::npos))
 		{
 			//shooting
 			if (fireRate <= 0)
