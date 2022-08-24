@@ -351,15 +351,15 @@ void ghens::Update(const double dElapsedTime)
 		{
 			rand_erupt_tile.x = rand() % 28 + 2;
 			rand_erupt_tile.y = rand() % 20 + 2;
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 11);
-			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 11);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 9);
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 9);
 			eruptcount++;
 		}
 		else
