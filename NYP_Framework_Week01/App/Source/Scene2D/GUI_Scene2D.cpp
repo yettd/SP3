@@ -333,7 +333,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	if (CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) > 0 || CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) < 0)
 	{
-		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET);
+		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET)*6;
 		CMouseController::GetInstance()->UpdateMouseScroll(0, -CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET));
 		if (offset < 0)
 		{

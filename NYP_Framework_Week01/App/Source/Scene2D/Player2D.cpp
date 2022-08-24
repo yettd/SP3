@@ -228,10 +228,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 {
 	fireRate -= dElapsedTime;
 	shooting = false;
-	if (cKeyboardController->IsKeyDown(GLFW_KEY_F))
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(100, "WoodenBlock", 1, 10);
-		addToinventory(15, "Food", 1, 10);
+		addToinventory(12, "firepowder", 3, 10);
+		addToinventory(13, "metalparts", 4, 10);
+		addToinventory(10, "rustedwood", 4, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -239,8 +240,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 		{
 
 			cII = cIM->GetItem(equip);
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, hotKeyInvID[select - 1] + 1000);
 			cII->Remove(1);
+			DropId.push_back(std::make_pair(hotKeyInvID[select - 1] + 1000, 1));
 			hotKeyInvQuantity[select - 1]--;
 			if (hotKeyInvQuantity[select - 1] == 0)
 			{
@@ -248,8 +249,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 				hotKeyInvID[select - 1] = 0;
 				equip = hotKeyInv[select - 1];
 			}
-			drop = true;
-			amtDrop++;
 		}
 	}
 	static float RespawnTimer = 5;
@@ -843,6 +842,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
+	
 			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
 			case 100:
@@ -891,7 +891,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					if (breakTimer >= 2)
 					{
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(103, "metalcubePLUS", 1, 10);
+						addToinventory(103, "metalcubePLUS (block)", 1, 10);
 						breakTimer = 0;
 					}
 				}
@@ -904,7 +904,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					if (breakTimer >= 2)
 					{
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(104, "upgradealtar", 1, 10);
+						addToinventory(104, "upgradealtar (block)", 1, 10);
 						breakTimer = 0;
 					}
 				}
@@ -917,7 +917,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					if (breakTimer >= 2)
 					{
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(105, "rustedwoodPLUS", 1, 10);
+						addToinventory(105, "rustedwoodPLUS (block)", 1, 10);
 						breakTimer = 0;
 					}
 				}
@@ -1083,6 +1083,8 @@ void CPlayer2D::selectKey()
 	}
 	equip = hotKeyInv[select - 1];
 	dmg = 1;
+	gunDmg = 0;
+	defaultRate = 0;
 	string checker = equip;
 	std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
 	if (checker.find("weapon") != string::npos)
@@ -1096,7 +1098,7 @@ float CPlayer2D::getGunDmg()
 }
 void CPlayer2D::Wepon(string wepon)
 {
-	if (wepon.find("gun") != string::npos)
+	if (wepon.find("pistol") != string::npos)
 	{
 		cout << "FOUND" << endl;
 		dmg = 1;
@@ -1137,7 +1139,7 @@ void CPlayer2D::MouseAction()
 				}
 			}
 		}
-		else if (checker.find("gun") != string::npos)
+		else if ((checker.find("pistol") != string::npos)|| (checker.find("gun") != string::npos))
 		{
 			//shooting
 			if (fireRate <= 0)
@@ -1152,7 +1154,6 @@ void CPlayer2D::MouseAction()
 				p->des = mousePos;
 				pBullet.push_back(p);
 				fireRate = defaultRate;
-				cout << "sadasfg" << endl;
 			}
 		}
 
@@ -1231,10 +1232,13 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 		}
 		if (!done)
 		{
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, (num + 1000));
-			drop = true;
 			amtDrop++;
 		}
+	}
+	if (amtDrop > 0)
+	{
+		DropId.push_back(std::make_pair(num+1000, amtDrop));
+		amtDrop = 0;
 	}
 }
 
