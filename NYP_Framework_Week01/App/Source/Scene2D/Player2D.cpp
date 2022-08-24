@@ -1098,13 +1098,52 @@ float CPlayer2D::getGunDmg()
 }
 void CPlayer2D::Wepon(string wepon)
 {
-	if (wepon.find("pistol") != string::npos)
+	if (wepon.find("mark1") != string::npos)
 	{
 		cout << "FOUND" << endl;
-		dmg = 1;
-		gunDmg = 5;
+		dmg = 0;
+		gunDmg = 2;
 		defaultRate = 2;
-		//fireRate = 0;
+	}
+
+	if (wepon.find("mark2") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 0;
+		gunDmg = 4;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("energy") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 0;
+		gunDmg = 6;
+		defaultRate = 0.5;
+	}
+
+	if (wepon.find("rustedsword") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 2;
+		gunDmg = 0;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("metalsword") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 3;
+		gunDmg = 0;
+		defaultRate = 0.7;
+	}
+
+	if (wepon.find("photon") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 8;
+		gunDmg = 0;
+		defaultRate = 0.4;
 	}
 
 }
