@@ -190,6 +190,13 @@ void CPlayer2D::InteractWithMap(void)
 	case 400: //mechanic cow
 	case 401: //iron unicorn
 	case 9: //eruption tile
+		if (getIframe() == false)
+		{
+			SetIframe();
+			setHealth(15);
+		}
+	case 30:
+		cMap2D->SetCurrentLevel(10);
 	default:
 		break;
 	}
@@ -205,7 +212,14 @@ void CPlayer2D::InteractWithMap(void)
 			if (getIframe()==false)
 			{
 				SetIframe();
-				setHealth(5);
+				if (WatchOutBullet[i]->boss == false)
+				{
+					setHealth(5);
+				}
+				else
+				{
+					setHealth(10);
+				}
 			}
 			WatchOutBullet[i]->bIsActive = false;
 		}
@@ -230,9 +244,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(12, "firepowder", 3, 10);
-		addToinventory(13, "metalparts", 4, 10);
-		addToinventory(10, "rustedwood", 4, 10);
+		addToinventory(12, "firepowder", 10, 10);
+		addToinventory(13, "metalparts", 10, 10);
+		addToinventory(10, "rustedwood", 10, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -978,22 +992,22 @@ void CPlayer2D::InventoryMan()
 
 
 	//weaponary
-	cII = cIM->Add("pistol mark1 (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("pistol mark1 (weapon)", "Image/pistolmark1.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("pistol mark2 (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("pistol mark2 (weapon)", "Image/pistolmark2.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("energy gun (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("energy gun (weapon)", "Image/energygun.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("rusted sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("rusted sword (weapon)", "Image/rustedsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("metal sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("metal sword (weapon)", "Image/metalsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("photon sword (weapon)", "Image/door.tga", 999, 0);
+	cII = cIM->Add("photon sword (weapon)", "Image/photonsword.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 	//placeable blocks
@@ -1098,13 +1112,52 @@ float CPlayer2D::getGunDmg()
 }
 void CPlayer2D::Wepon(string wepon)
 {
-	if (wepon.find("pistol") != string::npos)
+	if (wepon.find("mark1") != string::npos)
 	{
 		cout << "FOUND" << endl;
-		dmg = 1;
-		gunDmg = 5;
+		dmg = 0;
+		gunDmg = 2;
 		defaultRate = 2;
-		//fireRate = 0;
+	}
+
+	if (wepon.find("mark2") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 0;
+		gunDmg = 4;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("energy") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 0;
+		gunDmg = 6;
+		defaultRate = 0.5;
+	}
+
+	if (wepon.find("rustedsword") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 2;
+		gunDmg = 0;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("metalsword") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 3;
+		gunDmg = 0;
+		defaultRate = 0.7;
+	}
+
+	if (wepon.find("photon") != string::npos)
+	{
+		cout << "FOUND" << endl;
+		dmg = 8;
+		gunDmg = 0;
+		defaultRate = 0.4;
 	}
 
 }
@@ -1139,7 +1192,7 @@ void CPlayer2D::MouseAction()
 				}
 			}
 		}
-		else if ((checker.find("pistol") != string::npos)|| (checker.find("gun") != string::npos))
+		else if ((checker.find("mark1") != string::npos)|| (checker.find("mark2") != string::npos) || (checker.find("energy") != string::npos))
 		{
 			//shooting
 			if (fireRate <= 0)

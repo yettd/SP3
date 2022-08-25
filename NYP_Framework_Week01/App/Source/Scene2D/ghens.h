@@ -102,6 +102,10 @@ public:
 
 	int summoned = 0;
 
+	bool starterupt = false;
+
+	float erupttimer = 0.f;
+
 	int random_move = -1;
 
 protected:
@@ -212,6 +216,6 @@ protected:
 
 	float pulsetimer = 0.f;
 
-	
+	vector <glm::vec2> erupt;
 };
 

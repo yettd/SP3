@@ -73,6 +73,7 @@ public:
 
 	// Set the handle to cPlayer to this class instance
 
+	bool boss = false;
 
 	void SetEscape();
 	// boolean flag to indicate if this enemy is active
