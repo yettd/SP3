@@ -222,7 +222,14 @@ protected:
 		1000 + 14,
 		1000 + 15,
 		1000 + 20,
-		1000 + 30
+		1000 + 30,
+
+		1000 + 872,
+		1000 + 873,
+		1000 + 874,
+		1000 + 880,
+		1000 + 881,
+		1000 + 882
 
 	};//id + 1000
 
@@ -240,7 +247,14 @@ protected:
 		"Image/ironhorn.tga",
 		"Image/oilcan.tga",
 		"Image/ghensheart.tga",
-		"Image/Scene2D_PI.tga"
+		"Image/Scene2D_PI.tga",
+
+		"Image/rustedsword.tga",
+		"Image/metalsword.tga",
+		"Image/photonsword.tga",
+		"Image/pistolmark1.tga",
+		"Image/pistolmark2.tga",
+		"Image/energygun.tga"
 
 	};//image for drop
 
@@ -259,6 +273,12 @@ protected:
 		"oilcan",
 		"ghensheart",
 		"portal",
+		"rusted sword (weapon)",
+		"metal sword (weapon)",
+		"photon sword (weapon)",
+		"pistol mark1 (weapon)",
+		"pistol mark2 (weapon)",
+		"energy gun (weapon)"
 
 	};//name of item
 
@@ -277,6 +297,13 @@ protected:
 		1,
 		1,
 		1,
+
+		1,
+		1,
+		1,
+		1,
+		1,
+		1
 	};//max amt
 
 

@@ -117,8 +117,8 @@ bool Cend::Update(const double dElapsedTime)
 	window_flags |= ImGuiWindowFlags_NoCollapse;
 	window_flags |= ImGuiWindowFlags_NoNav;
 
-	float buttonWidth = 256;
-	float buttonHeight = 128;
+	float buttonWidth = 200;
+	float buttonHeight = 50;
 
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 	{
@@ -178,16 +178,6 @@ bool Cend::Update(const double dElapsedTime)
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoScrollbar;
 
-
-		ImGui::Begin("asdas", NULL, bb);
-		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth * 0.4f, CSettings::GetInstance()->iWindowHeight * 0.05f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		cout << CGameStateManager::GetInstance()->timer << endl;
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "Time %.3lf", CGameStateManager::GetInstance()->timer);
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "HighScore %.3lf", CGameStateManager::GetInstance()->highScore);
-
-		ImGui::End();
 	}
 
 	//For keyboard controls

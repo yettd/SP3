@@ -105,7 +105,7 @@ bool bullet::Init(void)
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load the enemy2D texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_EnemyTile.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/playerbullet.tga", true);
 	if (iTextureID == 0)
 	{
 		//cout << "Unable to load Image/Scene2D_EnemyTile.tga" << endl;
