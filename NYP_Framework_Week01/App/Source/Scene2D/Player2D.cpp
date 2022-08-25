@@ -244,9 +244,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(12, "firepowder", 10, 10);
+		CSC->PlaySoundByID(5);
+		addToinventory(14, "ironhorn", 10, 10);
 		addToinventory(13, "metalparts", 10, 10);
 		addToinventory(10, "rustedwood", 10, 10);
+		addToinventory(10, "firepowder", 10, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -869,6 +871,10 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						addToinventory(100, "WoodenBlock (block)", 1, 10);
 						breakTimer = 0;
 					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
 				}
 				break;
 
@@ -881,6 +887,10 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
 						addToinventory(11, "metalcube", 1, 10);
 						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
 					}
 				}
 				break;
@@ -895,6 +905,10 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						addToinventory(10, "rustedwood", 1, 10);
 						breakTimer = 0;
 					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
 				}
 				break;
 
@@ -908,21 +922,13 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						addToinventory(103, "metalcubePLUS (block)", 1, 10);
 						breakTimer = 0;
 					}
-				}
-				break;
-
-			case 104:
-				if (cMouseController->IsButtonDown(0))
-				{
-					breakTimer += dt;
-					if (breakTimer >= 2)
+					else
 					{
-						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(104, "upgradealtar (block)", 1, 10);
-						breakTimer = 0;
+						CSC->PlaySoundByID(1);
 					}
 				}
 				break;
+
 
 			case 105:
 				if (cMouseController->IsButtonDown(0))
@@ -934,8 +940,29 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						addToinventory(105, "rustedwoodPLUS (block)", 1, 10);
 						breakTimer = 0;
 					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
 				}
 				break;
+			case 30:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(30, "portal (block)", 1, 1);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+
 
 			default:
 				break;
@@ -957,6 +984,8 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
 						cII->Remove(1);
 						hotKeyInvQuantity[select - 1]--;
+
+						CSC->PlaySoundByID(3);
 						if (hotKeyInvQuantity[select - 1] == 0)
 						{
 							hotKeyInv[select - 1] = "";
@@ -1017,7 +1046,7 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("rustedwoodPLUS (block)", "Image/rustedwoodPLUS.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("upgradealtar (block)", "Image/upgradealtar.tga", 999, 0);
+	cII = cIM->Add("upgradealtar", "Image/upgradealtar.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 	cII = cIM->Add("metalcubePLUS (block)", "Image/metalcubePLUS.tga", 999, 0);
@@ -1049,10 +1078,10 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("oilcan", "Image/oilcan.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	/*cII = cIM->Add("ghensheart", "Image/Scene2D_GroundTile.tga", 999, 0);
-	cII->vec2Size = glm::vec2(25, 25);*/
+	cII = cIM->Add("ghensheart", "Image/ghensheart.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("portal", "Image/Scene2D_PI.tga", 999, 0);
+	cII = cIM->Add("portal (block)", "Image/Scene2D_PI.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
 }
@@ -1114,31 +1143,27 @@ void CPlayer2D::Wepon(string wepon)
 {
 	if (wepon.find("mark1") != string::npos)
 	{
-		cout << "FOUND" << endl;
-		dmg = 0;
+		dmg = 1;
 		gunDmg = 2;
 		defaultRate = 2;
 	}
 
 	if (wepon.find("mark2") != string::npos)
 	{
-		cout << "FOUND" << endl;
-		dmg = 0;
+		dmg = 1;
 		gunDmg = 4;
 		defaultRate = 1;
 	}
 
 	if (wepon.find("energy") != string::npos)
 	{
-		cout << "FOUND" << endl;
-		dmg = 0;
+		dmg = 1;
 		gunDmg = 6;
 		defaultRate = 0.5;
 	}
 
 	if (wepon.find("rustedsword") != string::npos)
 	{
-		cout << "FOUND" << endl;
 		dmg = 2;
 		gunDmg = 0;
 		defaultRate = 1;
@@ -1146,7 +1171,6 @@ void CPlayer2D::Wepon(string wepon)
 
 	if (wepon.find("metalsword") != string::npos)
 	{
-		cout << "FOUND" << endl;
 		dmg = 3;
 		gunDmg = 0;
 		defaultRate = 0.7;
@@ -1154,7 +1178,6 @@ void CPlayer2D::Wepon(string wepon)
 
 	if (wepon.find("photon") != string::npos)
 	{
-		cout << "FOUND" << endl;
 		dmg = 8;
 		gunDmg = 0;
 		defaultRate = 0.4;
@@ -1183,6 +1206,7 @@ void CPlayer2D::MouseAction()
 				cII->Remove(1);
 				cII = cIM->GetItem("Fuel");
 				cII->Add(1);
+				CSC->PlaySoundByID(6);
 				hotKeyInvQuantity[select - 1]--;
 				if (hotKeyInvQuantity[select - 1] == 0)
 				{
@@ -1206,6 +1230,8 @@ void CPlayer2D::MouseAction()
 				p->player = true;
 				p->des = mousePos;
 				pBullet.push_back(p);
+
+				CSC->PlaySoundByID(5);
 				fireRate = defaultRate;
 			}
 		}
@@ -1400,6 +1426,7 @@ bool CPlayer2D::getIframe()
 
 void CPlayer2D::SetIframe()
 {
+	CSC->PlaySoundByID(2);
 	iFrame = true;
 }
 
@@ -1423,4 +1450,8 @@ void CPlayer2D::setHealth(int damage)
 {
 	cII = cIM->GetItem("Health");
 	cII->Remove(damage);
+	if (cII->GetCount() <= 0)
+	{
+		CGameManager::GetInstance()->bPlayerLost = true;
+	}
 }

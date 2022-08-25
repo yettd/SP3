@@ -118,16 +118,17 @@ protected:
 	{ 
 		{"metalcubePLUS (block)",103},
 		{"rustedwoodPLUS (block)",105},
-		{"upgradealtar (block)",104},
+		{"upgradealtar",104},
 		{"pistol mark1 (weapon)",880},
 		{"pistol mark2 (weapon)",881},
 		{"energy gun (weapon)",882},
 		{"rusted sword (weapon)",872},
 		{"metal sword (weapon)",873},
 		{"photon sword (weapon)",874},
+		{"portal (block)",30}
 	};
 
-	vector<int> maxAmt = { 1,1,1,1,1,1,1,1,1 };
+	vector<int> maxAmt = { 10,10,10,1,1,1,1,1,1,1 };
 
 	//first vector to decide what to craft
 	//second vector what is needed to craft
@@ -142,6 +143,7 @@ protected:
 		{{"metalparts",5}, {"rustedwood",3}},
 		{{"metalparts",7}, {"rustedwood",5}, {"rusted sword (weapon)",1}},
 		{{"metalparts",14}, {"rustedwood",10}, {"metal sword (weapon)",1}},
+		{{"upgradealtar",5}}
 	};
 
 };

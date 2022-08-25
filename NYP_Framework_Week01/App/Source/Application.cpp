@@ -36,6 +36,7 @@
 #include "GameStateManagement/PauseState.h"
 
 #include "GameStateManagement/end.h"
+#include "GameStateManagement/death.h"
 
 // Add your include files here
 
@@ -237,7 +238,6 @@ bool Application::Init(void)
 
 	if (CSoundController::GetInstance()->Init() == false)
 	{
-		cout << "oppsie i fuky waky CSC";
 		return false;
 	}
 
@@ -245,6 +245,8 @@ bool Application::Init(void)
 	CGameStateManager::GetInstance()->AddGameState("MenuState", new CMenuState);
 	CGameStateManager::GetInstance()->AddGameState("PlayGameState", new CPlayGameState);
 	CGameStateManager::GetInstance()->AddGameState("PauseState", new CPauseState);
+	CGameStateManager::GetInstance()->AddGameState("DEATH", new Cdeath);
+
 	CGameStateManager::GetInstance()->AddGameState("END", new Cend);
 
 	CGameStateManager::GetInstance()->SetActiveGameState("IntroState");

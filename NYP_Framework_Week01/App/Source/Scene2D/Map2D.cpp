@@ -156,29 +156,8 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	//	MapOfTextureIDs.insert(pair<int, int>(9, iTextureID));//fake
 	//}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/fullDB.tga", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(88, iTextureID));
-	}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/dogFood.tga", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(28, iTextureID));//food
-	}
+
 	
 	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Protect.tga", true);
 	//if (iTextureID == 0)

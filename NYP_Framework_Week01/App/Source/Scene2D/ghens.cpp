@@ -912,7 +912,7 @@ bool ghens::InteractWithPlayer(void)
 		(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
 	{
 		//cout << "Gotcha!" << endl;
-		hp--;
+		//hp--;
 		// Since the player has been caught, then reset the FSM
 		sCurrentFSM = IDLE;
 		iFSMCounter = 0;
@@ -925,10 +925,34 @@ bool ghens::InteractWithPlayer(void)
 			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
 				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
 		{
-			//enemyHealth -= cPlayer2D->getGunDmg();
+			hp -= cPlayer2D->getGunDmg();
 			watchout[i]->bIsActive = false;
 		}
 
+	}
+
+	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (CMouseController::GetInstance()->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
+
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
+	{
+		if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
+		{
+			if (((vec2Index.x >= mousePos.x - 2) &&
+				(vec2Index.x <= mousePos.x + 2))
+				&&
+				((vec2Index.y >= mousePos.y - 2) &&
+					(vec2Index.y <= mousePos.y + 2)))
+			{
+				if (CMouseController::GetInstance()->IsButtonDown(0))
+				{
+					hp -= cPlayer2D->getDmg();
+					cout << hp << endl;
+				}
+			}
+
+		}
 	}
 
 	return false;

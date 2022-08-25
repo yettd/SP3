@@ -224,11 +224,12 @@ bool CScene2D::Init(void)
 	CSC = CSoundController::GetInstance();
 
 	CSC->Init();
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pickUp.ogg"),1,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\lose.ogg"), 2,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pour.ogg"), 3,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Wishtle.ogg"), 4, true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\break.ogg"),1,true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\playerHit.ogg"), 2, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\place.ogg"), 3, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\death.ogg"), 4, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\shoot.ogg"), 5, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\drink.ogg"), 6, true);//added
 
 	enemyVector.clear();
 	bulletVector.clear();
@@ -270,7 +271,10 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		cGameManager->bLevelCompleted = false;
 	}
-
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_L))
+	{
+		cMap2D->SetCurrentLevel(10);
+	}
 	/*if (G->erupt == true)
 	{
 
@@ -353,7 +357,7 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (cGameManager->bPlayerLost)
 	{
-		CGameStateManager::GetInstance()->SetActiveGameState("END");
+		CGameStateManager::GetInstance()->SetActiveGameState("DEATH");
 		cPlayer2D->Reset();
 		CSC->PlaySoundByID(2);
 		cGameManager->bPlayerLost = false;

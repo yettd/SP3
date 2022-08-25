@@ -119,6 +119,7 @@ bool CSoundController::LoadSound(	string filename,
 void CSoundController::PlaySoundByID(const int ID)
 {
 	CSoundInfo* pSoundInfo = GetSound(ID);
+
 	if (!pSoundInfo)
 	{
 		cout << "Sound #" << ID << " is not playable." << endl;
@@ -132,6 +133,7 @@ void CSoundController::PlaySoundByID(const int ID)
 
 	if (pSoundInfo->GetSoundType() == CSoundInfo::SOUNDTYPE::_2D)
 	{
+
 		cSoundEngine->play2D(	pSoundInfo->GetSound(), 
 								pSoundInfo->GetLoopStatus());
 	}
