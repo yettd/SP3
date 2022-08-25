@@ -1423,4 +1423,8 @@ void CPlayer2D::setHealth(int damage)
 {
 	cII = cIM->GetItem("Health");
 	cII->Remove(damage);
+	if (cII->GetCount() <= 0)
+	{
+		CGameManager::GetInstance()->bPlayerLost = true;
+	}
 }

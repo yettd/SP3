@@ -89,6 +89,9 @@
     <ClCompile Include="Source\Scene2D\PickUP.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStateManagement\death.cpp">
+      <Filter>GameStateManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -159,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene2D\PickUP.h">
       <Filter>Scene2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\death.h">
+      <Filter>GameStateManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

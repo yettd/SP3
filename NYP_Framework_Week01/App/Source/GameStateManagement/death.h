@@ -23,7 +23,7 @@
 #define IMGUI_ACTIVE
 #endif
 
-struct asd
+struct dsa
 {
 	std::string fileName;
 	unsigned textureID;
@@ -48,6 +48,6 @@ public:
 
 protected:
 	CBackgroundEntity* background;
-	asd Reply;
-	asd exitButtonData;
+	dsa Reply;
+	dsa exitButtonData;
 };

@@ -353,7 +353,7 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (cGameManager->bPlayerLost)
 	{
-		CGameStateManager::GetInstance()->SetActiveGameState("END");
+		CGameStateManager::GetInstance()->SetActiveGameState("DEATH");
 		cPlayer2D->Reset();
 		CSC->PlaySoundByID(2);
 		cGameManager->bPlayerLost = false;
