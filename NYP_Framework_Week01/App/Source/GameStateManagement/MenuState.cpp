@@ -129,18 +129,29 @@ bool CMenuState::Update(const double dElapsedTime)
 		static float f = 0.0f;
 		static int counter = 0;
 
-		// Create a window called "Hello, world!" and append into it.
-		ImGui::Begin("Main Menu", NULL, window_flags);
-		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth/2.0 - buttonWidth/2.0, 
-			CSettings::GetInstance()->iWindowHeight/5.0));				// Set the top-left of the window at (10,10)
+
+		ImGui::Begin("Title", NULL, window_flags);
+		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - titleWidth / 2.0,
+			CSettings::GetInstance()->iWindowHeight / 5.0));				// Set the top-left of the window at (10,10)
 		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
 
 		//Added rounding for nicer effect
 		ImGuiStyle& style = ImGui::GetStyle();
+		style.FrameRounding = 200.0f;
+		ImGui::Image((ImTextureID)text.textureID,
+			ImVec2(titleWidth, titleHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
+
+		ImGui::End();
+
+
+		// Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("Main Menu", NULL, window_flags);
+		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth/2.0 - buttonWidth/2.0, 
+			CSettings::GetInstance()->iWindowHeight/5.0 + 100));				// Set the top-left of the window at (10,10)
+		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
+
+		//Added rounding for nicer effect
 		style.FrameRounding = 200.0f;	
-		ImGui::ImageButton((ImTextureID)text.textureID,
-			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
-		
 
 		// Add codes for Start button here
 		if (ImGui::ImageButton((ImTextureID)startButtonData.textureID, 

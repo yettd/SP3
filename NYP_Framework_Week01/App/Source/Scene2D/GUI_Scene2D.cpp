@@ -309,6 +309,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 						PHKQ[PS] = tempQuant;
 						PHKID[PS] = tempid;
 						CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
+						CPlayer2D::GetInstance()->changed = true;
+
 
 					}
 				}
@@ -333,7 +335,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	if (CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) > 0 || CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) < 0)
 	{
-		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET);
+		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET)*6;
 		CMouseController::GetInstance()->UpdateMouseScroll(0, -CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET));
 		if (offset < 0)
 		{
@@ -399,6 +401,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 								PHKQ[PS] = tempQuant;
 								PHKID[PS] = tempid;
 								CPlayer2D::GetInstance()->setHotKeyInventory(PHK, PHKID, PHKQ);
+								CPlayer2D::GetInstance()->changed = true;
+
 
 							}
 						}
@@ -448,7 +452,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
 					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);
-
+					cout << i << " : " << endl;
 					if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
 						ImVec2(cInventoryItem->vec2Size.x * relativeScale_x * 0.80,
 							cInventoryItem->vec2Size.y * relativeScale_y * 0.80),
@@ -457,6 +461,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 						if (craftable(i))
 						{
 							craft(i);
+
+							CPlayer2D::GetInstance()->changed = true;
 						}
 					}
 					ImGui::SameLine();
@@ -481,7 +487,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 							ImVec2(0, 1), ImVec2(1, 0));
 						ImGui::SameLine();
 						ImGui::TextColored(ImVec4(1, 1, 1, 1), "x %d",recipie[i][j].second);
-						
+
+
 					}
 
 					ImGui::End();
@@ -631,7 +638,6 @@ bool CGUI_Scene2D::craftable(int i)
 		cInventoryItem = cInventoryManager->GetItem(recipie[i][j].first);
 		if (cInventoryItem->GetCount() < recipie[i][j].second)
 		{
-			cout << "not enough" << endl;
 			return false;
 		}
 	}

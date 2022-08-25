@@ -119,67 +119,59 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(100, iTextureID));
 	}
-	// Load the tree texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/emptyDB.tga", true);
+	 //Load the going erupt texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/gerupt.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
+		cout << "Unable to load Image/gerupt.tga" << endl;
 		return false;
 	}
 	else
 	{
 		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(10, iTextureID));
-	}
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(9, iTextureID));//fake
+		MapOfTextureIDs.insert(pair<int, int>(6, iTextureID));
 	}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/fullDB.tga", true);
+	//Load the actual erupt texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/erupt.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
+		cout << "Unable to load Image/erupt.tga" << endl;
 		return false;
 	}
 	else
 	{
 		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(11, iTextureID));
+		MapOfTextureIDs.insert(pair<int, int>(9, iTextureID));
 	}
+	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
+	//if (iTextureID == 0)
+	//{
+	//	cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
+	//	return false;
+	//}
+	//else
+	//{
+	//	// Store the texture ID into MapOfTextureIDs
+	//	MapOfTextureIDs.insert(pair<int, int>(9, iTextureID));//fake
+	//}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/dogFood.tga", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(20, iTextureID));//food
-	}
+
+
 	
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Protect.tga", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(30, iTextureID));//objective
-	}
+	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Protect.tga", true);
+	//if (iTextureID == 0)
+	//{
+	//	cout << "Unable to load Image/Scene2D_TreeTile.tga" << endl;
+	//	return false;
+	//}
+	//else
+	//{
+	//	// Store the texture ID into MapOfTextureIDs
+	//	MapOfTextureIDs.insert(pair<int, int>(30, iTextureID));//objective
+	//}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
+	//iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_Spikes.tga", true);
 
 	// Load the steel pile texture
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/steelpile.tga", true);
@@ -194,10 +186,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(101, iTextureID));
 	}
 	// Load the rusting trees texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/rustingtree.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/rustedtree.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/rustingtree.tga" << endl;
+		cout << "Unable to load Image/rustedtree.tga" << endl;
 		return false;
 	}
 	else
@@ -206,10 +198,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(102, iTextureID));
 	}
 	// Load the metal cubes+ texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/metalcubes+.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/metalcubePLUS.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/metalcubes+.tga" << endl;
+		cout << "Unable to load Image/metalcubePLUS.tga" << endl;
 		return false;
 	}
 	else
@@ -218,16 +210,146 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(103, iTextureID));
 	}
 	// Load the upgrading altar texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/upgradingaltar.tga", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/upgradealtar.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/upgradingaltar.tga" << endl;
+		cout << "Unable to load Image/upgradealtar.tga" << endl;
 		return false;
 	}
 	else
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(104, iTextureID));
+	}
+
+	// Load the rusted wood PLUS texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/rustedwoodPLUS.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/rustedwoodPLUS.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(105, iTextureID));
+	}
+
+	// Load the solid rocks texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/solidrock.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/solidrock.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(110, iTextureID));
+	}
+
+	// Load the rusted wood texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/rustedwood.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/rustedwood.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(10, iTextureID));
+	}
+
+	// Load the metal cubes texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/metalcube.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/metalcube.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(11, iTextureID));
+	}
+
+	// Load the gunpowder texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/gunpowder.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/gunpowder.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(12, iTextureID));
+	}
+
+	// Load the metal parts texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/metalparts.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/metalparts.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(13, iTextureID));
+	}
+
+	// Load the iron horn texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/ironhorn.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/ironhorn.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(14, iTextureID));
+	}
+
+	// Load the oil can texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/oilcan.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/oilcan.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(15, iTextureID));
+	}
+
+	// Load the ghens heart texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/ghensheart.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/ghensheart.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(20, iTextureID));
+	}
+
+	// Load the portal texture
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene2D_PI.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/Scene2D_PI.tga" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(30, iTextureID));
 	}
 
 	// Initialise the variables for AStar

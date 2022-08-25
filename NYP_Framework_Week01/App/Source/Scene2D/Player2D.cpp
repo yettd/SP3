@@ -189,6 +189,14 @@ void CPlayer2D::InteractWithMap(void)
 	case 302: //Blues
 	case 400: //mechanic cow
 	case 401: //iron unicorn
+	case 9: //eruption tile
+		if (getIframe() == false)
+		{
+			SetIframe();
+			setHealth(15);
+		}
+	case 30:
+		cMap2D->SetCurrentLevel(10);
 	default:
 		break;
 	}
@@ -201,7 +209,18 @@ void CPlayer2D::InteractWithMap(void)
 			((vec2Index.y >= WatchOutBullet[i]->vec2Index.y - 1) &&
 				(vec2Index.y <= WatchOutBullet[i]->vec2Index.y + 1)))
 		{
-			setHealth(1);
+			if (getIframe()==false)
+			{
+				SetIframe();
+				if (WatchOutBullet[i]->boss == false)
+				{
+					setHealth(5);
+				}
+				else
+				{
+					setHealth(10);
+				}
+			}
 			WatchOutBullet[i]->bIsActive = false;
 		}
 
@@ -221,11 +240,15 @@ bool CPlayer2D::bInteractWithMap(int i)
  */
 void CPlayer2D::Update(const double dElapsedTime)
 {
-
+	fireRate -= dElapsedTime;
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		addToinventory(15, "Food",4, 10);
+		CSC->PlaySoundByID(5);
+		addToinventory(14, "ironhorn", 10, 10);
+		addToinventory(13, "metalparts", 10, 10);
+		addToinventory(10, "rustedwood", 10, 10);
+		addToinventory(10, "firepowder", 10, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -233,8 +256,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 		{
 
 			cII = cIM->GetItem(equip);
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, hotKeyInvID[select - 1] + 1000);
 			cII->Remove(1);
+			DropId.push_back(std::make_pair(hotKeyInvID[select - 1] + 1000, 1));
 			hotKeyInvQuantity[select - 1]--;
 			if (hotKeyInvQuantity[select - 1] == 0)
 			{
@@ -242,8 +265,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 				hotKeyInvID[select - 1] = 0;
 				equip = hotKeyInv[select - 1];
 			}
-			drop = true;
-			amtDrop++;
 		}
 	}
 	static float RespawnTimer = 5;
@@ -837,6 +858,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	{
 		if (cPhysics2D.CalculateDistance(vec2Index, mousePos) <= 3)
 		{
+	
 			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
 			case 100:
@@ -846,10 +868,101 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 					if (breakTimer >= 2)
 					{
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(100, "WoodenBlock", 1, 10);
+						addToinventory(100, "WoodenBlock (block)", 1, 10);
 						breakTimer = 0;
 					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
 				}
+				break;
+
+			case 101: //steelpile
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(11, "metalcube", 1, 10);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+
+			case 102: //rusted tree
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(10, "rustedwood", 1, 10);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+
+			case 103:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(103, "metalcubePLUS (block)", 1, 10);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+
+
+			case 105:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(105, "rustedwoodPLUS (block)", 1, 10);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+			case 30:
+				if (cMouseController->IsButtonDown(0))
+				{
+					breakTimer += dt;
+					if (breakTimer >= 2)
+					{
+						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
+						addToinventory(30, "portal (block)", 1, 1);
+						breakTimer = 0;
+					}
+					else
+					{
+						CSC->PlaySoundByID(1);
+					}
+				}
+				break;
+
 
 			default:
 				break;
@@ -871,6 +984,8 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 						cMap2D->SetMapInfo(mousePos.y, mousePos.x, hotKeyInvID[select - 1]);
 						cII->Remove(1);
 						hotKeyInvQuantity[select - 1]--;
+
+						CSC->PlaySoundByID(3);
 						if (hotKeyInvQuantity[select - 1] == 0)
 						{
 							hotKeyInv[select - 1] = "";
@@ -898,18 +1013,77 @@ void CPlayer2D::InventoryMan()
 	cII->vec2Size = glm::vec2(25, 25);
 
 
-	cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
-	cII->vec2Size = glm::vec2(25, 25);
-
-
-	cII = cIM->Add("WoodenBlock", "Image/Scene2D_GroundTile.tga", 999, 0);
-	cII->vec2Size = glm::vec2(25, 25);
+	/*cII = cIM->Add("Food", "Image/dogFood.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);*/
 
 	cII = cIM->Add("", "Image/blank.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("gun", "Image/door.tga", 999, 0);
+
+	//weaponary
+	cII = cIM->Add("pistol mark1 (weapon)", "Image/pistolmark1.tga", 999, 0);
 	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("pistol mark2 (weapon)", "Image/pistolmark2.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("energy gun (weapon)", "Image/energygun.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("rusted sword (weapon)", "Image/rustedsword.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metal sword (weapon)", "Image/metalsword.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("photon sword (weapon)", "Image/photonsword.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//placeable blocks
+	cII = cIM->Add("WoodenBlock (block)", "Image/Scene2D_GroundTile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("rustedwoodPLUS (block)", "Image/rustedwoodPLUS.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("upgradealtar", "Image/upgradealtar.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalcubePLUS (block)", "Image/metalcubePLUS.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//environmental blocks
+	cII = cIM->Add("rustedtree", "Image/rustedtree.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("steelpile", "Image/steelpile.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	//background blocks
+	cII = cIM->Add("rustedwood", "Image/rustedwood.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalcube", "Image/metalcube.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("firepowder", "Image/gunpowder.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("metalparts", "Image/metalparts.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("ironhorn", "Image/ironhorn.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("oilcan", "Image/oilcan.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("ghensheart", "Image/ghensheart.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
+	cII = cIM->Add("portal (block)", "Image/Scene2D_PI.tga", 999, 0);
+	cII->vec2Size = glm::vec2(25, 25);
+
 }
 
 void CPlayer2D::selectKey()
@@ -952,9 +1126,11 @@ void CPlayer2D::selectKey()
 	}
 	equip = hotKeyInv[select - 1];
 	dmg = 1;
+	gunDmg = 0;
+	defaultRate = 0;
 	string checker = equip;
 	std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
-	if (checker.find("wepon") != string::npos)
+	if (checker.find("weapon") != string::npos)
 	{
 		Wepon(checker);
 	}
@@ -965,9 +1141,46 @@ float CPlayer2D::getGunDmg()
 }
 void CPlayer2D::Wepon(string wepon)
 {
-	if (wepon.find("wooden") != string::npos)
+	if (wepon.find("mark1") != string::npos)
+	{
+		dmg = 1;
+		gunDmg = 2;
+		defaultRate = 2;
+	}
+
+	if (wepon.find("mark2") != string::npos)
+	{
+		dmg = 1;
+		gunDmg = 4;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("energy") != string::npos)
+	{
+		dmg = 1;
+		gunDmg = 6;
+		defaultRate = 0.5;
+	}
+
+	if (wepon.find("rustedsword") != string::npos)
 	{
 		dmg = 2;
+		gunDmg = 0;
+		defaultRate = 1;
+	}
+
+	if (wepon.find("metalsword") != string::npos)
+	{
+		dmg = 3;
+		gunDmg = 0;
+		defaultRate = 0.7;
+	}
+
+	if (wepon.find("photon") != string::npos)
+	{
+		dmg = 8;
+		gunDmg = 0;
+		defaultRate = 0.4;
 	}
 
 }
@@ -983,7 +1196,7 @@ void CPlayer2D::MouseAction()
 		string checker = equip;
 		std::transform(checker.begin(), checker.end(), checker.begin(), ::tolower);
 
-		if (checker.find("food") != string::npos)
+		if (checker.find("oilcan") != string::npos)
 		{	
 			cII = cIM->GetItem("Fuel");
 			if (cII->GetCount() < cII->GetMaxCount())
@@ -993,6 +1206,7 @@ void CPlayer2D::MouseAction()
 				cII->Remove(1);
 				cII = cIM->GetItem("Fuel");
 				cII->Add(1);
+				CSC->PlaySoundByID(6);
 				hotKeyInvQuantity[select - 1]--;
 				if (hotKeyInvQuantity[select - 1] == 0)
 				{
@@ -1002,17 +1216,24 @@ void CPlayer2D::MouseAction()
 				}
 			}
 		}
-		else if (checker.find("gun") != string::npos)
+		else if ((checker.find("mark1") != string::npos)|| (checker.find("mark2") != string::npos) || (checker.find("energy") != string::npos))
 		{
 			//shooting
-			shooting = true;
-			cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,372);
-			bullet* p = new bullet();
-			p->SetShader("Shader2D_Colour");
-			p->Init();
-			p->player = true;
-			p->des = mousePos;
-			pBullet.push_back(p);
+			if (fireRate <= 0)
+			{
+
+				shooting = true;
+				cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+				bullet* p = new bullet();
+				p->SetShader("Shader2D_Colour");
+				p->Init();
+				p->player = true;
+				p->des = mousePos;
+				pBullet.push_back(p);
+
+				CSC->PlaySoundByID(5);
+				fireRate = defaultRate;
+			}
 		}
 
 	}
@@ -1020,6 +1241,38 @@ void CPlayer2D::MouseAction()
 
 void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 {
+	//cout << hotKeyInv.size() << endl;
+	////check For existence
+	//for (size_t i = 0; i < hotKeyInv.size(); i++)
+	//{
+	//	if (hotKeyInv[i] == name && hotKeyInvQuantity[i]<maxQuitity)
+	//	{
+	//		cII = cIM->GetItem(name);
+	//		cII->Add(amt);
+	//		hotKeyInvQuantity[i]++;
+	//		changed = true;
+	//		return;
+	//	}
+	//}
+	//for (size_t i = 0; i < hotKeyInv.size(); i++)
+	//{
+	//	if (hotKeyInv[i] == "")
+	//	{
+	//		hotKeyInv[i] = name;
+	//		hotKeyInvID[i] = num;	
+	//		hotKeyInvQuantity[i]++;
+	//		cII = cIM->GetItem(name);
+	//		cII->Add(amt);
+	//		changed = true;
+	//
+	//		return;
+	//	}
+	//}
+	//cMap2D->SetMapInfo(vec2Index.y,vec2Index.x,(num+1000));
+	//drop = true;
+
+
+
 	static bool done = false;
 	for (size_t j = 0; j < amt; j++)
 	{
@@ -1058,10 +1311,13 @@ void CPlayer2D::addToinventory(int num,string name,int amt,int maxQuitity)
 		}
 		if (!done)
 		{
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, (num + 1000));
-		drop = true;
-		amtDrop++;
+			amtDrop++;
 		}
+	}
+	if (amtDrop > 0)
+	{
+		DropId.push_back(std::make_pair(num+1000, amtDrop));
+		amtDrop = 0;
 	}
 }
 
@@ -1170,6 +1426,7 @@ bool CPlayer2D::getIframe()
 
 void CPlayer2D::SetIframe()
 {
+	CSC->PlaySoundByID(2);
 	iFrame = true;
 }
 

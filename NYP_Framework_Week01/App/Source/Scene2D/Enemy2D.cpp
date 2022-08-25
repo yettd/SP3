@@ -189,7 +189,12 @@ bool CEnemy2D::Init(void)
  */
 void CEnemy2D::Update(const double dElapsedTime)
 {
-	cout << enemyHealth << endl;
+	if (!bIsActive)
+		return;
+
+	dt = dElapsedTime;
+
+	/*cout << enemyHealth << endl;*/
 
 	if (enemyHealth <= 0)
 	{
@@ -197,11 +202,31 @@ void CEnemy2D::Update(const double dElapsedTime)
 		{
 			cPlayer2D->enemies_unalived++;
 		}
+
+		if (enemyType == 0) //blues
+		{
+			cPlayer2D->addToinventory(13,"metalparts", rand() % 2 + 1, 10);
+		}
+
+		else if (enemyType == 1) //clifford
+		{
+			cPlayer2D->addToinventory(12, "firepowder", rand() % 2 + 1, 10);
+		}
+
+		else if (enemyType == 2) //cow
+		{
+			cPlayer2D->addToinventory(15, "oilcan", 1, 1);
+		}
+
+		else //unicorn
+		{
+			cPlayer2D->addToinventory(14, "ironhorn", 1, 10);
+		}
+
 		bIsActive = false;
 	}
 
-	if (!bIsActive)
-		return;
+	
 
 	if (enemyType == 0) // FSM for blues
 	{
@@ -816,38 +841,45 @@ bool CEnemy2D::InteractWithPlayer(void)
 
 	if (targetLocked == true)
 	{
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
-		bullet* p = new bullet();
-		p->SetShader("Shader2D_Colour");
-		p->Init();
-		p->des = cPlayer2D->vec2Index;
-		eBullet.push_back(p);
+		firerate += dt;
+		if (firerate >= 0.3)
+		{
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 372);
+			bullet* p = new bullet();
+			p->SetShader("Shader2D_Colour");
+			p->Init();
+			p->des = cPlayer2D->vec2Index;
+			eBullet.push_back(p);
+			firerate = 0.f;
+		}
 	}
 
 	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
 	float posY = 24 - (CMouseController::GetInstance()->GetMousePositionY() / cSettings->iWindowHeight * 24);
 	glm::vec2 mousePos(posX, posY);
 
-	if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
 	{
-		if (((vec2Index.x >= mousePos.x - 2) &&
-			(vec2Index.x <= mousePos.x + 2))
-			&&
-			((vec2Index.y >= mousePos.y - 2) &&
-				(vec2Index.y <= mousePos.y + 2)))
+		if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
 		{
-			if (CMouseController::GetInstance()->IsButtonDown(0))
+			if (((vec2Index.x >= mousePos.x - 2) &&
+				(vec2Index.x <= mousePos.x + 2))
+				&&
+				((vec2Index.y >= mousePos.y - 2) &&
+					(vec2Index.y <= mousePos.y + 2)))
 			{
-				enemyHealth -= cPlayer2D->getDmg();
+				if (CMouseController::GetInstance()->IsButtonDown(0))
+				{
+					enemyHealth -= cPlayer2D->getDmg();
+				}
+				if (CMouseController::GetInstance()->IsButtonDown(0) && cowplscome == true)
+				{
+					enemyHealth -= cPlayer2D->getDmg();
+				}
 			}
-			if (CMouseController::GetInstance()->IsButtonDown(0) && cowplscome == true)
-			{
-				enemyHealth -= cPlayer2D->getDmg();
-			}
-		}
-		
-	}
 
+		}
+	}
 
 
 	return false;

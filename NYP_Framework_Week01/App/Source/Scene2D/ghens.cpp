@@ -133,8 +133,16 @@ bool ghens::Init(void)
  */
 void ghens::Update(const double dElapsedTime)
 {
+
 	if (!bIsActive)
 		return;
+
+	if (hp <= 0)
+	{
+		/*cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 20);*/
+		cPlayer2D->addToinventory(20, "ghensheart", 1, 1);
+		bIsActive = false;
+	}
 
 	if (true)
 	{
@@ -146,23 +154,53 @@ void ghens::Update(const double dElapsedTime)
 		if (iFSMCounter > iMaxFSMCounter)
 		{
 			iFSMCounter = 0;
+			pulsetimer = 0.f;
+			shotsfired = 0;
+			eruptcount = 0;
+			corpse_arise = false;
 			//cout << "Switching to Patrol State" << endl;
-			sCurrentFSM = ERUPT;
-		}
-		if (hp <= 10)
-		{
-		
+			
+			if (hp <= 30) //critical hp zone
+			{
+				random_move = rand() % 4; // 0 Pulse 1 Erupt 2 Teleport 3 Summon
+			}
+			else //not critical hp zone
+			{
+				random_move = rand() % 3; // 0 Pulse 1 Erupt 2 Teleport
+			}
+
+			switch (random_move)
+			{
+			case 0:
+				sCurrentFSM = PULSE;
+				break;
+			case 1:
+				sCurrentFSM = ERUPT;
+				break;
+			case 2:
+				sCurrentFSM = TELEPORT;
+				break;
+			case 3:
+				sCurrentFSM = SUMMON;
+				break;
+
+			default:
+				sCurrentFSM = IDLE;
+				break;
+			}
+
 		}
 		iFSMCounter++;
 		break;
 	case PULSE:
 	{
+
 		pulsetimer += dElapsedTime;
 		if (pulsetimer >= 0.75)
 		{
 			//shoot
 
-			int shoottype = 0; // 0 for + direction | 1 for X direction | 2 for all directions
+			int shoottype = rand() % 3; // 0 for + direction | 1 for X direction | 2 for all directions
 
 			if (shoottype == 0) // +
 			{
@@ -198,6 +236,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -237,6 +276,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -299,6 +339,7 @@ void ghens::Update(const double dElapsedTime)
 					bullet* p = new bullet();
 					p->SetShader("Shader2D_Colour");
 					p->Init();
+					p->boss = true;
 					p->des = shootdes;
 					eBullet.push_back(p);
 				}
@@ -317,50 +358,134 @@ void ghens::Update(const double dElapsedTime)
 	case ERUPT:
 	{
 		glm::vec2 rand_erupt_tile;
+		glm::vec2 temp;
 		if (eruptcount < 1)
 		{
-			rand_erupt_tile.x = rand() % 32;
-			rand_erupt_tile.y = rand() % 24;
-			if
-				(
-					/*cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1) != 200 &&
-					cMap2D->GetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1) != 200*/
-					true
-					)
-			{
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 301);
-				cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 301);
-				eruptcount++;
-			}
-			else
-			{
+			rand_erupt_tile.x = rand() % 28 + 2;
+			rand_erupt_tile.y = rand() % 20 + 2;
 
-			}
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x, 6);
+			erupt.push_back(rand_erupt_tile);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			erupt.push_back(temp);
+
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x, 6);
+			temp = rand_erupt_tile;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y - 1, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			temp.y -= 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x, 6);
+			temp = rand_erupt_tile;
+			temp.y += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x + 1, 6);
+			temp = rand_erupt_tile;
+			temp.x += 1;
+			temp.y += 1;
+			erupt.push_back(temp);
+
+			cMap2D->SetMapInfo(rand_erupt_tile.y + 1, rand_erupt_tile.x - 1, 6);
+			temp = rand_erupt_tile;
+			temp.x -= 1;
+			temp.y += 1;
+			erupt.push_back(temp);
+
+			eruptcount++;
 		}
 		else
 		{
-			sCurrentFSM = IDLE;
+			starterupt = true;
 		}
 
+		if (starterupt == true)
+		{
+			erupttimer += dElapsedTime;
+			if (erupttimer >= 3.0 && erupttimer <= 6.0)
+			{
+				//timer
+				for (size_t i = 0; i < erupt.size(); i++)
+				{
+					cout <<" id "<< i <<"::" <<erupt[i].x <<" : " << erupt[i].y<< endl;
+
+					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 9);
+				}
+			}
+
+			else if(erupttimer >= 6.0)
+			{
+				//timer
+				for (size_t i = 0; i < erupt.size(); i++)
+				{
+					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 0);
+				}
+				erupt.clear();
+				erupttimer = 0.f;
+				starterupt = false;
+				sCurrentFSM = IDLE;
+				//end
+			}
+			
+		}
 	}
 		break;
 	case SUMMON:
 	{
+		if (corpse_arise == false)
+		{
+			corpse_arise = true;
+		}
+		if (summonDone == true)
+		{
+			sCurrentFSM = IDLE;
+		}
+	}
+	break;
 
+	case TELEPORT:
+	{
+		if (teleported == false)
+		{
+			//tp
+			tptime += dElapsedTime;
+			if (tptime >= 0.3)
+			{
+				glm::vec2 tp_tile;
+				tp_tile.x = rand() % 32;
+				tp_tile.y = rand() % 24;
+				if (cMap2D->GetMapInfo(tp_tile.y, tp_tile.x) == 0)
+				{
+					vec2Index = tp_tile;
+					teleported = true;
+				}
+			}
+		}
+		else
+		{
+			tptime = 0.f;
+			sCurrentFSM = IDLE;
+		}
 	}
 	break;
 
@@ -787,7 +912,7 @@ bool ghens::InteractWithPlayer(void)
 		(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
 	{
 		//cout << "Gotcha!" << endl;
-		hp--;
+		//hp--;
 		// Since the player has been caught, then reset the FSM
 		sCurrentFSM = IDLE;
 		iFSMCounter = 0;
@@ -800,10 +925,34 @@ bool ghens::InteractWithPlayer(void)
 			((vec2Index.y >= watchout[i]->vec2Index.y - .5) &&
 				(vec2Index.y <= watchout[i]->vec2Index.y + .5)))
 		{
-			//enemyHealth -= cPlayer2D->getGunDmg();
+			hp -= cPlayer2D->getGunDmg();
 			watchout[i]->bIsActive = false;
 		}
 
+	}
+
+	float posX = CMouseController::GetInstance()->GetMousePositionX() / cSettings->iWindowWidth * 32; //convert (0,800) to (0,80)
+	float posY = 24 - (CMouseController::GetInstance()->GetMousePositionY() / cSettings->iWindowHeight * 24);
+	glm::vec2 mousePos(posX, posY);
+
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
+	{
+		if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
+		{
+			if (((vec2Index.x >= mousePos.x - 2) &&
+				(vec2Index.x <= mousePos.x + 2))
+				&&
+				((vec2Index.y >= mousePos.y - 2) &&
+					(vec2Index.y <= mousePos.y + 2)))
+			{
+				if (CMouseController::GetInstance()->IsButtonDown(0))
+				{
+					hp -= cPlayer2D->getDmg();
+					cout << hp << endl;
+				}
+			}
+
+		}
 	}
 
 	return false;
@@ -1011,5 +1160,39 @@ void ghens::UpdatePosition(void)
 
 		// Interact with the Player
 		InteractWithPlayer();
+	}
+}
+
+
+void ghens::ShortCutPath(glm::vec2 des)
+{
+	auto path = cMap2D->PathFind(vec2Index,
+		des,
+		heuristic::euclidean,
+		10);
+
+	// Calculate new destination
+	bool bFirstPosition = true;
+	for (const auto& coord : path)
+	{
+		//std::cout << coord.x << "," << coord.y << "\n";
+		if (bFirstPosition == true)
+		{
+			// Set a destination
+			i32vec2Destination = coord;
+			// Calculate the direction between enemy2D and this destination
+			i32vec2Direction = i32vec2Destination - vec2Index;
+			bFirstPosition = false;
+		}
+		else
+		{
+			if ((coord - i32vec2Destination) == i32vec2Direction)
+			{
+				// Set a destination
+				i32vec2Destination = coord;
+			}
+			//else
+			//	break;
+		}
 	}
 }

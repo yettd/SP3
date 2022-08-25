@@ -120,15 +120,17 @@ public:
 
 
 	std::vector<bullet*> WatchOutBullet;
-	int enemies_unalived = 0;
+	int enemies_unalived = 10;
 	void selectKey();
 	float getGunDmg();
 	bool shooting;
 
+
+	std::vector<std::pair<int,int>> DropId;
+
 	bool drop = false;
 	bool InventoryIsFull = false;
-
-	int amtDrop = -1;
+	int amtDrop=-1;
 protected:
 	int select = 5;
 	enum DIRECTION
@@ -230,5 +232,8 @@ protected:
 	void Wepon(string e);
 
 	void MouseAction();
+
+	float fireRate=0;
+	float defaultRate;
 };
 

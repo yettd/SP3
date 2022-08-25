@@ -89,6 +89,10 @@ public:
 
 	vector<bullet*> watchout;
 
+	float firerate = 2.f;
+
+	float dt = 0.f;
+
 protected:
 	enum DIRECTION
 	{

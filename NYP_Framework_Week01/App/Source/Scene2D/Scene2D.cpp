@@ -110,20 +110,100 @@ bool CScene2D::Init(void)
 
 	cMap2D->SetShader("Shader2D");
 	//cGUI_Scene2D->SetShader("Shader2D_Colour");
-	if (cMap2D->Init(2 , CSettings::GetInstance()->NUM_TILES_YAXIS, CSettings::GetInstance()->NUM_TILES_XAXIS) == false)
+	if (cMap2D->Init(12 , CSettings::GetInstance()->NUM_TILES_YAXIS, CSettings::GetInstance()->NUM_TILES_XAXIS) == false)
 	{
 		cout << "map2d failed" << endl;
 		return false;
 	}
 
-	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_0.csv") == false)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01.csv") == false)
 	{
-		cout << "map failed" << endl;
+		cout << "map 1 failed" << endl;
 
 		return false;
 	}
 
-	
+	//level 1
+	//top left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topleft.csv", 1) == false)
+	{
+		cout << "map 1 failed" << endl;
+
+		return false;
+	}
+	//top middle
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topmiddle.csv", 2) == false)
+	{
+		cout << "map 2 failed" << endl;
+
+		return false;
+	}
+	//top right
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_topright.csv", 3) == false)
+	{
+		cout << "map 3 failed" << endl;
+
+		return false;
+	}
+	//middle left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middleleft.csv", 4) == false)
+	{
+		cout << "map 4 failed" << endl;
+
+		return false;
+	}
+	//middle: player spawns here first
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middle.csv", 5) == false)
+	{
+		cout << "map 5 failed" << endl;
+
+		return false;
+	}
+	//middle right
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_middleright.csv", 6) == false)
+	{
+		cout << "map 6 failed" << endl;
+
+		return false;
+	}
+	//bottom left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01.csv", 7) == false)
+	{
+		cout << "map 7 failed" << endl;
+
+		return false;
+	}
+	//bottom middle
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_bottommiddle.csv", 8) == false)
+	{
+		cout << "map 8 failed" << endl;
+
+		return false;
+	}
+	//bottom right: portal placeholder
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01_bottomright.csv", 9) == false)
+	{
+		cout << "map 9 failed" << endl;
+
+		return false;
+	}
+
+	//level 2
+	//left
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_02_left.csv", 10) == false)
+	{
+		cout << "map 10 failed" << endl;
+
+		return false;
+	}
+	//right (ghens)
+	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_02_right.csv", 11) == false)
+	{
+		cout << "map 11 failed" << endl;
+
+		return false;
+	}
+	cMap2D->SetCurrentLevel(5);
 	CShaderManager::GetInstance()->Use("Shader2D_Colour");
 	cPlayer2D = CPlayer2D::GetInstance();
 	cPlayer2D->SetShader("Shader2D_Colour");
@@ -144,11 +224,12 @@ bool CScene2D::Init(void)
 	CSC = CSoundController::GetInstance();
 
 	CSC->Init();
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pickUp.ogg"),1,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\lose.ogg"), 2,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pour.ogg"), 3,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Wishtle.ogg"), 4, true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\break.ogg"),1,true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\playerHit.ogg"), 2, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\place.ogg"), 3, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\death.ogg"), 4, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\shoot.ogg"), 5, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\drink.ogg"), 6, true);//added
 
 	enemyVector.clear();
 	bulletVector.clear();
@@ -190,13 +271,21 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		cGameManager->bLevelCompleted = false;
 	}
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_L))
+	{
+		cMap2D->SetCurrentLevel(10);
+	}
+	/*if (G->erupt == true)
+	{
+
+	}*/
 
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_C))
 	{
 		cGameManager->bPlayerLost = true;
 	}
 
-	if (cMap2D->GetCurrentLevel() == 0)
+	if (cMap2D->GetCurrentLevel() == 10)
 	{
 		if (spawnGhens == false)
 		{
@@ -211,6 +300,53 @@ bool CScene2D::Update(const double dElapsedTime)
 				/*enemyVector.push_back(cE);*/
 			}
 			spawnGhens = true;
+		}
+	}
+
+	if (boss)
+	{
+		if (G->corpse_arise == true)
+		{
+			glm::vec2 corpse_tile;
+
+			if (G->summoned <= cPlayer2D->enemies_unalived)
+			{
+				corpse_tile.x = rand() % 32;
+
+				corpse_tile.y = rand() % 24;
+
+				if (cMap2D->GetMapInfo(corpse_tile.y, corpse_tile.x) == 0)
+				{
+					int rand_enemy = rand() % 2;
+					if (rand_enemy == 0)
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 302);
+						G->summoned++;
+					}
+					else
+					{
+						cMap2D->SetMapInfo(corpse_tile.y, corpse_tile.x, 301);
+						G->summoned++;
+					}
+
+					while (true)
+					{
+						CEnemy2D* cE = new CEnemy2D();
+						cE->SetShader("Shader2D_Colour");
+						if (cE->Init())
+						{
+							cE->SetPlayer2D(cPlayer2D);
+							enemyVector.push_back(cE);
+							a.push_back(cE);
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			G->summonDone = true;
 		}
 	}
 
@@ -344,11 +480,11 @@ bool CScene2D::Update(const double dElapsedTime)
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
 					//change back
-					int random_enemy_spawn = rand() % 2;
+					//int random_enemy_spawn = rand() % 2;
 					if (enemies_spawnned < 11)
 					{
-						/*int random_enemy_spawn = rand() % 4;*/ // 0 1 2 3
-						int random_enemy_spawn = 777;
+						int random_enemy_spawn = rand() % 4; // 0 1 2 3
+						//int random_enemy_spawn = 777;
 						if (random_enemy_spawn == 0)
 						{
 							cMap2D->SetMapInfo(asd.y, asd.x, 302);
@@ -366,8 +502,8 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else
 						{
-							/*cMap2D->SetMapInfo(asd.y, asd.x, 301);
-							enemies_spawnned++;*/
+							cMap2D->SetMapInfo(asd.y, asd.x, 301);
+							enemies_spawnned++;
 						}
 					}
 					while (true)
@@ -392,31 +528,77 @@ bool CScene2D::Update(const double dElapsedTime)
 			worldTime1 = 0;
 		}
 	}
-	if (cPlayer2D->drop)
+	/*if (cPlayer2D->drop)
 	{
-		cout << cPlayer2D->amtDrop << endl;
-		while (cPlayer2D->amtDrop >= 0)
+		cPlayer2D->drop = false;
+		PickUP* cPU = new PickUP();
+		cPU->SetShader("Shader2D_Colour");
+		if (cPU->Init())
 		{
-			cPlayer2D->drop = false;
-			
-			PickUP* cPU = new PickUP();
-			cPU->SetShader("Shader2D_Colour");
-			if (cPU->Init())
-			{
-				cPU->SetPlayer2D(cPlayer2D);
-				Pick.push_back(cPU);
-			}
-			if (cPlayer2D->amtDrop != 0)
-			{
-				cMap2D->SetMapInfo(cPU->vec2Index.y,cPU->vec2Index.x,cPU->getId());
-			}
-			cPlayer2D->amtDrop--;
+			cPU->SetPlayer2D(cPlayer2D);
+			Pick.push_back(cPU);
 		}
-		cPlayer2D->amtDrop = -1;
+	}*/
+	if (cPlayer2D->DropId.size() > 0)
+	{
+			for (size_t i = 0; i < cPlayer2D->DropId.size(); i++)
+			{
+					for (size_t j = 0; j < cPlayer2D->DropId[i].second; j++)
+					{
+						//cout << cPlayer2D->DropId.size() << endl;
+						cMap2D->SetMapInfo(cPlayer2D->vec2Index.y, cPlayer2D->vec2Index.x, cPlayer2D->DropId[i].first);
+						PickUP* cPU = new PickUP();
+						cPU->SetShader("Shader2D_Colour");
+						if (cPU->Init())
+						{
+							cPU->SetPlayer2D(cPlayer2D);
+							Pick.push_back(cPU);
+						}
+					}
+			}
 	}
+	cPlayer2D->DropId.clear();
 	for (int i = 0; i < Pick.size(); i++)
 	{
 		Pick[i]->Update(dElapsedTime);
+	}
+
+	//map changing
+	//left & right
+	static float asd = 5;
+	if (cPlayer2D->vec2Index.x >= 31)
+	{
+		asd += 1;
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 1);
+		cPlayer2D->vec2Index.x = 1;
+		Pick.clear();
+		enemyVector.clear();
+
+	}
+	else if (cPlayer2D->vec2Index.x <= 0)
+	{
+		asd -= 1;
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 1);
+		cPlayer2D->vec2Index.x = 30;
+		Pick.clear();
+		enemyVector.clear();
+	}
+	//up and down
+	if (cPlayer2D->vec2Index.y >= 23)
+	{
+		asd -= 3;
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 3);
+		cPlayer2D->vec2Index.y = 1;
+		Pick.clear();
+		enemyVector.clear();
+	}
+	else if (cPlayer2D->vec2Index.y <= 0)
+	{
+		asd += 3;
+		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 3);
+		cPlayer2D->vec2Index.y = 22;
+		Pick.clear();
+		enemyVector.clear();
 	}
 	return true;
 }
