@@ -1,22 +1,9 @@
-﻿  MenuState.cpp
+﻿  death.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
 C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(135,44): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(134,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(136,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(136,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(150,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(149,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(151,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\MenuState.cpp(151,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  end.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\glfw\include\GLFW\glfw3.h(98): message : see previous definition of 'APIENTRY'
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(131,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(130,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(132,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\end.cpp(132,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Generating Code...
-  LINK : C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\Debug\App.exe not found or not built by the last incremental link; performing full link
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\death.cpp(131,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\death.cpp(130,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\death.cpp(132,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\App\Source\GameStateManagement\death.cpp(132,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   App.vcxproj -> C:\Users\avxl0\OneDrive\Desktop\School work\Year 2\SP3\SP3\NYP_Framework_Week01\Debug\App.exe
