@@ -1,0 +1,48 @@
+Author : yettd Commit : fixed sound
+Author : yettd Commit : d
+Author : yettd Commit : thing done today
+Author : yettd Commit : update drop
+Author : yettd Commit : d
+Author : yettd Commit : drop
+Author : yettd Commit : k
+Author : yettd Commit : d
+Author : yettd Commit : update
+Author : yettd Commit : tested ui
+Author : yettd Commit : ui gui
+Author : yettd Commit : test
+Author : yettd Commit : g
+Author : yettd Commit : day6
+Author : yettd Commit : update bullet
+Author : yettd Commit : done crafting and bullet dmg
+Author : yettd Commit : bullet
+Author : yettd Commit : merge
+Author : yettd Commit : Merge branch 'main' into junkai
+Author : yettd Commit : update from day 4
+Author : yettd Commit : yy
+Author : yettd Commit : m
+Author : yettd Commit : change color
+Author : yettd Commit : merge day 4 jk
+Author : yettd Commit : added dmg modifer
+Author : yettd Commit : open and closing of inv
+Author : yettd Commit : c
+Author : yettd Commit : merge day 4
+Author : yettd Commit : x
+Author : yettd Commit : h
+Author : yettd Commit : d
+Author : yettd Commit : n
+Author : yettd Commit : dd
+Author : yettd Commit : k
+Author : yettd Commit : x
+Author : yettd Commit : main
+Author : yettd Commit : addedInventory
+Author : yettd Commit : v
+Author : yettd Commit : j
+Author : yettd Commit : m
+Author : xahyun Commit : m
+Author : yettd Commit : hope
+Author : yettd Commit : d
+Author : yettd Commit : [
+Author : yettd Commit : f
+Author : yettd Commit : o
+Author : yettd Commit : base File
+Author : yettd Commit : Initial commit
