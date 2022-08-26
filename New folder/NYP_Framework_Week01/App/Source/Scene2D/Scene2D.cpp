@@ -477,7 +477,7 @@ bool CScene2D::Update(const double dElapsedTime)
 
 	if (worldTime1 >= 10 && cMap2D->GetCurrentLevel() != 10)//change this to see how fast you want enemy to be spawn 
 	{
-		for (size_t i = 0; i < 5; i++)
+		for (size_t i = 0; i < 2; i++)
 		{
 			while (true)
 			{
@@ -574,6 +574,12 @@ bool CScene2D::Update(const double dElapsedTime)
 			}
 	}
 	cPlayer2D->DropId.clear();
+
+	if (boss)
+	{
+		cPlayer2D->bossHp = G->hp;
+	}
+
 	for (int i = 0; i < Pick.size(); i++)
 	{
 		Pick[i]->Update(dElapsedTime);
@@ -589,6 +595,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 1;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 
 	}
 	else if (cPlayer2D->vec2Index.x <= 0)
@@ -598,6 +605,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 30;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	//up and down
 	if (cPlayer2D->vec2Index.y >= 23)
@@ -607,6 +615,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 1;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	else if (cPlayer2D->vec2Index.y <= 0)
 	{
@@ -615,12 +624,14 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 22;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	if (cPlayer2D->portal == true)
 	{
 		cPlayer2D->portal = false;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	return true;
 }

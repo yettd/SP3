@@ -107,6 +107,7 @@ public:
 	float erupttimer = 0.f;
 
 	int random_move = -1;
+	float hp=350;
 
 protected:
 	enum DIRECTION
@@ -211,7 +212,6 @@ protected:
 
 	//myStuff;
 
-	float hp=1000;
 	float speed=1;
 	bool exploaded=false;
 	float pulsetimer = 0.f;
