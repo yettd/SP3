@@ -211,9 +211,9 @@ protected:
 
 	//myStuff;
 
-	float hp=100;
+	float hp=1000;
 	float speed=1;
-
+	bool exploaded=false;
 	float pulsetimer = 0.f;
 
 	vector <glm::vec2> erupt;

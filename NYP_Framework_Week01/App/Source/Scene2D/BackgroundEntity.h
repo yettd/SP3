@@ -34,6 +34,7 @@ public:
 
 	// Init
 	bool Init(void);
+	void changeBG(std::string name);
 protected:
 	std::string textureName;
 };

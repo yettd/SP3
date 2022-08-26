@@ -858,26 +858,28 @@ bool CEnemy2D::InteractWithPlayer(void)
 	float posY = 24 - (CMouseController::GetInstance()->GetMousePositionY() / cSettings->iWindowHeight * 24);
 	glm::vec2 mousePos(posX, posY);
 
-	if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
+	if ((mousePos.x > 0 && mousePos.x < cSettings->NUM_TILES_XAXIS - 1) && (mousePos.y > 0 && mousePos.y < cSettings->NUM_TILES_YAXIS - 1))
 	{
-		if (((vec2Index.x >= mousePos.x - 2) &&
-			(vec2Index.x <= mousePos.x + 2))
-			&&
-			((vec2Index.y >= mousePos.y - 2) &&
-				(vec2Index.y <= mousePos.y + 2)))
+		if (cPhysics2D.CalculateDistance(cPlayer2D->vec2Index, mousePos) <= 2)
 		{
-			if (CMouseController::GetInstance()->IsButtonDown(0))
+			if (((vec2Index.x >= mousePos.x - 2) &&
+				(vec2Index.x <= mousePos.x + 2))
+				&&
+				((vec2Index.y >= mousePos.y - 2) &&
+					(vec2Index.y <= mousePos.y + 2)))
 			{
-				enemyHealth -= cPlayer2D->getDmg();
+				if (CMouseController::GetInstance()->IsButtonDown(0))
+				{
+					enemyHealth -= cPlayer2D->getDmg();
+				}
+				if (CMouseController::GetInstance()->IsButtonDown(0) && cowplscome == true)
+				{
+					enemyHealth -= cPlayer2D->getDmg();
+				}
 			}
-			if (CMouseController::GetInstance()->IsButtonDown(0) && cowplscome == true)
-			{
-				enemyHealth -= cPlayer2D->getDmg();
-			}
-		}
-		
-	}
 
+		}
+	}
 
 
 	return false;

@@ -224,11 +224,12 @@ bool CScene2D::Init(void)
 	CSC = CSoundController::GetInstance();
 
 	CSC->Init();
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pickUp.ogg"),1,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\lose.ogg"), 2,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\pour.ogg"), 3,true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Wishtle.ogg"), 4, true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 5, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\break.ogg"),1,true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\playerHit.ogg"), 2, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\place.ogg"), 3, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\death.ogg"), 4, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\shoot.ogg"), 5, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\drink.ogg"), 6, true);//added
 
 	enemyVector.clear();
 	bulletVector.clear();
@@ -270,7 +271,10 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		cGameManager->bLevelCompleted = false;
 	}
-
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_L))
+	{
+		cMap2D->SetCurrentLevel(10);
+	}
 	/*if (G->erupt == true)
 	{
 
@@ -355,8 +359,16 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		CGameStateManager::GetInstance()->SetActiveGameState("DEATH");
 		cPlayer2D->Reset();
-		CSC->PlaySoundByID(2);
+		CSC->PlaySoundByID(4);
 		cGameManager->bPlayerLost = false;
+		cPlayer2D->Reset();
+		return false;
+	}
+	if (cGameManager->bPlayerWon)
+	{
+		CGameStateManager::GetInstance()->SetActiveGameState("END");
+		cPlayer2D->Reset();
+		cGameManager->bPlayerWon = false;
 		cPlayer2D->Reset();
 		return false;
 	}
@@ -462,9 +474,10 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->fuelTime();
 		hunger = 0;
 	}
-	if (clock >= 18 || clock <= 6)
+
+	if (worldTime1 >= 10 && cMap2D->GetCurrentLevel() != 10)//change this to see how fast you want enemy to be spawn 
 	{
-		if (worldTime1 >= 10)//change this to see how fast you want enemy to be spawn 
+		for (size_t i = 0; i < 5; i++)
 		{
 			while (true)
 			{
@@ -475,15 +488,21 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
-					//change back
-					//int random_enemy_spawn = rand() % 2;
-					if (enemies_spawnned < 11)
+
+
+					if (spawnable == true)
 					{
-						int random_enemy_spawn = rand() % 4; // 0 1 2 3
-						//int random_enemy_spawn = 777;
+						if (clock >= 18 || clock <= 6)
+						{
+							random_enemy_spawn = rand() % 4; // 0 1 2 3
+						}
+						else
+						{
+							random_enemy_spawn = rand() % 2; // 0 1
+						}
 						if (random_enemy_spawn == 0)
 						{
-							cMap2D->SetMapInfo(asd.y, asd.x, 302);
+							cMap2D->SetMapInfo(asd.y, asd.x, 401);
 							enemies_spawnned++;
 						}
 						else if (random_enemy_spawn == 1)
@@ -493,7 +512,7 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else if (random_enemy_spawn == 2)
 						{
-							cMap2D->SetMapInfo(asd.y, asd.x, 401);
+							cMap2D->SetMapInfo(asd.y, asd.x, 302);
 							enemies_spawnned++;
 						}
 						else
@@ -502,6 +521,7 @@ bool CScene2D::Update(const double dElapsedTime)
 							enemies_spawnned++;
 						}
 					}
+
 					while (true)
 					{
 						CEnemy2D* cE = new CEnemy2D();
@@ -521,8 +541,8 @@ bool CScene2D::Update(const double dElapsedTime)
 				}
 
 			}
-			worldTime1 = 0;
 		}
+		worldTime1 = 0;
 	}
 	/*if (cPlayer2D->drop)
 	{
@@ -593,6 +613,12 @@ bool CScene2D::Update(const double dElapsedTime)
 		asd += 3;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 3);
 		cPlayer2D->vec2Index.y = 22;
+		Pick.clear();
+		enemyVector.clear();
+	}
+	if (cPlayer2D->portal == true)
+	{
+		cPlayer2D->portal = false;
 		Pick.clear();
 		enemyVector.clear();
 	}

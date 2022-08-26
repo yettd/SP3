@@ -229,7 +229,7 @@ protected:
 		1000 + 874,
 		1000 + 880,
 		1000 + 881,
-		1000 + 882
+		1000 + 882,
 
 	};//id + 1000
 
@@ -254,7 +254,8 @@ protected:
 		"Image/photonsword.tga",
 		"Image/pistolmark1.tga",
 		"Image/pistolmark2.tga",
-		"Image/energygun.tga"
+		"Image/energygun.tga",
+		"Image/Scene2D_PI.tga"
 
 	};//image for drop
 
@@ -263,7 +264,7 @@ protected:
 	{ 
 		"WoodenBlock (block)",
 		"metalcubePLUS (block)",
-		"upgradealtar (block)",
+		"upgradealtar",
 		"rustedwoodPLUS (block)",
 		"rustedwood",
 		"metalcube",
@@ -272,13 +273,13 @@ protected:
 		"ironhorn",
 		"oilcan",
 		"ghensheart",
-		"portal",
+		"portal (block)",
 		"rusted sword (weapon)",
 		"metal sword (weapon)",
 		"photon sword (weapon)",
 		"pistol mark1 (weapon)",
 		"pistol mark2 (weapon)",
-		"energy gun (weapon)"
+		"energy gun (weapon)",
 
 	};//name of item
 
@@ -303,7 +304,7 @@ protected:
 		1,
 		1,
 		1,
-		1
+		1,
 	};//max amt
 
 

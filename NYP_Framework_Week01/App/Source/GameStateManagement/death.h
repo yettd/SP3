@@ -49,5 +49,6 @@ public:
 protected:
 	CBackgroundEntity* background;
 	dsa Reply;
+	dsa text;
 	dsa exitButtonData;
 };

@@ -49,5 +49,6 @@ public:
 protected:
 	CBackgroundEntity* background;
 	asd Reply;
+	asd text;
 	asd exitButtonData;
 };
