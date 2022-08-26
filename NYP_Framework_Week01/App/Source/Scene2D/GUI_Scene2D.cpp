@@ -335,7 +335,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 
 	if (CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) > 0 || CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET) < 0)
 	{
-		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET)*6;
+		offset += CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET)*16;
 		CMouseController::GetInstance()->UpdateMouseScroll(0, -CMouseController::GetInstance()->GetMouseScrollStatus(CMouseController::GetInstance()->SCROLL_TYPE_YOFFSET));
 		if (offset < 0)
 		{
@@ -450,7 +450,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 					ImGui::SetWindowPos(ImVec2((cSettings->iWindowWidth * 0.0f), cSettings->iWindowHeight * 0.09f * i + cSettings->iWindowHeight * .3f  + distanceGap-offset));
 					ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-					ImGui::TextColored(ImVec4(1, 1, 1, 1),  nameID[i].first.c_str());
+					ImGui::TextColored(ImVec4(0, 0, 0, 1),  nameID[i].first.c_str());
 					cInventoryItem = cInventoryManager->GetItem(nameID[i].first);
 					cout << i << " : " << endl;
 					if (ImGui::ImageButton((void*)(intptr_t)cInventoryItem->GetTextureID(),
@@ -466,7 +466,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 						}
 					}
 					ImGui::SameLine();
-					ImGui::TextColored(ImVec4(1, 1, 1, 1), ": ");
+					ImGui::TextColored(ImVec4(0, 0, 0, 1 ), ": ");
 					float NextLine = 0;
 					for (size_t j = 0; j < recipie[i].size(); j++)
 					{
@@ -486,7 +486,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 								cInventoryItem->vec2Size.y * relativeScale_y),
 							ImVec2(0, 1), ImVec2(1, 0));
 						ImGui::SameLine();
-						ImGui::TextColored(ImVec4(1, 1, 1, 1), "x %d",recipie[i][j].second);
+						ImGui::TextColored(ImVec4(0,0, 0, 1), "x %d",recipie[i][j].second);
 
 
 					}
