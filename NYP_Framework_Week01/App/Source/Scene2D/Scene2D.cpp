@@ -226,8 +226,8 @@ bool CScene2D::Init(void)
 	CSC->Init();
 	CSC->LoadSound(FileSystem::getPath("Sounds\\break.ogg"),1,true);//added
 	CSC->LoadSound(FileSystem::getPath("Sounds\\playerHit.ogg"), 2, true);//added
-	CSC->LoadSound(FileSystem::getPath("Sounds\\place.ogg"), 3, true);
-	CSC->LoadSound(FileSystem::getPath("Sounds\\death.ogg"), 4, true);
+	CSC->LoadSound(FileSystem::getPath("Sounds\\place.ogg"), 3, true);//added
+	CSC->LoadSound(FileSystem::getPath("Sounds\\death.ogg"), 4, true);//added
 	CSC->LoadSound(FileSystem::getPath("Sounds\\shoot.ogg"), 5, true);//added
 	CSC->LoadSound(FileSystem::getPath("Sounds\\drink.ogg"), 6, true);//added
 
@@ -359,7 +359,7 @@ bool CScene2D::Update(const double dElapsedTime)
 	{
 		CGameStateManager::GetInstance()->SetActiveGameState("DEATH");
 		cPlayer2D->Reset();
-		CSC->PlaySoundByID(2);
+		CSC->PlaySoundByID(4);
 		cGameManager->bPlayerLost = false;
 		cPlayer2D->Reset();
 		return false;

@@ -249,6 +249,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 		addToinventory(13, "metalparts", 10, 10);
 		addToinventory(10, "rustedwood", 10, 10);
 		addToinventory(10, "firepowder", 10, 10);
+		addToinventory(10, "oilcan", 1, 1);
+	}
+	if (cKeyboardController->IsKeyPressed(GLFW_KEY_K))
+	{
+		setHealth(100);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
@@ -1006,7 +1011,7 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("Lives", "Image/Scene2D_Lives.tga", 3, 3);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 10);
+	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 9);
 	cII->vec2Size = glm::vec2(25, 25);
 
 	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);
