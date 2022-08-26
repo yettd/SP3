@@ -107,7 +107,12 @@ public:
 	float erupttimer = 0.f;
 
 	int random_move = -1;
+
 	float hp=350;
+
+	/*float hp = 106;*/
+
+	bool flee = false;
 
 protected:
 	enum DIRECTION

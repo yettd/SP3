@@ -1,4 +1,4 @@
 WASD - Movement Keys
 E - Crafting
-Left click - Breaking and placing of blocks
-Right click - Shooting and eating
+Left click - Melee Attack 
+Right click - Usage of items (placing blocks, consuming oil can) & shooting bullets (if gun is equipped)

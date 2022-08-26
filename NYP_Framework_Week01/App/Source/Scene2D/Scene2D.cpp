@@ -595,7 +595,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 1;
 		Pick.clear();
 		enemyVector.clear();
-		bulletVector.clear();
+		//bulletVector.clear();
 
 	}
 	else if (cPlayer2D->vec2Index.x <= 0)
@@ -605,7 +605,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 30;
 		Pick.clear();
 		enemyVector.clear();
-		bulletVector.clear();
+		//bulletVector.clear();
 	}
 	//up and down
 	if (cPlayer2D->vec2Index.y >= 23)
@@ -615,7 +615,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 1;
 		Pick.clear();
 		enemyVector.clear();
-		bulletVector.clear();
+		//bulletVector.clear();
 	}
 	else if (cPlayer2D->vec2Index.y <= 0)
 	{
@@ -624,14 +624,14 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 22;
 		Pick.clear();
 		enemyVector.clear();
-		bulletVector.clear();
+		//bulletVector.clear();
 	}
 	if (cPlayer2D->portal == true)
 	{
 		cPlayer2D->portal = false;
 		Pick.clear();
 		enemyVector.clear();
-		bulletVector.clear();
+		//bulletVector.clear();
 	}
 	return true;
 }

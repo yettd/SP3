@@ -161,9 +161,17 @@ void ghens::Update(const double dElapsedTime)
 			corpse_arise = false;
 			//cout << "Switching to Patrol State" << endl;
 			
-			if (hp <= 30) //critical hp zone
+			if (hp <= 105) //critical hp zone (30% of max hp)
 			{
-				random_move = rand() % 4; // 0 Pulse 1 Erupt 2 Teleport 3 Summon
+				if (flee == false)
+				{
+					random_move = 2;
+					flee = true;
+				}
+				else
+				{
+					random_move = rand() % 4; // 0 Pulse 1 Erupt 2 Teleport 3 Summon
+				}
 			}
 			else //not critical hp zone
 			{
