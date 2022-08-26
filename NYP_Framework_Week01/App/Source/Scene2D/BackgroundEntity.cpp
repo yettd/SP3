@@ -51,3 +51,8 @@ bool CBackgroundEntity::Init()
 
 	return true;
 }
+void CBackgroundEntity::changeBG(std::string name)
+{
+	transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	textureName = name;
+}

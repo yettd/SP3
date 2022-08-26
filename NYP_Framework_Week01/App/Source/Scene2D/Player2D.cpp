@@ -196,6 +196,7 @@ void CPlayer2D::InteractWithMap(void)
 			setHealth(15);
 		}
 	case 30:
+		portal = true;
 		cMap2D->SetCurrentLevel(10);
 	default:
 		break;
@@ -244,12 +245,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		CSC->PlaySoundByID(5);
 		addToinventory(14, "ironhorn", 10, 10);
 		addToinventory(13, "metalparts", 10, 10);
 		addToinventory(10, "rustedwood", 10, 10);
-		addToinventory(10, "firepowder", 10, 10);
-		addToinventory(10, "oilcan", 1, 1);
+		addToinventory(12, "firepowder", 10, 10);
+		addToinventory(15, "oilcan", 1, 1);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_K))
 	{
@@ -428,8 +428,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 	{
 		SetIframe();
 	}
-	
-	
 
 	InteractWithMap();
 	cII = cIM->GetItem("Fuel");
@@ -438,13 +436,10 @@ void CPlayer2D::Update(const double dElapsedTime)
 		if (healthTime >= 2) // set timing for how fast u want the health to increase
 		{
 			cII = cIM->GetItem("Health");
-			cII->Add(2);
+			cII->Add(15);
 			healthTime = 0;
 		}
 	}
-
-	
-
 
 	UpdateJumpFall(dElapsedTime);
 	animatedSprites->Update(dElapsedTime);
@@ -1011,7 +1006,7 @@ void CPlayer2D::InventoryMan()
 	cII = cIM->Add("Lives", "Image/Scene2D_Lives.tga", 3, 3);
 	cII->vec2Size = glm::vec2(25, 25);
 
-	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 9);
+	cII = cIM->Add("Fuel", "Image/fuel.tga", 10, 10);
 	cII->vec2Size = glm::vec2(25, 25);
 
 	cII = cIM->Add("Health", "Image/Scene2D_Health.tga", 100, 100);

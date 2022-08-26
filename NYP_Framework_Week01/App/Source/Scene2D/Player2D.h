@@ -131,6 +131,9 @@ public:
 	bool drop = false;
 	bool InventoryIsFull = false;
 	int amtDrop=-1;
+	bool portal = false;
+
+	float bossHp=-1;
 protected:
 	int select = 5;
 	enum DIRECTION

@@ -364,6 +364,14 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->Reset();
 		return false;
 	}
+	if (cGameManager->bPlayerWon)
+	{
+		CGameStateManager::GetInstance()->SetActiveGameState("END");
+		cPlayer2D->Reset();
+		cGameManager->bPlayerWon = false;
+		cPlayer2D->Reset();
+		return false;
+	}
 
 	for (size_t i = 0; i < cPlayer2D->pBullet.size(); i++)
 	{
@@ -466,9 +474,10 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->fuelTime();
 		hunger = 0;
 	}
-	if (clock >= 18 || clock <= 6)
+
+	if (worldTime1 >= 10 && cMap2D->GetCurrentLevel() != 10)//change this to see how fast you want enemy to be spawn 
 	{
-		if (worldTime1 >= 10)//change this to see how fast you want enemy to be spawn 
+		for (size_t i = 0; i < 2; i++)
 		{
 			while (true)
 			{
@@ -479,15 +488,21 @@ bool CScene2D::Update(const double dElapsedTime)
 
 				if (cMap2D->GetMapInfo(asd.y, asd.x) == 0) {
 					timer = 10;
-					//change back
-					//int random_enemy_spawn = rand() % 2;
-					if (enemies_spawnned < 11)
+
+
+					if (spawnable == true)
 					{
-						int random_enemy_spawn = rand() % 4; // 0 1 2 3
-						//int random_enemy_spawn = 777;
+						if (clock >= 18 || clock <= 6)
+						{
+							random_enemy_spawn = rand() % 4; // 0 1 2 3
+						}
+						else
+						{
+							random_enemy_spawn = rand() % 2; // 0 1
+						}
 						if (random_enemy_spawn == 0)
 						{
-							cMap2D->SetMapInfo(asd.y, asd.x, 302);
+							cMap2D->SetMapInfo(asd.y, asd.x, 401);
 							enemies_spawnned++;
 						}
 						else if (random_enemy_spawn == 1)
@@ -497,7 +512,7 @@ bool CScene2D::Update(const double dElapsedTime)
 						}
 						else if (random_enemy_spawn == 2)
 						{
-							cMap2D->SetMapInfo(asd.y, asd.x, 401);
+							cMap2D->SetMapInfo(asd.y, asd.x, 302);
 							enemies_spawnned++;
 						}
 						else
@@ -506,6 +521,7 @@ bool CScene2D::Update(const double dElapsedTime)
 							enemies_spawnned++;
 						}
 					}
+
 					while (true)
 					{
 						CEnemy2D* cE = new CEnemy2D();
@@ -525,8 +541,8 @@ bool CScene2D::Update(const double dElapsedTime)
 				}
 
 			}
-			worldTime1 = 0;
 		}
+		worldTime1 = 0;
 	}
 	/*if (cPlayer2D->drop)
 	{
@@ -558,6 +574,12 @@ bool CScene2D::Update(const double dElapsedTime)
 			}
 	}
 	cPlayer2D->DropId.clear();
+
+	if (boss)
+	{
+		cPlayer2D->bossHp = G->hp;
+	}
+
 	for (int i = 0; i < Pick.size(); i++)
 	{
 		Pick[i]->Update(dElapsedTime);
@@ -573,6 +595,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 1;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 
 	}
 	else if (cPlayer2D->vec2Index.x <= 0)
@@ -582,6 +605,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.x = 30;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	//up and down
 	if (cPlayer2D->vec2Index.y >= 23)
@@ -591,6 +615,7 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 1;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
 	}
 	else if (cPlayer2D->vec2Index.y <= 0)
 	{
@@ -599,6 +624,14 @@ bool CScene2D::Update(const double dElapsedTime)
 		cPlayer2D->vec2Index.y = 22;
 		Pick.clear();
 		enemyVector.clear();
+		bulletVector.clear();
+	}
+	if (cPlayer2D->portal == true)
+	{
+		cPlayer2D->portal = false;
+		Pick.clear();
+		enemyVector.clear();
+		bulletVector.clear();
 	}
 	return true;
 }

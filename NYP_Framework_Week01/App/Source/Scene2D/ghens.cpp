@@ -141,6 +141,7 @@ void ghens::Update(const double dElapsedTime)
 	{
 		/*cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 20);*/
 		cPlayer2D->addToinventory(20, "ghensheart", 1, 1);
+		CGameManager::GetInstance()->bPlayerWon = true;
 		bIsActive = false;
 	}
 
@@ -359,7 +360,7 @@ void ghens::Update(const double dElapsedTime)
 	{
 		glm::vec2 rand_erupt_tile;
 		glm::vec2 temp;
-		if (eruptcount < 1)
+		if (eruptcount < 10)
 		{
 			rand_erupt_tile.x = rand() % 28 + 2;
 			rand_erupt_tile.y = rand() % 20 + 2;
@@ -422,12 +423,12 @@ void ghens::Update(const double dElapsedTime)
 		if (starterupt == true)
 		{
 			erupttimer += dElapsedTime;
-			if (erupttimer >= 3.0 && erupttimer <= 6.0)
+			if (erupttimer >= 3.0 && erupttimer <= 6.0 && exploaded==false)
 			{
 				//timer
+				exploaded = true;
 				for (size_t i = 0; i < erupt.size(); i++)
 				{
-					cout <<" id "<< i <<"::" <<erupt[i].x <<" : " << erupt[i].y<< endl;
 
 					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 9);
 				}
@@ -436,6 +437,8 @@ void ghens::Update(const double dElapsedTime)
 			else if(erupttimer >= 6.0)
 			{
 				//timer
+
+				exploaded = false;
 				for (size_t i = 0; i < erupt.size(); i++)
 				{
 					cMap2D->SetMapInfo(erupt[i].y, erupt[i].x, 0);

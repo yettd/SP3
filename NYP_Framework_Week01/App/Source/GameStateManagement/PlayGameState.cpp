@@ -51,7 +51,7 @@ bool CPlayGameState::Init(void)
 		return false;
 	}
 
-	background = new CBackgroundEntity("Image/unknown1.png");
+	background = new CBackgroundEntity("Image/green.png");
 	background->SetShader("Shader2D");
 	background->Init();
 
@@ -85,9 +85,14 @@ bool CPlayGameState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetPauseGameState("PauseState");
 	}
 	// Call the cScene2D's Update method
-	cScene2D->Update(dElapsedTime);
+	if (CMap2D::GetInstance()->GetCurrentLevel() == 10)
+	{
+		background->changeBG("Image/maroon.png");
+		background->SetShader("Shader2D");
+		background->Init();
+	}
 
-	
+	cScene2D->Update(dElapsedTime);
 
 	return true;
 }

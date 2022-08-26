@@ -245,12 +245,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 	shooting = false;
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_F))
 	{
-		CSC->PlaySoundByID(5);
 		addToinventory(14, "ironhorn", 10, 10);
 		addToinventory(13, "metalparts", 10, 10);
 		addToinventory(10, "rustedwood", 10, 10);
-		addToinventory(10, "firepowder", 10, 10);
-		addToinventory(10, "oilcan", 1, 1);
+		addToinventory(12, "firepowder", 10, 10);
+		addToinventory(15, "oilcan", 1, 1);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_K))
 	{
