@@ -178,26 +178,18 @@ void CPlayer2D::InteractWithMap(void)
 {
 	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x))
 	{
-	case 100: //brick
-	case 101: //steel pile
-	case 102: //rusting trees
-	case 103: //metal cubes+
-	case 104: //upgrading altar
-	case 201: //AI Kun-J
-	case 300: //Ghens
-	case 301: //Clifford
-	case 302: //Blues
-	case 400: //mechanic cow
-	case 401: //iron unicorn
+
 	case 9: //eruption tile
 		if (getIframe() == false)
 		{
 			SetIframe();
 			setHealth(15);
 		}
+		break;
 	case 30:
 		portal = true;
 		cMap2D->SetCurrentLevel(10);
+		break;
 	default:
 		break;
 	}
@@ -250,6 +242,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		addToinventory(10, "rustedwood", 10, 10);
 		addToinventory(12, "firepowder", 10, 10);
 		addToinventory(15, "oilcan", 1, 1);
+		addToinventory(103, "metalcubePLUS (block)", 1, 10);
 	}
 	if (cKeyboardController->IsKeyPressed(GLFW_KEY_K))
 	{
