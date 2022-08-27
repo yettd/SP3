@@ -82,7 +82,7 @@ protected:
 
 	// Add your variables and methods here.
 	std::vector<CEntity2D*> enemyVector;
-	std::vector<CEntity2D*> Pick;
+	std::vector<PickUP*> Pick;
 	CEntity2D* boss;
 	ghens* G;
 

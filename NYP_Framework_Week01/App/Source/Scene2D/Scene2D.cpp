@@ -593,9 +593,18 @@ bool CScene2D::Update(const double dElapsedTime)
 		asd += 1;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 1);
 		cPlayer2D->vec2Index.x = 1;
-		Pick.clear();
-		enemyVector.clear();
-		//bulletVector.clear();
+		for (size_t i = 0; i < Pick.size(); i++)
+		{
+			Pick[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			a[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < bulletVector.size(); i++)
+		{
+			bulletVector[i]->bIsActive = false;
+		}
 
 	}
 	else if (cPlayer2D->vec2Index.x <= 0)
@@ -603,9 +612,18 @@ bool CScene2D::Update(const double dElapsedTime)
 		asd -= 1;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 1);
 		cPlayer2D->vec2Index.x = 30;
-		Pick.clear();
-		enemyVector.clear();
-		//bulletVector.clear();
+		for (size_t i = 0; i < Pick.size(); i++)
+		{
+			Pick[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			a[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < bulletVector.size(); i++)
+		{
+			bulletVector[i]->bIsActive = false;
+		}
 	}
 	//up and down
 	if (cPlayer2D->vec2Index.y >= 23)
@@ -613,25 +631,52 @@ bool CScene2D::Update(const double dElapsedTime)
 		asd -= 3;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() - 3);
 		cPlayer2D->vec2Index.y = 1;
-		Pick.clear();
-		enemyVector.clear();
-		//bulletVector.clear();
+		for (size_t i = 0; i < Pick.size(); i++)
+		{
+			Pick[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			a[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < bulletVector.size(); i++)
+		{
+			bulletVector[i]->bIsActive = false;
+		}
 	}
 	else if (cPlayer2D->vec2Index.y <= 0)
 	{
 		asd += 3;
 		cMap2D->SetCurrentLevel(cMap2D->GetCurrentLevel() + 3);
 		cPlayer2D->vec2Index.y = 22;
-		Pick.clear();
-		enemyVector.clear();
-		//bulletVector.clear();
+		for (size_t i = 0; i < Pick.size(); i++)
+		{
+			Pick[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			a[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < bulletVector.size(); i++)
+		{
+			bulletVector[i]->bIsActive = false;
+		}
 	}
 	if (cPlayer2D->portal == true)
 	{
 		cPlayer2D->portal = false;
-		Pick.clear();
-		enemyVector.clear();
-		//bulletVector.clear();
+		for (size_t i = 0; i < Pick.size(); i++)
+		{
+			Pick[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			a[i]->bIsActive = false;
+		}
+		for (size_t i = 0; i < bulletVector.size(); i++)
+		{
+			bulletVector[i]->bIsActive = false;
+		}
 	}
 	return true;
 }
