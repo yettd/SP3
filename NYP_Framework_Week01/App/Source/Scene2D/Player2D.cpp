@@ -854,22 +854,7 @@ void CPlayer2D::MouseInteracteWithMap(const double dElapsedTime)
 	
 			switch (cMap2D->GetMapInfo(mousePos.y, mousePos.x))
 			{
-			case 100:
-				if (cMouseController->IsButtonDown(0))
-				{
-					breakTimer += dt;
-					if (breakTimer >= 2)
-					{
-						cMap2D->SetMapInfo(mousePos.y, mousePos.x, 0);
-						addToinventory(100, "WoodenBlock (block)", 1, 10);
-						breakTimer = 0;
-					}
-					else
-					{
-						CSC->PlaySoundByID(1);
-					}
-				}
-				break;
+		
 
 			case 101: //steelpile
 				if (cMouseController->IsButtonDown(0))
